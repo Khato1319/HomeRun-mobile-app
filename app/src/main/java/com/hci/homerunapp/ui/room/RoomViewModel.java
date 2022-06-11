@@ -1,4 +1,4 @@
-package com.hci.homerunapp;
+package com.hci.homerunapp.ui.room;
 
 import androidx.lifecycle.ViewModel;
 

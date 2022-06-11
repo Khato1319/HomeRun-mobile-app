@@ -11,8 +11,9 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_roomFragment"
-            app:destination="@id/navigation_room" />
+            android:id="@+id/action_navigation_home_to_navigation_room"
+            app:destination="@id/navigation_room"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
 
     <fragment
@@ -28,12 +29,31 @@
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/navigation_room"
-        android:name="com.hci.homerunapp.RoomFragment"
+        android:name="com.hci.homerunapp.ui.room.RoomFragment"
         android:label="@string/room_name"
         tools:layout="@layout/fragment_room" >
         <argument
             android:name="roomName"
             app:argType="string"
             android:defaultValue="roomName" />
+        <action
+            android:id="@+id/action_navigation_room_to_navigation_device"
+            app:destination="@id/navigation_device"
+            app:enterAnim="@android:anim/fade_in" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_device"
+        android:name="com.hci.homerunapp.ui.device.DeviceFragment"
+        android:label="@string/device_name"
+        tools:layout="@layout/fragment_device" >
+        <argument
+            android:name="deviceName"
+            app:argType="string"
+            android:defaultValue="deviceName" />
+        <argument
+            android:name="deviceId"
+            app:argType="string"
+            android:defaultValue="deviceId" />
     </fragment>
 </navigation>

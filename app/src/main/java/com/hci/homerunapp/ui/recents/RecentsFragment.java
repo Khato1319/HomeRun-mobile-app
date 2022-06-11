@@ -25,9 +25,6 @@ public class RecentsFragment extends Fragment {
         binding = FragmentRecentsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        MainActivity mainActivity = (MainActivity) getActivity();
-//        assert mainActivity != null;
-//        mainActivity.showBottomNav();
 
         final TextView textView = binding.textDashboard;
         recentsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);

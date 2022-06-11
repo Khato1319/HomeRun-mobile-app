@@ -15,13 +15,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.hci.homerunapp.databinding.ActivityMainBinding;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private NavController navController;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,22 +44,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
 //        getForegroundFragment().
-        Log.d("IDUPNAV", String.valueOf(R.id.home_fragment));
+//        Log.d("IDUPNAV", String.valueOf());
+//        Log.d("IDUPNAV", String.valueOf(navController.getCurrentDestination().getId()));
 
-        if(getForegroundFragment().getId() == 2131296523)
+        if(navController.getCurrentDestination().getId() == R.id.navigation_room)
             showBottomNav();
         return navController.navigateUp();
-    }
-//
-//    @Override
-//    public boolean onNavigateUp() {
-//
-//        return super.onNavigateUp();
-//    }
-
-    public Fragment getForegroundFragment(){
-        Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
-        return navHostFragment == null ? null : navHostFragment.getChildFragmentManager().getPrimaryNavigationFragment();
     }
 
     public void hideBottomNav() {

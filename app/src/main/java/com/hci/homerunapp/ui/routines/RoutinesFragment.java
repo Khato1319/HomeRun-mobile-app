@@ -25,10 +25,6 @@ public class RoutinesFragment extends Fragment {
         binding = FragmentRoutinesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        MainActivity mainActivity = (MainActivity) getActivity();
-//        assert mainActivity != null;
-//        mainActivity.showBottomNav();
-
         final TextView textView = binding.textNotifications;
         notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
