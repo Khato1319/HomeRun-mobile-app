@@ -23,16 +23,17 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    List<String> dataSet = Arrays.asList("Bedroom", "Kitchen", "Living");
     CustomAdapter adapter;
 
-    public View.OnClickListener getButtonClickListener(Button button) {
+    public View.OnClickListener getButtonClickListener(RoomData roomData) {
         return (it) -> {
             Bundle bundle = new Bundle();
-            bundle.putCharSequence("roomName", button.getText());
+            bundle.putSerializable("roomData", roomData);
+
                 MainActivity mainActivity = (MainActivity) getActivity();
                 if (mainActivity != null)
                     mainActivity.hideBottomNav();
+
                 NavHostFragment.findNavController(this).navigate(R.id.action_navigation_home_to_navigation_room, bundle);
         };
     }
@@ -48,14 +49,12 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
 
-        adapter = new CustomAdapter(dataSet, this);
+        adapter = new CustomAdapter(homeViewModel.getRooms(), this);
 
         binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
         binding.homeRecyclerView.setAdapter(adapter);
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         return root;
     }

@@ -1,6 +1,5 @@
 package com.hci.homerunapp.ui.home;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,27 +8,22 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
-import com.hci.homerunapp.MainActivity;
 import com.hci.homerunapp.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
     private static final String TAG = "CustomAdapter";
-    private final List<String> dataSet;
+    private final List<RoomData> rooms;
     private final HomeFragment homeFragment;
 
 
 
-    CustomAdapter(List<String> dataSet, HomeFragment homeFragment) {
-        this.dataSet = dataSet;
+    CustomAdapter(List<RoomData> rooms, HomeFragment homeFragment) {
+        this.rooms = rooms;
         this.homeFragment = homeFragment;
     }
 
@@ -39,9 +33,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.room_item, parent, false);
 
-        Button roomButton = view.findViewById(R.id.room_button);
 
-        roomButton.setOnClickListener(homeFragment.getButtonClickListener(roomButton));
+
 
         return new ViewHolder(view);
     }
@@ -50,12 +43,18 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "Element " + position + " set.");
 
-        holder.getButton().setText(dataSet.get(position));
+        Button roomButton = holder.getButton();
+        RoomData roomData = rooms.get(position);
+
+        roomButton.setOnClickListener(homeFragment.getButtonClickListener(roomData));
+
+        roomButton.setText(roomData.getName());
+
     }
 
     @Override
     public int getItemCount() {
-        return dataSet.size();
+        return rooms.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,7 +65,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             roomButton = itemView.findViewById(R.id.room_button);
         }
 
-        public TextView getButton() {
+        public Button getButton() {
             return roomButton;
         }
     }

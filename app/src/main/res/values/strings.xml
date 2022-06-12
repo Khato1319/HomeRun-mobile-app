@@ -3,7 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_recents">Recents</string>
     <string name="title_routines">Routines</string>
-    <string name="room_name">{roomName}</string>
+    <string name="room_name">{roomData}</string>
     <string name="large_text">20sp</string>
-    <string name="device_name">{deviceName}</string>
+    <string name="device_name">{deviceData}</string>
 </resources>

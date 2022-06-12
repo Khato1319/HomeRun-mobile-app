@@ -10,12 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hci.homerunapp.MainActivity;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.databinding.FragmentDeviceBinding;
+import com.hci.homerunapp.ui.home.RoomData;
+import com.hci.homerunapp.ui.room.DeviceData;
+import com.hci.homerunapp.ui.room.RoomViewModel;
 
 
 import java.util.Arrays;
@@ -23,10 +26,11 @@ import java.util.List;
 
 public class DeviceFragment extends Fragment {
 
-    private DeviceViewModel mViewModel;
-//    List<String> deviceNames = Arrays.asList("Aspiradora 1", "Cortinas", "Speaker");
-//    List<String> deviceRooms = Arrays.asList("Bedroom", "Kitchen", "Living");
-//    CustomAdapter adapter;
+    private DeviceViewModel model;
+    CustomAdapter adapter;
+    List<String> deviceControls = Arrays.asList("Temperatura", "Volumen");
+    public static final String DEVICE_DATA = "com.hci.homerunapp.ui.device/deviceData";
+    private DeviceData deviceData;
 
     public static DeviceFragment newInstance() {
         return new DeviceFragment();
@@ -36,19 +40,28 @@ public class DeviceFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
+        model = new ViewModelProvider(this).get(DeviceViewModel.class);
+
+        Bundle args = getArguments();
+
+        if (args != null) {
+            deviceData = (DeviceData)args.get("deviceData");
+            model.setDeviceData(deviceData);
+        }
+
 //        FragmentDevicesBinding
 
         FragmentDeviceBinding binding = FragmentDeviceBinding.inflate(inflater, container, false);
 
-        TextView tv = binding.textView;
-        tv.setText(getArguments().getCharSequence("deviceName"));
+
+        adapter = new CustomAdapter(model.getControls(), this);
+
+        binding.deviceRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
+        binding.deviceRecyclerView.setAdapter(adapter);
 
 
-//        adapter = new CustomAdapter(deviceNames, deviceRooms, this);
-//
-//        binding.roomRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
-//        binding.roomRecyclerView.setAdapter(adapter);
+
 
 
         return binding.getRoot();
@@ -58,10 +71,13 @@ public class DeviceFragment extends Fragment {
 
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(DeviceViewModel.class);
-        // TODO: Use the ViewModel
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+
+        // Save counter variable current value so it can be restored
+        // when activity is recreated
+        outState.putSerializable(DEVICE_DATA, model.getDeviceData());
     }
 
 }

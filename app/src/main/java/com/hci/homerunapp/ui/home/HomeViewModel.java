@@ -4,16 +4,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private List<RoomData> rooms = new ArrayList<>();
 
     public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        rooms.add(new RoomData("Bedroom", "1"));
+        rooms.add(new RoomData("Bathroom", "1"));
+        rooms.add(new RoomData("Kitchen", "1"));
+        rooms.add(new RoomData("Gameroom", "1"));
+        rooms.add(new RoomData("Dining room", "1"));
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public List<RoomData> getRooms() {
+        return rooms;
     }
 }

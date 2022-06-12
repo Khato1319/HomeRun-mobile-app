@@ -32,14 +32,13 @@
         android:name="com.hci.homerunapp.ui.room.RoomFragment"
         android:label="@string/room_name"
         tools:layout="@layout/fragment_room" >
-        <argument
-            android:name="roomName"
-            app:argType="string"
-            android:defaultValue="roomName" />
         <action
             android:id="@+id/action_navigation_room_to_navigation_device"
             app:destination="@id/navigation_device"
             app:enterAnim="@android:anim/fade_in" />
+        <argument
+            android:name="roomData"
+            app:argType="com.hci.homerunapp.ui.home.RoomData" />
     </fragment>
 
     <fragment
@@ -48,12 +47,7 @@
         android:label="@string/device_name"
         tools:layout="@layout/fragment_device" >
         <argument
-            android:name="deviceName"
-            app:argType="string"
-            android:defaultValue="deviceName" />
-        <argument
-            android:name="deviceId"
-            app:argType="string"
-            android:defaultValue="deviceId" />
+            android:name="deviceData"
+            app:argType="com.hci.homerunapp.ui.room.DeviceData" />
     </fragment>
 </navigation>
