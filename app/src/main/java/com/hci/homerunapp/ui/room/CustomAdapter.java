@@ -49,11 +49,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         holder.getDeviceRoomText().setText(deviceData.getRoomData().getName());
         holder.getDeviceText().setText(deviceData.getName());
 
-//        TextView deviceText = holder.getDeviceText();
-//
-//        TextView deviceId = holder.getDeviceId();
-//
-//        TextView deviceRoom = holder.getDeviceRoomText();
+
 
         FloatingActionButton deviceButton = holder.getDeviceButton();
 

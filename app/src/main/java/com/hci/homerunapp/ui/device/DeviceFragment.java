@@ -1,10 +1,11 @@
 package com.hci.homerunapp.ui.device;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,12 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.hci.homerunapp.MainActivity;
-import com.hci.homerunapp.R;
+
 import com.hci.homerunapp.databinding.FragmentDeviceBinding;
 import com.hci.homerunapp.ui.home.RoomData;
 import com.hci.homerunapp.ui.room.DeviceData;
-import com.hci.homerunapp.ui.room.RoomViewModel;
+
 
 
 import java.util.Arrays;
@@ -28,28 +28,42 @@ public class DeviceFragment extends Fragment {
 
     private DeviceViewModel model;
     CustomAdapter adapter;
-    List<String> deviceControls = Arrays.asList("Temperatura", "Volumen");
     public static final String DEVICE_DATA = "com.hci.homerunapp.ui.device/deviceData";
-    private DeviceData deviceData;
 
     public static DeviceFragment newInstance() {
         return new DeviceFragment();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         model = new ViewModelProvider(this).get(DeviceViewModel.class);
 
+
         Bundle args = getArguments();
+        DeviceData deviceData = model.getDeviceData();
 
-        if (args != null) {
-            deviceData = (DeviceData)args.get("deviceData");
-            model.setDeviceData(deviceData);
+        if (deviceData == null) {
+            if (args != null) {
+                deviceData = (DeviceData)args.get("roomData");
+                if (deviceData != null)
+                    model.setDeviceData(deviceData);
+            }
+            if (deviceData == null && savedInstanceState != null){
+                deviceData = (DeviceData)savedInstanceState.getSerializable(DEVICE_DATA);
+            }
+
+            if (deviceData != null)
+                model.setDeviceData(deviceData);
         }
+    }
 
-//        FragmentDevicesBinding
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        onCreate(savedInstanceState);
+
 
         FragmentDeviceBinding binding = FragmentDeviceBinding.inflate(inflater, container, false);
 
@@ -75,9 +89,12 @@ public class DeviceFragment extends Fragment {
         super.onSaveInstanceState(outState);
 
 
-        // Save counter variable current value so it can be restored
-        // when activity is recreated
-        outState.putSerializable(DEVICE_DATA, model.getDeviceData());
+        DeviceData deviceData = model.getDeviceData();
+
+
+        if (model != null && deviceData != null) {
+            outState.putSerializable(DEVICE_DATA, deviceData);
+        }
     }
 
 }

@@ -1,11 +1,11 @@
 package com.hci.homerunapp.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,13 +17,12 @@ import com.hci.homerunapp.MainActivity;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.databinding.FragmentHomeBinding;
 
-import java.util.Arrays;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     CustomAdapter adapter;
+    HomeViewModel homeViewModel;
 
     public View.OnClickListener getButtonClickListener(RoomData roomData) {
         return (it) -> {
@@ -42,7 +41,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        HomeViewModel homeViewModel =
+        homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -57,6 +56,12 @@ public class HomeFragment extends Fragment {
 
 
         return root;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override

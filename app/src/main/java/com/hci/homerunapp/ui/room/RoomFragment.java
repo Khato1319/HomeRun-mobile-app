@@ -1,5 +1,7 @@
 package com.hci.homerunapp.ui.room;
 
+import static java.lang.String.valueOf;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -28,36 +30,43 @@ public class RoomFragment extends Fragment {
     private RoomViewModel model;
     CustomAdapter adapter;
     public static final String ROOM_DATA = "com.hci.homerunapp.ui.room/roomId";
-    private RoomData roomData;
 
     public static RoomFragment newInstance() {
         return new RoomFragment();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-//        if (firstTime) {
-//            deviceNames = Arrays.asList("Aspiradora 1", "Cortinas", "Speaker");
-//            deviceRooms = Arrays.asList("Bedroom", "Kitchen", "Living");
-//            firstTime = false;
-//        }
-        Log.d("CREATED", "CREAAADOOOOOO");
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Log.d("RECREATING ROOM FRAGMENT", "RECREATING ROOM FRAGMENT");
         model = new ViewModelProvider(this).get(RoomViewModel.class);
 
         Bundle args = getArguments();
+        RoomData roomData = model.getRoomData();
 
-        if (args != null) {
-            roomData = (RoomData)args.get("roomData");
-            model.setRoomData(roomData);
+        if (roomData == null) {
+            if (args != null) {
+                roomData = (RoomData)args.get("roomData");
+            }
+            if (roomData == null && savedInstanceState != null){
+                roomData = (RoomData)savedInstanceState.getSerializable(ROOM_DATA);
+            }
+
+            if (roomData != null)
+                model.setRoomData(roomData);
         }
 
-        super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null)
-        {
-            model.setRoomData((RoomData)savedInstanceState.getSerializable(ROOM_DATA));
-        }
+
+
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        onCreate(savedInstanceState);
+
 
         FragmentRoomBinding binding = FragmentRoomBinding.inflate(inflater, container, false);
 
@@ -67,19 +76,15 @@ public class RoomFragment extends Fragment {
         //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
         binding.roomRecyclerView.setAdapter(adapter);
 
-//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(roomData.getName());
-        Log.d("MODELCREATE", String.valueOf(model));
-
-
         return binding.getRoot();
     }
+
 
     public View.OnClickListener getButtonClickListener(DeviceData deviceData) {
         return (it) -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("deviceData", deviceData);
-//            bundle.putCharSequence("deviceRoom", deviceRoom);
-//            bundle.putCharSequence("deviceId", deviceId);
+
 
             MainActivity mainActivity = (MainActivity) getActivity();
             if (mainActivity != null)
@@ -92,12 +97,16 @@ public class RoomFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        Log.d("MODEL", String.valueOf(model));
-        Log.d("DATA", String.valueOf(roomData));
 
-        // Save counter variable current value so it can be restored
-        // when activity is recreated
-        outState.putSerializable(ROOM_DATA, roomData);
+        RoomData roomData = model.getRoomData();
+
+
+        if (model != null && roomData != null) {
+            outState.putSerializable(ROOM_DATA, roomData);
+        }
+
+
+
     }
 
 
