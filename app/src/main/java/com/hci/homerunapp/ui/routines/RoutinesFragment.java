@@ -1,38 +1,28 @@
 package com.hci.homerunapp.ui.routines;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.hci.homerunapp.MainActivity;
-import com.hci.homerunapp.databinding.FragmentRoutinesBinding;
+import com.hci.homerunapp.R;
+import com.hci.homerunapp.ui.Data;
+import com.hci.homerunapp.ui.home.HomeViewModel;
+import com.hci.homerunapp.ui.home.SimpleButtonAdapter;
+import com.hci.homerunapp.ui.home.SimpleButtonFragment;
+import com.hci.homerunapp.ui.home.SimpleButtonViewModel;
 
-public class RoutinesFragment extends Fragment {
+public class RoutinesFragment extends SimpleButtonFragment {
 
-    private FragmentRoutinesBinding binding;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        RoutinesViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(RoutinesViewModel.class);
-
-        binding = FragmentRoutinesBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    protected SimpleButtonViewModel getViewModel() {
+        return new ViewModelProvider(this).get(RoutinesViewModel.class);
     }
+    @Override
+    public View.OnClickListener getButtonClickListener(Data data) {
+        return getButtonClickListener(data, "routineData", R.id.action_navigation_routines_to_routineFragment);
+
+    }
+
+
 }

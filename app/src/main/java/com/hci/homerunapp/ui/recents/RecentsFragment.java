@@ -27,7 +27,7 @@ public class RecentsFragment extends Fragment {
 
 
         final TextView textView = binding.textDashboard;
-        recentsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        recentsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

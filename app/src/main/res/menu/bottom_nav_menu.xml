@@ -7,12 +7,12 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_recents"
         android:icon="@drawable/ic_recents"
         android:title="@string/title_recents" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_routines"
         android:icon="@drawable/ic_routines"
         android:title="@string/title_routines" />
 

@@ -1,6 +1,10 @@
 package com.hci.homerunapp.ui.device;
 
-public class ControlData {
+import com.hci.homerunapp.ui.Data;
+
+import java.io.Serializable;
+
+public class ControlData implements Serializable {
     private int ID;
     private String actionLabel;
 
@@ -9,11 +13,11 @@ public class ControlData {
         this.actionLabel = actionLabel;
     }
 
-    public int getLayout() {
+    public int getLayoutId() {
         return ID;
     }
 
-    public String getActionLabel() {
+    public String getName() {
         return actionLabel;
     }
 }

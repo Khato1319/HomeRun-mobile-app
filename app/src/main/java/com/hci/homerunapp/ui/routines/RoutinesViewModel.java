@@ -1,19 +1,19 @@
 package com.hci.homerunapp.ui.routines;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class RoutinesViewModel extends ViewModel {
+import com.hci.homerunapp.ui.home.RoomData;
+import com.hci.homerunapp.ui.home.SimpleButtonViewModel;
 
-    private final MutableLiveData<String> mText;
+import java.util.ArrayList;
+import java.util.List;
+
+public class RoutinesViewModel extends SimpleButtonViewModel {
 
     public RoutinesViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
-    }
-
-    public LiveData<String> getText() {
-        return mText;
+        elements.add(new RoutineData("A dormir", "1"));
+        elements.add(new RoutineData("A despertarse", "1"));
+        elements.add(new RoutineData("Juegos", "1"));
+        elements.add(new RoutineData("Chill", "1"));
     }
 }

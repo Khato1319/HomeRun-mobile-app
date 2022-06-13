@@ -43,7 +43,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public int getItemViewType(int position) {
         // Just as an example, return 0 or 2 depending on position
         // Note that unlike in ListView adapters, types don't have to be contiguous
-        return controls.get(position).getLayout();
+        return controls.get(position).getLayoutId();
     }
 
     @Override
@@ -52,9 +52,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
 //        holder.getDeviceButton().setText(dataSet.get(position));
         ControlData controlData = controls.get(position);
-        holder.getControlText().setText(controlData.getActionLabel());
+        holder.getControlText().setText(controlData.getName());
 
-        switch(controlData.getLayout()) {
+        switch(controlData.getLayoutId()) {
             case R.layout.slider_item:
                 SliderData sliderData = (SliderData) controlData;
                 SliderData.ViewHolder viewHolder = (SliderData.ViewHolder) holder;

@@ -7,15 +7,14 @@ import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.hci.homerunapp.databinding.ActivityMainBinding;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,10 +41,25 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_home, R.id.navigation_recents, R.id.navigation_routines)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("BACK PRESSED", "BCK PRESSED");
+        showTabIfReturningHome();
+        super.onBackPressed();
+
+    }
+
+    private void showTabIfReturningHome() {
+        List<Integer> homeIds = Arrays.asList(R.id.navigation_room, R.id.routineFragment);
+
+        if(homeIds.contains(navController.getCurrentDestination().getId()))
+            showBottomNav();
     }
 
     @Override
@@ -53,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
 //        getForegroundFragment().
 //        Log.d("IDUPNAV", String.valueOf());
 //        Log.d("IDUPNAV", String.valueOf(navController.getCurrentDestination().getId()));
+        showTabIfReturningHome();
 
-        if(navController.getCurrentDestination().getId() == R.id.navigation_room)
-            showBottomNav();
+
         return navController.navigateUp();
     }
 

@@ -7,7 +7,7 @@
     android:layout_margin="16dp">
 
     <Button
-        android:id="@+id/room_button"
+        android:id="@+id/simple_button"
         android:background="@drawable/rounded_corner"
         android:text="Bedroom"
         app:layout_constraintEnd_toEndOf="parent"

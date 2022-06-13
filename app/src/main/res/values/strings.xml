@@ -6,4 +6,6 @@
     <string name="room_name">{roomData}</string>
     <string name="large_text">20sp</string>
     <string name="device_name">{deviceData}</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

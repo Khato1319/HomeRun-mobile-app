@@ -1,16 +1,14 @@
-package com.hci.homerunapp.ui.home;
-
-import android.os.Parcelable;
+package com.hci.homerunapp.ui.routines;
 
 import com.hci.homerunapp.ui.Data;
 
 import java.io.Serializable;
 
-public class RoomData implements Data {
+public class RoutineData implements Data {
     private String name;
     private String id;
 
-    RoomData(String name, String id) {
+    RoutineData(String name, String id) {
         this.name = name;
         this.id = id;
     }

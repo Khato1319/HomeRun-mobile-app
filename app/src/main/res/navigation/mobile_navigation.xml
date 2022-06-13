@@ -17,16 +17,20 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_recents"
         android:name="com.hci.homerunapp.ui.recents.RecentsFragment"
         android:label="@string/title_recents"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_routines"
         android:name="com.hci.homerunapp.ui.routines.RoutinesFragment"
         android:label="@string/title_routines"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_navigation_routines_to_routineFragment"
+            app:destination="@id/routineFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_room"
         android:name="com.hci.homerunapp.ui.room.RoomFragment"
@@ -50,4 +54,9 @@
             android:name="deviceData"
             app:argType="com.hci.homerunapp.ui.room.DeviceData" />
     </fragment>
+    <fragment
+        android:id="@+id/routineFragment"
+        android:name="com.hci.homerunapp.RoutineFragment"
+        android:label="fragment_routine"
+        tools:layout="@layout/fragment_routine" />
 </navigation>

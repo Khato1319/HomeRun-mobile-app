@@ -1,18 +1,19 @@
-package com.hci.homerunapp.ui.home;
-
-import android.os.Parcelable;
+package com.hci.homerunapp.ui.room;
 
 import com.hci.homerunapp.ui.Data;
+import com.hci.homerunapp.ui.home.RoomData;
 
 import java.io.Serializable;
 
-public class RoomData implements Data {
+public class DeviceData implements Data {
     private String name;
+    private RoomData roomData;
     private String id;
 
-    RoomData(String name, String id) {
+    DeviceData(String name, String id, RoomData roomData) {
         this.name = name;
         this.id = id;
+        this.roomData = roomData;
     }
 
     public String getName() {
@@ -21,6 +22,10 @@ public class RoomData implements Data {
 
     public String getId() {
         return id;
+    }
+
+    public RoomData getRoomData() {
+        return roomData;
     }
 
     @Override
