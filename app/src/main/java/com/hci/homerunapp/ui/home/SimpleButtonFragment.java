@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,6 +14,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.hci.homerunapp.MainActivity;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.databinding.FragmentHomeBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
@@ -44,6 +46,14 @@ public abstract class SimpleButtonFragment extends Fragment implements ButtonLis
 
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if(mainActivity != null)
+            mainActivity.showBottomNav();
     }
 
     @Override

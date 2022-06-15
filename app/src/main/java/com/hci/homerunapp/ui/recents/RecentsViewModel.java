@@ -4,28 +4,18 @@ import androidx.lifecycle.ViewModel;
 
 import com.hci.homerunapp.ui.home.RoomData;
 import com.hci.homerunapp.ui.room.DeviceData;
+import com.hci.homerunapp.ui.room.SimpleDeviceButtonViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecentsViewModel extends ViewModel {
-    private RoomData roomData;
-    private List<DeviceData> devices;
+public class RecentsViewModel extends SimpleDeviceButtonViewModel {
+public RecentsViewModel() {
+    devices = new ArrayList<>();
+    devices.add(new DeviceData("Aspiradora", "1", new RoomData("Banio", "1")));
+    devices.add(new DeviceData("Luz", "1", new RoomData("Comedor", "1")));
 
+    devices.add(new DeviceData("Speaker", "1", new RoomData("Living", "1")));
+}
 
-    public void setRoomData(RoomData roomData) {
-        this.roomData = roomData;
-        devices = new ArrayList<>();
-
-
-
-    }
-
-    public RoomData getRoomData() {
-        return roomData;
-    }
-
-    public List<DeviceData> getDevices() {
-        return devices;
-    }
 }

@@ -7,7 +7,10 @@ import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -47,38 +50,44 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-    @Override
-    public void onBackPressed() {
-        Log.d("BACK PRESSED", "BCK PRESSED");
-        showTabIfReturningHome();
-        super.onBackPressed();
+//    @Override
+//    public void onBackPressed() {
+//        showTabIfReturningHome();
+//        super.onBackPressed();
+//
+//    }
 
-    }
-
-    private void showTabIfReturningHome() {
-        List<Integer> homeIds = Arrays.asList(R.id.navigation_room, R.id.routineFragment);
-
-        if(homeIds.contains(navController.getCurrentDestination().getId()))
-            showBottomNav();
-    }
+//    private void showTabIfReturningHome() {
+//        List<Integer> homeIds = Arrays.asList(R.id.navigation_room, R.id.routineFragment, R.id.navigation_home);
+//        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+//        Fragment lastFragment = fragments.get(fragments.size()-1);
+//        Log.d("id", String.valueOf(lastFragment.getId()));
+//        Log.d("id", String.valueOf(R.id.room_fragment));
+//
+//
+////        if(homeIds.contains())
+////            showBottomNav();
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {
 //        getForegroundFragment().
 //        Log.d("IDUPNAV", String.valueOf());
 //        Log.d("IDUPNAV", String.valueOf(navController.getCurrentDestination().getId()));
-        showTabIfReturningHome();
+//        showTabIfReturningHome();
 
 
         return navController.navigateUp();
     }
 
     public void hideBottomNav() {
-        binding.navView.setVisibility(View.GONE);
+        if (binding != null)
+            binding.navView.setVisibility(View.GONE);
     }
 
     public void showBottomNav() {
-        binding.navView.setVisibility(View.VISIBLE);
+        if (binding != null)
+            binding.navView.setVisibility(View.VISIBLE);
     }
 
 }

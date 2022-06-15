@@ -2,7 +2,6 @@ package com.hci.homerunapp.ui.routines;
 
 import com.hci.homerunapp.ui.Data;
 
-import java.io.Serializable;
 
 public class RoutineData implements Data {
     private String name;

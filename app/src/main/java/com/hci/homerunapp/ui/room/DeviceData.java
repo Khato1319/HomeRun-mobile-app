@@ -10,7 +10,7 @@ public class DeviceData implements Data {
     private RoomData roomData;
     private String id;
 
-    DeviceData(String name, String id, RoomData roomData) {
+    public DeviceData(String name, String id, RoomData roomData) {
         this.name = name;
         this.id = id;
         this.roomData = roomData;

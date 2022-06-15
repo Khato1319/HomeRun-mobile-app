@@ -1,15 +1,13 @@
 package com.hci.homerunapp.ui.room;
 
-import static java.lang.String.valueOf;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -21,14 +19,14 @@ import android.view.ViewGroup;
 import com.hci.homerunapp.MainActivity;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.databinding.FragmentRoomBinding;
+import com.hci.homerunapp.ui.ButtonListenerMaker;
+import com.hci.homerunapp.ui.Data;
 import com.hci.homerunapp.ui.home.RoomData;
 
 import java.util.List;
 
-public class RoomFragment extends Fragment {
+public class RoomFragment extends SimpleDeviceButtonFragment<RoomViewModel> implements ButtonListenerMaker {
 
-    private RoomViewModel model;
-    CustomAdapter adapter;
     public static final String ROOM_DATA = "com.hci.homerunapp.ui.room/roomId";
 
     public static RoomFragment newInstance() {
@@ -39,10 +37,8 @@ public class RoomFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("RECREATING ROOM FRAGMENT", "RECREATING ROOM FRAGMENT");
-        model = new ViewModelProvider(this).get(RoomViewModel.class);
-
         Bundle args = getArguments();
+
         RoomData roomData = model.getRoomData();
 
         if (roomData == null) {
@@ -57,9 +53,11 @@ public class RoomFragment extends Fragment {
                 model.setRoomData(roomData);
         }
 
+    }
 
-
-
+    @Override
+    protected RoomViewModel getViewModel() {
+        return new ViewModelProvider(this).get(RoomViewModel.class);
     }
 
     @Override
@@ -79,8 +77,14 @@ public class RoomFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    protected SimpleDeviceButtonAdapter getAdapter() {
+        return new CustomAdapter(model.getDevices(), model.getRoomData(), this);
+    }
 
-    public View.OnClickListener getButtonClickListener(DeviceData deviceData) {
+
+    @Override
+    public View.OnClickListener getButtonClickListener(Data deviceData) {
         return (it) -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("deviceData", deviceData);
@@ -91,6 +95,11 @@ public class RoomFragment extends Fragment {
                 mainActivity.hideBottomNav();
             NavHostFragment.findNavController(this).navigate(R.id.action_navigation_room_to_navigation_device, bundle);
         };
+    }
+
+    @Override
+    protected int getNavigationId() {
+        return R.id.action_navigation_room_to_navigation_device;
     }
 
     @Override
@@ -109,8 +118,10 @@ public class RoomFragment extends Fragment {
 
     }
 
-
-
+    @Override
+    public NavController getNavController() {
+        return NavHostFragment.findNavController(this);
+    }
 
 
 }

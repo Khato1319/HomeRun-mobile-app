@@ -7,4 +7,5 @@
     <string name="title_home">Casa</string>
     <string name="large_text">20sp</string>
     <string name="device_name">{deviceName}</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

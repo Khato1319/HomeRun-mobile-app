@@ -20,7 +20,11 @@
         android:id="@+id/navigation_recents"
         android:name="com.hci.homerunapp.ui.recents.RecentsFragment"
         android:label="@string/title_recents"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_navigation_recents_to_navigation_device"
+            app:destination="@id/navigation_device" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_routines"

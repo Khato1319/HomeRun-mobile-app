@@ -1,16 +1,13 @@
 package com.hci.homerunapp.ui.room;
 
-import androidx.lifecycle.ViewModel;
 
 import com.hci.homerunapp.ui.home.RoomData;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class RoomViewModel extends ViewModel {
+
+public class RoomViewModel extends SimpleDeviceButtonViewModel {
     private RoomData roomData;
-    private List<DeviceData> devices;
-
 
     public void setRoomData(RoomData roomData) {
         this.roomData = roomData;
@@ -27,7 +24,4 @@ public class RoomViewModel extends ViewModel {
         return roomData;
     }
 
-    public List<DeviceData> getDevices() {
-        return devices;
-    }
 }

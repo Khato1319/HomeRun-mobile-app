@@ -11,83 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.home.RoomData;
 
 import java.util.List;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class CustomAdapter extends SimpleDeviceButtonAdapter {
 
     private static final String TAG = "CustomAdapter";
-    private final List<DeviceData> devices;
     private final RoomData roomData;
-    private final RoomFragment roomFragment;
 
 
 
-    CustomAdapter(List<DeviceData> devices, RoomData roomData, RoomFragment roomFragment) {
-        this.devices = devices;
-        this.roomFragment = roomFragment;
+
+    CustomAdapter(List<DeviceData> devices, RoomData roomData, ButtonListenerMaker buttonListenerMaker) {
+        super(devices, buttonListenerMaker);
         this.roomData = roomData;
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.device_item, parent, false);
 
-
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d(TAG, "Element " + position + " set.");
-
-//        holder.getDeviceButton().setText(dataSet.get(position));
-        DeviceData deviceData = devices.get(position);
-        holder.getDeviceRoomText().setText(deviceData.getRoomData().getName());
-        holder.getDeviceText().setText(deviceData.getName());
-
-
-
-        FloatingActionButton deviceButton = holder.getDeviceButton();
-
-        deviceButton.setOnClickListener(roomFragment.getButtonClickListener(deviceData));
-
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return devices.size();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final FloatingActionButton deviceButton;
-        private final TextView deviceText;
-        private final TextView roomText;
-
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-           deviceButton = itemView.findViewById(R.id.device_button);
-           deviceText = itemView.findViewById(R.id.text_device_name);
-           roomText = itemView.findViewById(R.id.text_control);
-        }
-
-        public FloatingActionButton getDeviceButton() {
-            return deviceButton;
-        }
-        public TextView getDeviceRoomText() {
-            return roomText;
-        }
-        public TextView getDeviceText() {
-            return deviceText;
-        }
-
-
-
-
-    }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.slider.Slider;
@@ -34,6 +35,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         return switch(viewType) {
             case R.layout.slider_item -> new SliderData.ViewHolder(view);
+            case R.layout.color_picker_item -> new ColorPickerData.ViewHolder(view);
             default ->
                 throw new IllegalStateException("Unexpected value: " + viewType);
         };
@@ -57,22 +59,53 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         switch(controlData.getLayoutId()) {
             case R.layout.slider_item:
                 SliderData sliderData = (SliderData) controlData;
-                SliderData.ViewHolder viewHolder = (SliderData.ViewHolder) holder;
-                Slider slider = viewHolder.getSlider();
+                SliderData.ViewHolder sliderViewHolder = (SliderData.ViewHolder) holder;
+                Slider slider = sliderViewHolder.getSlider();
                 slider.setValueFrom(sliderData.getMinValue());
                 slider.setValueTo(sliderData.getMaxValue());
                 slider.setValue(sliderData.getValue());
-//                slider.setOnDragListener((sliderElem, event) -> {
-//                    sliderData.setValue((int) slider.getValue());
-//                    Log.d("HOLAAA", String.valueOf(slider.getValue()));
-//                });
                 slider.addOnChangeListener(new Slider.OnChangeListener() {
                     @Override
                     public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                         sliderData.setValue((int) value);
-                        Log.d("HOLAAA", String.valueOf(value));
                     }
                 });
+                break;
+            case R.layout.color_picker_item:
+                ColorPickerData colorPickerData = (ColorPickerData) controlData;
+                ColorPickerData.ViewHolder colorPickerViewHolder = (ColorPickerData.ViewHolder) holder;
+                CardView colorCard = colorPickerViewHolder.getColorCard();
+                Slider redSlider = colorPickerViewHolder.getRedSlider();
+                redSlider.addOnChangeListener(new Slider.OnChangeListener() {
+                    @Override
+                    public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                        colorPickerData.setRed((int) value);
+                        colorCard.setCardBackgroundColor(colorPickerData.getCardColor());
+                    }
+                });
+                Slider greenSlider = colorPickerViewHolder.getGreenSlider();
+                greenSlider.addOnChangeListener(new Slider.OnChangeListener() {
+                    @Override
+                    public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                        colorPickerData.setGreen((int) value);
+                        colorCard.setCardBackgroundColor(colorPickerData.getCardColor());
+                    }
+                });
+                Slider blueSlider = colorPickerViewHolder.getBlueSlider();
+                blueSlider.addOnChangeListener(new Slider.OnChangeListener() {
+                    @Override
+                    public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                        colorPickerData.setBlue((int) value);
+                        colorCard.setCardBackgroundColor(colorPickerData.getCardColor());
+
+                    }
+                });
+                redSlider.setValue(colorPickerData.getRed());
+                greenSlider.setValue(colorPickerData.getGreen());
+                blueSlider.setValue(colorPickerData.getBlue());
+                colorCard.setCardBackgroundColor(colorPickerData.getCardColor());
+//                slider.setValue(sliderData.getValue());
+
         }
 
 
