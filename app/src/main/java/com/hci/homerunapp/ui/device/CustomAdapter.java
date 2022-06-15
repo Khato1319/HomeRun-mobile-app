@@ -4,6 +4,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +39,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         return switch(viewType) {
             case R.layout.slider_item -> new SliderData.ViewHolder(view);
             case R.layout.color_picker_item -> new ColorPickerData.ViewHolder(view);
+            case R.layout.drop_down_container_item -> new DropDownData.ViewHolder(view);
             default ->
                 throw new IllegalStateException("Unexpected value: " + viewType);
         };
@@ -70,6 +74,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                         sliderData.setValue((int) value);
                     }
                 });
+                break;
+            case R.layout.drop_down_container_item:
+                DropDownData dropDownData = (DropDownData) controlData;
+                DropDownData.ViewHolder dropDownViewHolder = (DropDownData.ViewHolder) holder;
+                AutoCompleteTextView autoCompleteTextView = dropDownViewHolder.getAutoCompleteTextView();
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(deviceFragment.getContext(), R.layout.drop_down_item, dropDownData.getItems());
+                autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    dropDownData.setSelected(arrayAdapter.getItem(position));
+                }
+            });
+                autoCompleteTextView.setAdapter(arrayAdapter);
+                autoCompleteTextView.setHint(dropDownData.getHint());
+                autoCompleteTextView.setText(dropDownData.getSelected(), false);
                 break;
             case R.layout.color_picker_item:
                 ColorPickerData colorPickerData = (ColorPickerData) controlData;

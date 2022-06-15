@@ -17,6 +17,7 @@ public class DeviceViewModel extends ViewModel {
         controls = new ArrayList<>();
         controls.add(new SliderData("Temperatura", 0, 0, 40));
         controls.add(new ColorPickerData("Color", 0, 0, 0));
+        controls.add(new DropDownData("Opcioness", new String[]{"Hola", "Como estas"}, "Opciones"));
     }
 
     public void setDeviceData(DeviceData deviceData) {
