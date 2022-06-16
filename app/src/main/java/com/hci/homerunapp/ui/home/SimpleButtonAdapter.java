@@ -22,9 +22,6 @@ public class SimpleButtonAdapter extends RecyclerView.Adapter<SimpleButtonAdapte
     private final int buttonId, layoutId;
 
 
-
-
-
     SimpleButtonAdapter(List<? extends Data> elements, ButtonListenerMaker buttonListenerMaker, int buttonId, int layoutId) {
         this.elements = elements;
         this.buttonListenerMaker = buttonListenerMaker;
@@ -40,6 +37,8 @@ public class SimpleButtonAdapter extends RecyclerView.Adapter<SimpleButtonAdapte
 
         return new ViewHolder(view, buttonId);
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {

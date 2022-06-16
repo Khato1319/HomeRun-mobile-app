@@ -1,5 +1,7 @@
 package com.hci.homerunapp.ui.device;
 
+import android.graphics.Color;
+
 import androidx.lifecycle.ViewModel;
 
 import com.hci.homerunapp.ui.room.DeviceData;
@@ -20,6 +22,7 @@ public class DeviceViewModel extends ViewModel {
         controls.add(new DropDownData("Opcioness", new String[]{"Hola", "Como estas"}, "Opciones"));
         controls.add(new TurnOnButtonData(false));
         controls.add(new ToggleButtonData(false, new String[]{"Cerrar","Abrir"}, new String[]{"Abierto", "Cerrado"}));
+        controls.add(new ProgressBarData(40, "Progreso", Color.BLUE));
     }
 
     public void setDeviceData(DeviceData deviceData) {

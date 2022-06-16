@@ -37,8 +37,6 @@ public abstract class SimpleDeviceButtonFragment<T extends SimpleDeviceButtonVie
 
         model = getViewModel();
 
-        
-
     }
 
     protected abstract T getViewModel();
@@ -68,10 +66,10 @@ public abstract class SimpleDeviceButtonFragment<T extends SimpleDeviceButtonVie
             Bundle bundle = new Bundle();
             bundle.putSerializable("deviceData", deviceData);
 
-
             MainActivity mainActivity = (MainActivity) getActivity();
             if (mainActivity != null)
                 mainActivity.hideBottomNav();
+
             NavHostFragment.findNavController(this).navigate(getNavigationId(), bundle);
         };
     }

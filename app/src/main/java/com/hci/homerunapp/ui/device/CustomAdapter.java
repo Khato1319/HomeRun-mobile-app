@@ -47,6 +47,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             case R.layout.drop_down_container_item -> new DropDownData.ViewHolder(view);
             case R.layout.switch_on_item -> new TurnOnButtonData.ViewHolder(view);
             case R.layout.toggle_button_item -> new ToggleButtonData.ViewHolder(view);
+            case R.layout.progress_bar_item -> new ProgressBarData.ViewHolder(view);
             default ->
                 throw new IllegalStateException("Unexpected value: " + viewType);
         };
@@ -68,20 +69,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         holder.getControlText().setText(controlData.getActionLabel());
 
         switch(controlData.getLayoutId()) {
-//            case R.layout.progress_bar_item:
-//                LinearProgressIndicator progressBar = (LinearProgressIndicator) controlData;
-//                ToggleButtonData.ViewHolder toggleButtonViewHolder = (ToggleButtonData.ViewHolder) holder;
-//                MaterialButton toggleButton = toggleButtonViewHolder.getButton();
-//                toggleButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        toggleButtonData.setState(!toggleButtonData.getState());
-//                        toggleButton.setText(toggleButtonData.getButtonText());
-//                        holder.getControlText().setText(controlData.getActionLabel());
-//
-//                    }
-//                });
-//                break;
+            case R.layout.progress_bar_item:
+                ProgressBarData progressBarData = (ProgressBarData) controlData;
+                ProgressBarData.ViewHolder progressBarViewHolder = (ProgressBarData.ViewHolder) holder;
+                LinearProgressIndicator progressIndicator = progressBarViewHolder.getProgressBar();
+                progressIndicator.setProgress(progressBarData.getProgress());
+                progressBarData.setupProgressBar(progressIndicator);
+                break;
             case R.layout.toggle_button_item:
                 ToggleButtonData toggleButtonData = (ToggleButtonData) controlData;
                 ToggleButtonData.ViewHolder toggleButtonViewHolder = (ToggleButtonData.ViewHolder) holder;

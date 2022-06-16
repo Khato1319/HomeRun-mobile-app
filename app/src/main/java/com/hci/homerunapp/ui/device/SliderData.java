@@ -38,19 +38,14 @@ public class SliderData extends ControlData{
     public static class ViewHolder extends CustomAdapter.ViewHolder {
         private final Slider slider;
 
-
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             slider = itemView.findViewById(R.id.slider);
-
         }
-
 
         public Slider getSlider() {
             return slider;
         }
-
 
     }
 }

@@ -9,7 +9,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.hci.homerunapp.R;
 
 public class ProgressBarData extends ControlData{
-    private int progress;
+    private int progress = 40;
     private final int color;
 
     ProgressBarData(int progress, String actionLabel, int color) {
@@ -22,8 +22,12 @@ public class ProgressBarData extends ControlData{
         this.progress = progress;
     }
 
+    public int getProgress() {
+        return progress;
+    }
+
     public void setupProgressBar(LinearProgressIndicator progressBar) {
-        progressBar.setTrackColor(color);
+        progressBar.setIndicatorColor(color);
     }
 
     public static class ViewHolder extends CustomAdapter.ViewHolder {
