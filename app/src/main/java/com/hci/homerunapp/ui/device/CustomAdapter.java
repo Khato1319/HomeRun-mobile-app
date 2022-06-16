@@ -1,5 +1,7 @@
 package com.hci.homerunapp.ui.device;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.slider.Slider;
 import com.hci.homerunapp.R;
 
@@ -40,6 +45,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             case R.layout.slider_item -> new SliderData.ViewHolder(view);
             case R.layout.color_picker_item -> new ColorPickerData.ViewHolder(view);
             case R.layout.drop_down_container_item -> new DropDownData.ViewHolder(view);
+            case R.layout.switch_on_item -> new TurnOnButtonData.ViewHolder(view);
+            case R.layout.toggle_button_item -> new ToggleButtonData.ViewHolder(view);
             default ->
                 throw new IllegalStateException("Unexpected value: " + viewType);
         };
@@ -58,9 +65,62 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
 //        holder.getDeviceButton().setText(dataSet.get(position));
         ControlData controlData = controls.get(position);
-        holder.getControlText().setText(controlData.getName());
+        holder.getControlText().setText(controlData.getActionLabel());
 
         switch(controlData.getLayoutId()) {
+//            case R.layout.progress_bar_item:
+//                LinearProgressIndicator progressBar = (LinearProgressIndicator) controlData;
+//                ToggleButtonData.ViewHolder toggleButtonViewHolder = (ToggleButtonData.ViewHolder) holder;
+//                MaterialButton toggleButton = toggleButtonViewHolder.getButton();
+//                toggleButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        toggleButtonData.setState(!toggleButtonData.getState());
+//                        toggleButton.setText(toggleButtonData.getButtonText());
+//                        holder.getControlText().setText(controlData.getActionLabel());
+//
+//                    }
+//                });
+//                break;
+            case R.layout.toggle_button_item:
+                ToggleButtonData toggleButtonData = (ToggleButtonData) controlData;
+                ToggleButtonData.ViewHolder toggleButtonViewHolder = (ToggleButtonData.ViewHolder) holder;
+                MaterialButton toggleButton = toggleButtonViewHolder.getButton();
+                toggleButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        toggleButtonData.setState(!toggleButtonData.getState());
+                        toggleButton.setText(toggleButtonData.getButtonText());
+                        holder.getControlText().setText(controlData.getActionLabel());
+
+                    }
+                });
+                break;
+            case R.layout.switch_on_item:
+                TurnOnButtonData turnOnButtonData = (TurnOnButtonData) controlData;
+                TurnOnButtonData.ViewHolder turnOnButtonViewHolder = (TurnOnButtonData.ViewHolder) holder;
+                FloatingActionButton turnOnbutton = turnOnButtonViewHolder.getButton();
+                turnOnbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (turnOnButtonData.isOn()) {
+                            turnOnButtonData.setState(false);
+                            turnOnbutton.getBackground().setTint(Color.DKGRAY);
+
+                            turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(deviceFragment.getResources().getColor(R.color.primary)));
+
+                        }
+                        else {
+                            turnOnButtonData.setState(true);
+                            turnOnbutton.getBackground().setTint(deviceFragment.getResources().getColor(R.color.primary));
+//                            button.setSupportBackgroundTintList(ColorStateList.valueOf(deviceFragment.getResources().getColor(R.color.primary)));
+                            turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(Color.WHITE));
+                        }
+                        holder.getControlText().setText(controlData.getActionLabel());
+
+                    }
+                });
+                break;
             case R.layout.slider_item:
                 SliderData sliderData = (SliderData) controlData;
                 SliderData.ViewHolder sliderViewHolder = (SliderData.ViewHolder) holder;

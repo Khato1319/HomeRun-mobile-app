@@ -17,7 +17,7 @@ public class ControlData implements Serializable {
         return ID;
     }
 
-    public String getName() {
+    public String getActionLabel() {
         return actionLabel;
     }
 }

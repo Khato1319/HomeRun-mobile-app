@@ -15,13 +15,14 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hci.homerunapp.MainActivity;
+import com.hci.homerunapp.PrimaryFragment;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.databinding.FragmentHomeBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;
 
 
-public abstract class SimpleButtonFragment extends Fragment implements ButtonListenerMaker {
+public abstract class SimpleButtonFragment extends PrimaryFragment implements ButtonListenerMaker {
 
     private FragmentHomeBinding binding;
     SimpleButtonAdapter adapter;

@@ -19,11 +19,11 @@
 
 
     </androidx.cardview.widget.CardView>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/device_button"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:fabCustomSize="80dp"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
@@ -31,12 +31,16 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/card_view"
         app:layout_constraintRight_toRightOf="@+id/card_view"
-        app:layout_constraintTop_toTopOf="@+id/card_view"
+        app:layout_constraintLeft_toLeftOf="@+id/card_view"
+        app:layout_constraintTop_toBottomOf="@+id/text_control"
         android:scaleType="center"
-        android:backgroundTint="@color/black"
+        android:stateListAnimator="@null"
+        android:translationZ="90dp"
+        android:backgroundTint="@color/primary"
         app:tint="@android:color/white"
-        app:srcCompat="@drawable/ic_baseline_power_settings_new_24" />
-
+        android:text="TEXT"
+        android:textSize="18sp"
+         />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -52,17 +56,11 @@
         style="@style/default_text_style_primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Estado: encendido"
+        android:text="Estado: cerrado"
         android:translationZ="90dp"
         app:layout_constraintLeft_toLeftOf="@+id/card_view"
         app:layout_constraintTop_toTopOf="@+id/card_view" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="25dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

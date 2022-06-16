@@ -71,12 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-//        getForegroundFragment().
-//        Log.d("IDUPNAV", String.valueOf());
-//        Log.d("IDUPNAV", String.valueOf(navController.getCurrentDestination().getId()));
-//        showTabIfReturningHome();
-
-
         return navController.navigateUp();
     }
 

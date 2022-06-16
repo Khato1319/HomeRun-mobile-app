@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
+import com.hci.homerunapp.MainActivity;
+import com.hci.homerunapp.SecondaryFragment;
 import com.hci.homerunapp.databinding.FragmentDeviceBinding;
 import com.hci.homerunapp.ui.home.RoomData;
 import com.hci.homerunapp.ui.room.DeviceData;
@@ -24,7 +26,7 @@ import com.hci.homerunapp.ui.room.DeviceData;
 import java.util.Arrays;
 import java.util.List;
 
-public class DeviceFragment extends Fragment {
+public class DeviceFragment extends SecondaryFragment {
 
     private DeviceViewModel model;
     CustomAdapter adapter;
@@ -80,9 +82,6 @@ public class DeviceFragment extends Fragment {
 
         return binding.getRoot();
     }
-
-
-
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
