@@ -18,7 +18,7 @@ public class HomeFragment extends SimpleButtonFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        label = "Habitaciones";
+        label = getResources().getString(R.string.title_rooms);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

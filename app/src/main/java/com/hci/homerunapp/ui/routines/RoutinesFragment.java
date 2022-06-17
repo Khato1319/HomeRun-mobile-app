@@ -19,7 +19,7 @@ public class RoutinesFragment extends SimpleButtonFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        label = "Rutinas";
+        label = getResources().getString(R.string.title_routines);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

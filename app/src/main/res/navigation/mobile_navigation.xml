@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.hci.homerunapp.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_rooms"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_room"
@@ -38,7 +38,6 @@
     <fragment
         android:id="@+id/navigation_room"
         android:name="com.hci.homerunapp.ui.room.RoomFragment"
-        android:label="@string/room_name"
         tools:layout="@layout/fragment_room" >
         <action
             android:id="@+id/action_navigation_room_to_navigation_device"
@@ -52,7 +51,6 @@
     <fragment
         android:id="@+id/navigation_device"
         android:name="com.hci.homerunapp.ui.device.DeviceFragment"
-        android:label="@string/device_name"
         tools:layout="@layout/fragment_device" >
         <argument
             android:name="deviceData"
