@@ -8,5 +8,7 @@ public class HomeViewModel extends SimpleButtonViewModel{
         elements.add(new RoomData("Kitchen", "1"));
         elements.add(new RoomData("Gameroom", "1"));
         elements.add(new RoomData("Dining room", "1"));
+        elements.add(new RoomData("Dining room", "1"));
+        elements.add(new RoomData("Dining room", "1"));
     }
 }

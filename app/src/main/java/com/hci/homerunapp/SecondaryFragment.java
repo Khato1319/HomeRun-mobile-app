@@ -29,9 +29,7 @@ public abstract class SecondaryFragment extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-
         super.onAttach(context);
-//        ((MainActivity) context).getTitle().setText();
         ((MainActivity) context).getUpButton().setVisibility(View.VISIBLE);
     }
 }
