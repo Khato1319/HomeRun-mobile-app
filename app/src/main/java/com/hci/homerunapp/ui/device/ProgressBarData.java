@@ -26,8 +26,18 @@ public class ProgressBarData extends ControlData{
         return progress;
     }
 
-    public void setupProgressBar(LinearProgressIndicator progressBar) {
+    @Override
+    public String getActionLabel() {
+        return String.format(super.getActionLabel(),progress);
+    }
+
+    @Override
+    public void setupViewHolder(CustomAdapter.ViewHolder holder) {
+        super.setupViewHolder(holder);
+        ProgressBarData.ViewHolder progressBarViewHolder = (ProgressBarData.ViewHolder) holder;
+        LinearProgressIndicator progressBar = progressBarViewHolder.getProgressBar();
         progressBar.setIndicatorColor(color);
+        progressBar.setProgress(getProgress());
     }
 
     public static class ViewHolder extends CustomAdapter.ViewHolder {

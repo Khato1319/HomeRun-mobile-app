@@ -20,4 +20,8 @@ public class ControlData implements Serializable {
     public String getActionLabel() {
         return actionLabel;
     }
+
+    public void setupViewHolder(CustomAdapter.ViewHolder holder) {
+        holder.getControlText().setText(getActionLabel());
+    }
 }

@@ -1,5 +1,6 @@
 package com.hci.homerunapp.ui.device;
 
+import android.transition.Slide;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,11 +13,11 @@ import com.hci.homerunapp.R;
 public class SliderData extends ControlData{
     private int minValue, maxValue, value;
 
-    SliderData(String actionLabel, int value, int minValue, int maxValue) {
+    SliderData(String actionLabel, int minValue, int maxValue) {
         super(R.layout.slider_item, actionLabel);
         this.minValue = minValue;
         this.maxValue = maxValue;
-        this.value = value;
+
     }
 
     public int getMaxValue() {
@@ -33,6 +34,28 @@ public class SliderData extends ControlData{
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    @Override
+    public String getActionLabel() {
+        return String.format(super.getActionLabel(), value);
+    }
+
+    public void setupViewHolder(CustomAdapter.ViewHolder holder) {
+        super.setupViewHolder(holder);
+        SliderData.ViewHolder sliderViewHolder = (SliderData.ViewHolder) holder;
+        TextView controlText = holder.getControlText();
+        Slider slider = sliderViewHolder.getSlider();
+        slider.setValueFrom(getMinValue());
+        slider.setValueTo(getMaxValue());
+        slider.setValue(getValue());
+        slider.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                setValue((int) value);
+                controlText.setText(getActionLabel());
+            }
+        });
     }
 
     public static class ViewHolder extends CustomAdapter.ViewHolder {

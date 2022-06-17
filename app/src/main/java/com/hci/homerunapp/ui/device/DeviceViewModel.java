@@ -11,31 +11,19 @@ import java.util.List;
 
 public class DeviceViewModel extends ViewModel {
 
-    private DeviceData deviceData;
-    private List<ControlData> controls;
+    private Device device;
 
     public DeviceViewModel() {
         super();
-        controls = new ArrayList<>();
-        controls.add(new SliderData("Temperatura", 0, 0, 40));
-        controls.add(new ColorPickerData("Color", 0, 0, 0));
-        controls.add(new DropDownData("Opcioness", new String[]{"Hola", "Como estas"}, "Opciones"));
-        controls.add(new TurnOnButtonData(false));
-        controls.add(new ToggleButtonData(false, new String[]{"Cerrar","Abrir"}, new String[]{"Abierto", "Cerrado"}));
-        controls.add(new ProgressBarData(40, "Progreso", Color.BLUE));
+
     }
 
-    public void setDeviceData(DeviceData deviceData) {
-        this.deviceData = deviceData;
+    public void setDevice(Device device) {
+        this.device = device;
     }
 
-    public DeviceData getDeviceData() {
-        return deviceData;
+    public Device getDevice() {
+        return device;
     }
 
-    public List<ControlData> getControls() {
-        return controls;
-    }
-
-    // TODO: Implement the ViewModel
 }

@@ -46,6 +46,7 @@ public class SimpleDeviceButtonAdapter extends RecyclerView.Adapter<SimpleDevice
         DeviceData deviceData = devices.get(position);
         holder.getDeviceRoomText().setText(deviceData.getRoomData().getName());
         holder.getDeviceText().setText(deviceData.getName());
+        holder.getDeviceButton().setImageResource(deviceData.getType().getIcon());
 
 
 
