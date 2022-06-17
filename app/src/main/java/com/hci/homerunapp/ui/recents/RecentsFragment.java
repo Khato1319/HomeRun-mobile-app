@@ -4,24 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hci.homerunapp.MainActivity;
 import com.hci.homerunapp.R;
-import com.hci.homerunapp.databinding.FragmentRecentsBinding;
-import com.hci.homerunapp.ui.room.CustomAdapter;
-import com.hci.homerunapp.ui.room.RoomViewModel;
 import com.hci.homerunapp.ui.room.SimpleDeviceButtonAdapter;
-import com.hci.homerunapp.ui.room.SimpleDeviceButtonFragment;
-import com.hci.homerunapp.ui.room.SimpleDeviceButtonViewModel;
+import com.hci.homerunapp.ui.room.PrimarySimpleDeviceButtonFragment;
 
-public class RecentsFragment extends SimpleDeviceButtonFragment<RecentsViewModel> {
+public class RecentsFragment extends PrimarySimpleDeviceButtonFragment<RecentsViewModel> {
 
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        label = "Recientes";
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     @Override
     protected RecentsViewModel getViewModel() {

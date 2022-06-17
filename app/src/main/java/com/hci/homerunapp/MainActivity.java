@@ -1,39 +1,67 @@
 package com.hci.homerunapp;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
-import androidx.navigation.fragment.FragmentNavigator;
+import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.hci.homerunapp.databinding.ActivityMainBinding;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private NavController navController;
+    private ImageButton upButton;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("AJAJAJ", "MainActivity: onCreate() recreated");
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+//        var appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_room).build();
+////        setupAc(navController, appBarConfiguration);
+//
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+//        getSupportActionBar().setU
+        View v = getLayoutInflater().inflate(R.layout.action_bar, null);
+        title = v.findViewById(R.id.action_bar_title);
+        title.setText(getTitle());
+        upButton = v.findViewById(R.id.up_button);
+//        upButton.setVisibility(((VisibleUpInterface) getForegroundFragment()).getUpVisibility());
+        upButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigateUp();
+            }
+        });
+
+        ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.MATCH_PARENT);
+        getSupportActionBar().setCustomView(v, layoutParams);
+        Toolbar parent = (Toolbar) v.getParent();
+        parent.setContentInsetsAbsolute(0, 0);
 
             NavHostFragment navHostFragment =
                     (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
@@ -44,13 +72,63 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_recents, R.id.navigation_routines)
+                R.id.navigation_home, R.id.navigation_recents, R.id.navigation_routines, R.id.navigation_room, R.id.navigation_device, R.id.navigation_routine)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    public ImageButton getUpButton() {
+        return upButton;
+    }
+
+    public TextView getTitleText() {
+        return title;
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        Log.d("CURRENT FRAGM", String.valueOf(getForegroundFragment()));
+
+        super.onResumeFragments();
+    }
+
+    public Fragment getForegroundFragment(){
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+        return navHostFragment == null ? null : navHostFragment.getChildFragmentManager().getFragments().get(0);
+    }
+
+//    @Nullable
 //    @Override
+//    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+//        Log.d("CREATED", "CREATED");
+//        return super.onCreateView(parent, name, context, attrs);
+//
+//    }
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+                Log.d("CREATED", "CREATED");
+
+        return super.onCreateView(parent, name, context, attrs);
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d("CREATED", "CREATED");
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d("CREATED", "CREATED");
+
+        super.onResume();
+    }
+
+    //    @Override
 //    public void onBackPressed() {
 //        showTabIfReturningHome();
 //        super.onBackPressed();

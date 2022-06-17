@@ -58,11 +58,10 @@ public class DeviceFragment extends SecondaryFragment {
             }
             if (deviceData != null) {
                 model.setDevice(deviceData.getDeviceInstance());
-                Log.d("FOUNDDD", "FOUNDD");
                 device = model.getDevice();
             }
-
         }
+        label = device.getDeviceData().getName();
 
 
     }

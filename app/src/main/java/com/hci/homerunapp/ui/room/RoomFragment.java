@@ -11,7 +11,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,7 @@ import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;
 import com.hci.homerunapp.ui.home.RoomData;
 
-import java.util.List;
-
-public class RoomFragment extends SimpleDeviceButtonFragment<RoomViewModel> implements ButtonListenerMaker {
+public class RoomFragment extends SecondarySimpleDeviceButtonFragment<RoomViewModel> implements ButtonListenerMaker {
 
     public static final String ROOM_DATA = "com.hci.homerunapp.ui.room/roomId";
 
@@ -52,6 +49,9 @@ public class RoomFragment extends SimpleDeviceButtonFragment<RoomViewModel> impl
             if (roomData != null)
                 model.setRoomData(roomData);
         }
+
+        roomData = model.getRoomData();
+        label = roomData.getName();
 
     }
 
