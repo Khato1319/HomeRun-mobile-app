@@ -41,24 +41,29 @@ public class DeviceFragment extends SecondaryFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d("ONCREATE", "ONCREATE");
+
         model = new ViewModelProvider(this).get(DeviceViewModel.class);
 
         Bundle args = getArguments();
-        DeviceData deviceData = model.getDeviceData();
+        device = model.getDevice();
+        DeviceData deviceData = null;
 
-        if (deviceData == null) {
+        if (device == null) {
             if (args != null) {
-                deviceData = (DeviceData)args.get("roomData");
-                if (deviceData != null)
-                    model.setDeviceData(deviceData);
+                deviceData = (DeviceData)args.get("deviceData");
             }
             if (deviceData == null && savedInstanceState != null){
                 deviceData = (DeviceData)savedInstanceState.getSerializable(DEVICE_DATA);
             }
+            if (deviceData != null) {
+                model.setDevice(deviceData.getDeviceInstance());
+                Log.d("FOUNDDD", "FOUNDD");
+                device = model.getDevice();
+            }
 
-            if (deviceData != null)
-                model.setDeviceData(deviceData);
         }
+
 
     }
 
@@ -71,7 +76,7 @@ public class DeviceFragment extends SecondaryFragment {
         FragmentDeviceBinding binding = FragmentDeviceBinding.inflate(inflater, container, false);
 
 
-        adapter = new CustomAdapter(model.getControls(), this);
+        adapter = new CustomAdapter(device.getControls(), this);
 
         binding.deviceRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
@@ -89,7 +94,7 @@ public class DeviceFragment extends SecondaryFragment {
         super.onSaveInstanceState(outState);
 
 
-        DeviceData deviceData = model.getDeviceData();
+        DeviceData deviceData = device.getDeviceData();
 
 
         if (model != null && deviceData != null) {

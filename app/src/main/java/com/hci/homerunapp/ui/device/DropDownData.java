@@ -1,6 +1,8 @@
 package com.hci.homerunapp.ui.device;
 
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,23 @@ public class DropDownData extends ControlData{
 
     public String getHint() {
         return hint;
+    }
+
+    @Override
+    public void setupViewHolder(CustomAdapter.ViewHolder holder) {
+        super.setupViewHolder(holder);
+        DropDownData.ViewHolder dropDownViewHolder = (DropDownData.ViewHolder) holder;
+        AutoCompleteTextView autoCompleteTextView = dropDownViewHolder.getAutoCompleteTextView();
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(autoCompleteTextView.getContext(), R.layout.drop_down_item, getItems());
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                setSelected(arrayAdapter.getItem(position));
+            }
+        });
+        autoCompleteTextView.setAdapter(arrayAdapter);
+        autoCompleteTextView.setHint(getHint());
+        autoCompleteTextView.setText(getSelected(), false);
     }
 
     public static class ViewHolder extends CustomAdapter.ViewHolder {

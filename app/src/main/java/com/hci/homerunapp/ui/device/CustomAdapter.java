@@ -65,123 +65,35 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
 //        holder.getDeviceButton().setText(dataSet.get(position));
         ControlData controlData = controls.get(position);
-        holder.getControlText().setText(controlData.getActionLabel());
+        controlData.setupViewHolder(holder);
 
-        switch(controlData.getLayoutId()) {
-            case R.layout.progress_bar_item:
-                ProgressBarData progressBarData = (ProgressBarData) controlData;
-                ProgressBarData.ViewHolder progressBarViewHolder = (ProgressBarData.ViewHolder) holder;
-                LinearProgressIndicator progressIndicator = progressBarViewHolder.getProgressBar();
-                progressIndicator.setProgress(progressBarData.getProgress());
-                progressBarData.setupProgressBar(progressIndicator);
-                break;
-            case R.layout.toggle_button_item:
-                ToggleButtonData toggleButtonData = (ToggleButtonData) controlData;
-                ToggleButtonData.ViewHolder toggleButtonViewHolder = (ToggleButtonData.ViewHolder) holder;
-                MaterialButton toggleButton = toggleButtonViewHolder.getButton();
-                toggleButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toggleButtonData.setState(!toggleButtonData.getState());
-                        toggleButton.setText(toggleButtonData.getButtonText());
-                        holder.getControlText().setText(controlData.getActionLabel());
-
-                    }
-                });
-                break;
-            case R.layout.switch_on_item:
-                TurnOnButtonData turnOnButtonData = (TurnOnButtonData) controlData;
-                TurnOnButtonData.ViewHolder turnOnButtonViewHolder = (TurnOnButtonData.ViewHolder) holder;
-                FloatingActionButton turnOnbutton = turnOnButtonViewHolder.getButton();
-                turnOnbutton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (turnOnButtonData.isOn()) {
-                            turnOnButtonData.setState(false);
-                            turnOnbutton.getBackground().setTint(Color.DKGRAY);
-
-                            turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(deviceFragment.getResources().getColor(R.color.primary)));
-
-                        }
-                        else {
-                            turnOnButtonData.setState(true);
-                            turnOnbutton.getBackground().setTint(deviceFragment.getResources().getColor(R.color.primary));
-//                            button.setSupportBackgroundTintList(ColorStateList.valueOf(deviceFragment.getResources().getColor(R.color.primary)));
-                            turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(Color.WHITE));
-                        }
-                        holder.getControlText().setText(controlData.getActionLabel());
-
-                    }
-                });
-                break;
-            case R.layout.slider_item:
-                SliderData sliderData = (SliderData) controlData;
-                SliderData.ViewHolder sliderViewHolder = (SliderData.ViewHolder) holder;
-                Slider slider = sliderViewHolder.getSlider();
-                slider.setValueFrom(sliderData.getMinValue());
-                slider.setValueTo(sliderData.getMaxValue());
-                slider.setValue(sliderData.getValue());
-                slider.addOnChangeListener(new Slider.OnChangeListener() {
-                    @Override
-                    public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                        sliderData.setValue((int) value);
-                    }
-                });
-                break;
-            case R.layout.drop_down_container_item:
-                DropDownData dropDownData = (DropDownData) controlData;
-                DropDownData.ViewHolder dropDownViewHolder = (DropDownData.ViewHolder) holder;
-                AutoCompleteTextView autoCompleteTextView = dropDownViewHolder.getAutoCompleteTextView();
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(deviceFragment.getContext(), R.layout.drop_down_item, dropDownData.getItems());
-                autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    dropDownData.setSelected(arrayAdapter.getItem(position));
-                }
-            });
-                autoCompleteTextView.setAdapter(arrayAdapter);
-                autoCompleteTextView.setHint(dropDownData.getHint());
-                autoCompleteTextView.setText(dropDownData.getSelected(), false);
-                break;
-            case R.layout.color_picker_item:
-                ColorPickerData colorPickerData = (ColorPickerData) controlData;
-                ColorPickerData.ViewHolder colorPickerViewHolder = (ColorPickerData.ViewHolder) holder;
-                CardView colorCard = colorPickerViewHolder.getColorCard();
-                Slider redSlider = colorPickerViewHolder.getRedSlider();
-                redSlider.addOnChangeListener(new Slider.OnChangeListener() {
-                    @Override
-                    public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                        colorPickerData.setRed((int) value);
-                        colorCard.setCardBackgroundColor(colorPickerData.getCardColor());
-                    }
-                });
-                Slider greenSlider = colorPickerViewHolder.getGreenSlider();
-                greenSlider.addOnChangeListener(new Slider.OnChangeListener() {
-                    @Override
-                    public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                        colorPickerData.setGreen((int) value);
-                        colorCard.setCardBackgroundColor(colorPickerData.getCardColor());
-                    }
-                });
-                Slider blueSlider = colorPickerViewHolder.getBlueSlider();
-                blueSlider.addOnChangeListener(new Slider.OnChangeListener() {
-                    @Override
-                    public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-                        colorPickerData.setBlue((int) value);
-                        colorCard.setCardBackgroundColor(colorPickerData.getCardColor());
-
-                    }
-                });
-                redSlider.setValue(colorPickerData.getRed());
-                greenSlider.setValue(colorPickerData.getGreen());
-                blueSlider.setValue(colorPickerData.getBlue());
-                colorCard.setCardBackgroundColor(colorPickerData.getCardColor());
-//                slider.setValue(sliderData.getValue());
-
-        }
-
-
-//        deviceButton.setOnClickListener(deviceFragment.getButtonClickListener(deviceText.getText(),deviceRoom.getText(), deviceId.getText()));
+//        switch(controlData.getLayoutId()) {
+//            case R.layout.progress_bar_item:
+//                ProgressBarData progressBarData = (ProgressBarData) controlData;
+//
+//                break;
+//            case R.layout.toggle_button_item:
+//                break;
+//            case R.layout.switch_on_item:
+//                TurnOnButtonData turnOnButtonData = (TurnOnButtonData) controlData;
+//
+//                break;
+//            case R.layout.slider_item:
+//                controlData.setupViewHolder(holder);
+//                break;
+//            case R.layout.drop_down_container_item:
+//                DropDownData dropDownData = (DropDownData) controlData;
+//
+//                break;
+//            case R.layout.color_picker_item:
+//                ColorPickerData colorPickerData = (ColorPickerData) controlData;
+//
+////                slider.setValue(sliderData.getValue());
+//
+//        }
+//
+//
+////        deviceButton.setOnClickListener(deviceFragment.getButtonClickListener(deviceText.getText(),deviceRoom.getText(), deviceId.getText()));
 
 
     }

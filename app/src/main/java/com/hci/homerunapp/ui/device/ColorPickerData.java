@@ -47,6 +47,42 @@ public class ColorPickerData extends ControlData{
         return Color.rgb(red, green, blue);
     }
 
+    @Override
+    public void setupViewHolder(CustomAdapter.ViewHolder holder) {
+        super.setupViewHolder(holder);
+        ColorPickerData.ViewHolder colorPickerViewHolder = (ColorPickerData.ViewHolder) holder;
+        CardView colorCard = colorPickerViewHolder.getColorCard();
+        Slider redSlider = colorPickerViewHolder.getRedSlider();
+        redSlider.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                setRed((int) value);
+                colorCard.setCardBackgroundColor(getCardColor());
+            }
+        });
+        Slider greenSlider = colorPickerViewHolder.getGreenSlider();
+        greenSlider.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                setGreen((int) value);
+                colorCard.setCardBackgroundColor(getCardColor());
+            }
+        });
+        Slider blueSlider = colorPickerViewHolder.getBlueSlider();
+        blueSlider.addOnChangeListener(new Slider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                setBlue((int) value);
+                colorCard.setCardBackgroundColor(getCardColor());
+
+            }
+        });
+        redSlider.setValue(getRed());
+        greenSlider.setValue(getGreen());
+        blueSlider.setValue(getBlue());
+        colorCard.setCardBackgroundColor(getCardColor());
+    }
+
     public static class ViewHolder extends CustomAdapter.ViewHolder {
         private final Slider redSlider, greenSlider, blueSlider;
         private final CardView colorCard;

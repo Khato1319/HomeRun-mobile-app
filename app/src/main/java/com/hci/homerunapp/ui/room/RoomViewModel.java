@@ -12,11 +12,9 @@ public class RoomViewModel extends SimpleDeviceButtonViewModel {
     public void setRoomData(RoomData roomData) {
         this.roomData = roomData;
         devices = new ArrayList<>();
-        devices.add(new DeviceData("Aspiradora", "1", roomData, DeviceData.Type.BLINDS));
-        devices.add(new DeviceData("Luz", "1", roomData, DeviceData.Type.VACUUM));
-        devices.add(new DeviceData("Speaker", "1", roomData, DeviceData.Type.VACUUM));
-
-
+        devices.add(new DeviceData("Aspiradora", "1", roomData, DeviceData.Type.VACUUM));
+        devices.add(new DeviceData("Luz", "1", roomData, DeviceData.Type.LIGHT));
+        devices.add(new DeviceData("Blindss", "1", roomData, DeviceData.Type.BLINDS));
     }
 
     public RoomData getRoomData() {

@@ -15,10 +15,12 @@
         app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="-25dp">
 
 
     </androidx.cardview.widget.CardView>
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
@@ -27,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@id/text_control"
         app:layout_constraintLeft_toLeftOf="@id/card_view"
         app:layout_constraintRight_toRightOf="@id/card_view"
-        app:layout_constraintBottom_toBottomOf="@id/card_view"
+        app:layout_constraintBottom_toTopOf="@id/text_sublabel"
         android:translationZ="90dp"
         android:progress="25"/>
 
@@ -40,7 +42,20 @@
         android:text="Estado: cerrado"
         android:translationZ="90dp"
         app:layout_constraintLeft_toLeftOf="@+id/card_view"
+
         app:layout_constraintTop_toTopOf="@+id/card_view" />
+
+    <TextView
+        android:id="@+id/text_sublabel"
+        style="@style/small_text_style_primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:translationZ="90dp"
+        app:layout_constraintLeft_toLeftOf="@+id/card_view"
+        app:layout_constraintRight_toRightOf="@+id/card_view"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:layout_constraintBottom_toBottomOf="@+id/card_view"/>
 
 
 

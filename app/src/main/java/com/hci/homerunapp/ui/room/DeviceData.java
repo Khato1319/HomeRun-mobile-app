@@ -3,6 +3,8 @@ package com.hci.homerunapp.ui.room;
 import android.bluetooth.BluetoothClass;
 import android.graphics.drawable.Drawable;
 
+import androidx.annotation.NonNull;
+
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.ui.Data;
 import com.hci.homerunapp.ui.device.Device;
@@ -47,6 +49,7 @@ public class DeviceData implements Data {
         return type;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return name;
