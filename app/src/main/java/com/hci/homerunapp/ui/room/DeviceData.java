@@ -68,7 +68,7 @@ public class DeviceData implements Data {
                 return new DeviceLight(data);
             }
         },
-        BLINDS(R.drawable.ic_blinds) {
+        BLINDS(R.drawable.ic_routines) {
             @Override
             public Device getDeviceInstance(DeviceData data) {
                 return new DeviceBlinds(data);

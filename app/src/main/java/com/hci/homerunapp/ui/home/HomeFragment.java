@@ -1,8 +1,12 @@
 package com.hci.homerunapp.ui.home;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,6 +15,12 @@ import com.hci.homerunapp.ui.Data;
 
 
 public class HomeFragment extends SimpleButtonFragment {
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        label = "Habitaciones";
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     @Override
     protected SimpleButtonViewModel getViewModel() {
