@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         getSupportActionBar().setDisplayShowCustomEnabled(true);
 //        getSupportActionBar().setU
         View v = getLayoutInflater().inflate(R.layout.action_bar, null);
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
                 ActionBar.LayoutParams.MATCH_PARENT);
         getSupportActionBar().setCustomView(v, layoutParams);
+        getSupportActionBar().setElevation(5);
         Toolbar parent = (Toolbar) v.getParent();
         parent.setContentInsetsAbsolute(0, 0);
 
