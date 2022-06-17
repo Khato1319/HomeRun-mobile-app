@@ -3,6 +3,7 @@ package com.hci.homerunapp;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,8 @@ public abstract class PrimaryFragment extends Fragment{
             mainActivity.showBottomNav();
             mainActivity.getUpButton().setVisibility(View.INVISIBLE);
             mainActivity.getTitleText().setText(label);
+            ImageButton notificationsButton = mainActivity.getNotificationsButton();
+            notificationsButton.setVisibility(View.INVISIBLE);
         }
 
     }

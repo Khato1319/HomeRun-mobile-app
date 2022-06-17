@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private NavController navController;
-    private ImageButton upButton;
+    private ImageButton upButton, notificationsButton;
     private TextView title;
 
     @Override
@@ -38,18 +38,14 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        var appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_room).build();
-////        setupAc(navController, appBarConfiguration);
-//
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
 //        getSupportActionBar().setU
         View v = getLayoutInflater().inflate(R.layout.action_bar, null);
         title = v.findViewById(R.id.action_bar_title);
         title.setText(getTitle());
+        notificationsButton = v.findViewById(R.id.notification_button);
         upButton = v.findViewById(R.id.up_button);
-//        upButton.setVisibility(((VisibleUpInterface) getForegroundFragment()).getUpVisibility());
+
         upButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageButton getUpButton() {
         return upButton;
+    }
+
+    public ImageButton getNotificationsButton() {
+        return notificationsButton;
     }
 
     public TextView getTitleText() {

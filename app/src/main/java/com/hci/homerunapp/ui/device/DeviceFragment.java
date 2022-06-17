@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import com.hci.homerunapp.MainActivity;
+import com.hci.homerunapp.R;
 import com.hci.homerunapp.SecondaryFragment;
 import com.hci.homerunapp.databinding.FragmentDeviceBinding;
 import com.hci.homerunapp.ui.home.RoomData;
@@ -67,11 +69,24 @@ public class DeviceFragment extends SecondaryFragment {
     }
 
     @Override
+    protected void executeActions(MainActivity mainActivity) {
+        super.executeActions(mainActivity);
+        ImageButton notificationsButton = mainActivity.getNotificationsButton();
+        notificationsButton.setImageResource(device.getNotificationState().getIconId());
+        notificationsButton.setVisibility(View.VISIBLE);
+        notificationsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                device.toggleNotificationState();
+                notificationsButton.setImageResource(device.getNotificationState().getIconId());
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         onCreate(savedInstanceState);
-
-
         FragmentDeviceBinding binding = FragmentDeviceBinding.inflate(inflater, container, false);
 
 
