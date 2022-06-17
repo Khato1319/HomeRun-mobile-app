@@ -56,31 +56,31 @@ public class DeviceData implements Data {
     }
 
     public enum Type {
-        VACUUM(R.drawable.ic_routines) {
+        VACUUM(R.drawable.ic_vacuum_cleaner_icon) {
             @Override
             public Device getDeviceInstance(DeviceData data) {
                 return new DeviceVacuum(data);
             }
         },
-        LIGHT(R.drawable.ic_routines) {
+        LIGHT(R.drawable.ic_light_icon) {
             @Override
             public Device getDeviceInstance(DeviceData data) {
                 return new DeviceLight(data);
             }
         },
-        BLINDS(R.drawable.ic_routines) {
+        BLINDS(R.drawable.ic_blinds_icon) {
             @Override
             public Device getDeviceInstance(DeviceData data) {
                 return new DeviceBlinds(data);
             }
         },
-        OVEN(R.drawable.ic_routines) {
+        OVEN(R.drawable.ic_oven_icon) {
             @Override
             public Device getDeviceInstance(DeviceData data) {
                 return new DeviceVacuum(data);
             }
         },
-        AC(R.drawable.ic_routines) {
+        AC(R.drawable.ic_ac_icon) {
             @Override
             public Device getDeviceInstance(DeviceData data) {
                 return new DeviceAC(data);

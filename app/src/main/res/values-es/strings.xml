@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HomeRun</string>
+    <string name="title_home">Habitaciones</string>
     <string name="title_recents">Recientes</string>
     <string name="title_routines">Rutinas</string>
     <string name="room_name">{roomName}</string>
-    <string name="title_home">Casa</string>
     <string name="large_text">20sp</string>
     <string name="device_name">{deviceName}</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

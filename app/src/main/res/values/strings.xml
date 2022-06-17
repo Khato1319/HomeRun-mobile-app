@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">HomeRun</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Rooms</string>
     <string name="title_recents">Recents</string>
     <string name="title_routines">Routines</string>
     <string name="room_name">{roomData}</string>
