@@ -18,7 +18,7 @@ public class RecentsFragment extends PrimarySimpleDeviceButtonFragment<RecentsVi
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        label = "Recientes";
+        label = getResources().getString(R.string.title_recents);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
