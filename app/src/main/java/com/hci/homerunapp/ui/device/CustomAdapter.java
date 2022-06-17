@@ -40,7 +40,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(viewType, parent, false);
 
-
         return switch(viewType) {
             case R.layout.slider_item -> new SliderData.ViewHolder(view);
             case R.layout.color_picker_item -> new ColorPickerData.ViewHolder(view);

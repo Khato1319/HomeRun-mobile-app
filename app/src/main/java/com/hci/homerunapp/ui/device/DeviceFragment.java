@@ -31,6 +31,7 @@ public class DeviceFragment extends SecondaryFragment {
     private DeviceViewModel model;
     CustomAdapter adapter;
     public static final String DEVICE_DATA = "com.hci.homerunapp.ui.device/deviceData";
+    Device device;
 
     public static DeviceFragment newInstance() {
         return new DeviceFragment();
@@ -41,7 +42,6 @@ public class DeviceFragment extends SecondaryFragment {
         super.onCreate(savedInstanceState);
 
         model = new ViewModelProvider(this).get(DeviceViewModel.class);
-
 
         Bundle args = getArguments();
         DeviceData deviceData = model.getDeviceData();
@@ -59,6 +59,7 @@ public class DeviceFragment extends SecondaryFragment {
             if (deviceData != null)
                 model.setDeviceData(deviceData);
         }
+
     }
 
     @Override

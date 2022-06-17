@@ -12,10 +12,10 @@ import java.util.List;
 public class RecentsViewModel extends SimpleDeviceButtonViewModel {
 public RecentsViewModel() {
     devices = new ArrayList<>();
-    devices.add(new DeviceData("Aspiradora", "1", new RoomData("Banio", "1")));
-    devices.add(new DeviceData("Luz", "1", new RoomData("Comedor", "1")));
+    devices.add(new DeviceData("Aspiradora", "1", new RoomData("Banio", "1") , DeviceData.Type.OVEN));
+    devices.add(new DeviceData("Luz", "1", new RoomData("Comedor", "1"), DeviceData.Type.OVEN));
 
-    devices.add(new DeviceData("Speaker", "1", new RoomData("Living", "1")));
+    devices.add(new DeviceData("Speaker", "1", new RoomData("Living", "1"), DeviceData.Type.OVEN));
 }
 
 }
