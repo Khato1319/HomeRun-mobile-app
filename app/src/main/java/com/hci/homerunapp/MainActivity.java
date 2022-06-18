@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar.LayoutParams layoutParams = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,
                 ActionBar.LayoutParams.MATCH_PARENT);
         getSupportActionBar().setCustomView(v, layoutParams);
-        getSupportActionBar().setElevation(5);
+        getSupportActionBar().setElevation(10);
         Toolbar parent = (Toolbar) v.getParent();
         parent.setContentInsetsAbsolute(0, 0);
 

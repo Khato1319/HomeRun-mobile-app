@@ -6,4 +6,96 @@
     <string name="title_routines">Rutinas</string>
     <string name="large_text">20sp</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="turn_on">Encendido</string>
+    <string name="turn_off">Apagado</string>
+    <string name="select_mode">Seleccione un modo</string>
+
+    <!--Aire acondicionado    -->
+    <string name="temperature_slider">Temperatura: %d °C</string>
+    <string-array
+        name="cooling_modes">
+        <item>Frío</item>
+        <item>Calor</item>
+        <item>Ventilador</item>
+    </string-array>
+    <string name="cooling_mode_title">Cambiar modo de aire</string>
+
+    <string-array
+        name="vertical_swing_modes">
+        <item>Automático</item>
+        <item>-90 grados</item>
+        <item>-45 grados</item>
+        <item>0 grados</item>
+        <item>45 grados</item>
+        <item>90 grados</item>
+    </string-array>
+    <string name="vertical_swing_mode_title">Cambiar swing vertical</string>
+
+    <string-array
+        name="horizontal_swing_modes">
+        <item>Auto</item>
+        <item>22 grados</item>
+        <item>45 grados</item>
+        <item>67 grados</item>
+        <item>90 grados</item>
+    </string-array>
+    <string name="horizontal_swing_mode_title">Cambiar swing horizontal</string>
+
+    <string-array
+        name="speed_modes">
+        <item>Automático</item>
+        <item>25 %</item>
+        <item>50 %</item>
+        <item>75 %</item>
+        <item>100 %</item>
+    </string-array>
+    <string name="set_fan_speed">Cambiar velocidad de aire</string>
+
+    <!--Cortinas/Persianas   -->
+    <string name="blinds_state">Estado: %s</string>
+    <string name="blinds_toggle_open">Abierto</string>
+    <string name="blinds_toggle_closed">Cerrado</string>
+    <string name="close_limit">Límite de cerrado</string>
+
+    <!--Luz    -->
+    <string name="color_picket">Cambiar color</string>
+    <string name="brightness">Cambiar brillo</string>
+
+    <!--Horno    -->
+    <string-array
+        name="heat_sources">
+        <item>Superior</item>
+        <item>Inferior</item>
+        <item>Convencional</item>
+    </string-array>
+    <string name="heat_source_title">Cambiar fuente de calor</string>
+
+    <string-array
+        name="grill_modes">
+        <item>Normal</item>
+        <item>Ecológico</item>
+        <item>Apagado</item>
+    </string-array>
+    <string name="grill_mode_title">Cambiar modo grill</string>
+
+    <string-array
+        name="convection_modes">
+        <item>Normal</item>
+        <item>Ecológico</item>
+        <item>Apagado</item>
+    </string-array>
+    <string name="convection_mode_title">Cambiar modo convección</string>
+
+    <!--Aspiradora -->
+    <string name="vacuum_battery">Batería: </string>
+    <string name="vacuum_location">Cambiar ubicación</string>
+
+    <string-array
+        name="vacuum_modes">
+        <item>Aspirar</item>
+        <item>Trapear</item>
+    </string-array>
+    <string name="vacuum_mode">Cambiar modo</string>
+
+
 </resources>
