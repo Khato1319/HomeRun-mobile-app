@@ -1,41 +1,42 @@
-package com.hci.homerunapp.ui.home;
+package com.hci.homerunapp.ui.routines;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.hci.homerunapp.R;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;
 
 import java.util.List;
 
-public class SimpleButtonAdapter extends RecyclerView.Adapter<SimpleButtonAdapter.ViewHolder> {
+public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.ViewHolder> {
 
     private static final String TAG = "CustomAdapter";
     private final List<? extends Data> elements;
     private final ButtonListenerMaker buttonListenerMaker;
-    private final int buttonId, layoutId;
 
 
-    SimpleButtonAdapter(List<? extends Data> elements, ButtonListenerMaker buttonListenerMaker, int buttonId, int layoutId) {
+    RoutinesAdapter(List<? extends Data> elements, ButtonListenerMaker buttonListenerMaker) {
         this.elements = elements;
         this.buttonListenerMaker = buttonListenerMaker;
-        this.buttonId = buttonId;
-        this.layoutId = layoutId;
+
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(layoutId, parent, false);
+                .inflate(R.layout.routine_item, parent, false);
 
-        return new ViewHolder(view, buttonId);
+        return new ViewHolder(view);
     }
 
 
@@ -44,12 +45,13 @@ public class SimpleButtonAdapter extends RecyclerView.Adapter<SimpleButtonAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "Element " + position + " set.");
 
-        Button button = holder.getButton();
+        FloatingActionButton button = holder.getButton();
         Data data = elements.get(position);
 
         button.setOnClickListener(buttonListenerMaker.getButtonClickListener(data));
 
-        button.setText(data.getName());
+        holder.getRoutineText().setText(data.getName());
+
 
     }
 
@@ -59,14 +61,20 @@ public class SimpleButtonAdapter extends RecyclerView.Adapter<SimpleButtonAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final Button button;
+        private final FloatingActionButton button;
+        private final TextView routineText;
 
-        public ViewHolder(@NonNull View itemView, int viewId) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            button = itemView.findViewById(viewId);
+            button = itemView.findViewById(R.id.routine_button);
+            routineText = itemView.findViewById(R.id.text_routine_name);
         }
 
-        public Button getButton() {
+        public TextView getRoutineText() {
+            return routineText;
+        }
+
+        public FloatingActionButton getButton() {
             return button;
         }
     }

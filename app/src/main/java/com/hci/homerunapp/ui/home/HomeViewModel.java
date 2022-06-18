@@ -1,6 +1,20 @@
 package com.hci.homerunapp.ui.home;
 
-public class HomeViewModel extends SimpleButtonViewModel{
+import androidx.lifecycle.ViewModel;
+
+import com.hci.homerunapp.ui.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class HomeViewModel extends ViewModel {
+    protected List<Data> elements = new ArrayList<>();
+
+
+    public List<Data> getElements() {
+        return elements;
+    }
+
 
     public HomeViewModel() {
         elements.add(new RoomData("Bedroom", "1"));

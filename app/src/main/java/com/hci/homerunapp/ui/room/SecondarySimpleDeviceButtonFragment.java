@@ -22,10 +22,6 @@ public abstract class SecondarySimpleDeviceButtonFragment<T extends SimpleDevice
     protected T model;
     SimpleDeviceButtonAdapter adapter;
 
-//    public static SimpleDeviceButtonFragment newInstance() {
-//        return new SimpleDeviceButtonFragment();
-//    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

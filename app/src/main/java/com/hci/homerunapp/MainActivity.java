@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_recents, R.id.navigation_routines, R.id.navigation_room, R.id.navigation_device, R.id.navigation_routine)
+                R.id.navigation_home, R.id.navigation_recents, R.id.navigation_routines, R.id.navigation_room, R.id.navigation_device)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
@@ -109,26 +109,6 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
-    @Nullable
-    @Override
-    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-                Log.d("CREATED", "CREATED");
-
-        return super.onCreateView(parent, name, context, attrs);
-    }
-
-    @Override
-    protected void onStart() {
-        Log.d("CREATED", "CREATED");
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        Log.d("CREATED", "CREATED");
-
-        super.onResume();
-    }
 
     //    @Override
 //    public void onBackPressed() {

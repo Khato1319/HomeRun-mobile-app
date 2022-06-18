@@ -7,21 +7,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hci.homerunapp.MainActivity;
 import com.hci.homerunapp.PrimaryFragment;
-import com.hci.homerunapp.R;
-import com.hci.homerunapp.SecondaryFragment;
 import com.hci.homerunapp.databinding.FragmentRoomBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;
-import com.hci.homerunapp.ui.home.RoomData;
-import com.hci.homerunapp.ui.home.SimpleButtonAdapter;
 
 public abstract class PrimarySimpleDeviceButtonFragment<T extends SimpleDeviceButtonViewModel> extends PrimaryFragment implements ButtonListenerMaker {
 
