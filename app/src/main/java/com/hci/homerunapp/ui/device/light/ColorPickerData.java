@@ -1,5 +1,6 @@
-package com.hci.homerunapp.ui.device;
+package com.hci.homerunapp.ui.device.light;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 
@@ -8,15 +9,14 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.material.slider.Slider;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.ui.device.ControlData;
+import com.hci.homerunapp.ui.device.CustomAdapter;
 
-public class ColorPickerData extends ControlData{
+public class ColorPickerData extends ControlData {
     private int red, green, blue;
 
-    ColorPickerData(String actionLabel, int red, int green, int blue) {
-        super(R.layout.color_picker_item, actionLabel);
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+    public ColorPickerData(Context context, String deviceId) {
+        super(context, R.layout.color_picker_item, context.getResources().getString(R.string.color_picker), deviceId);
     }
 
     public int getRed() {

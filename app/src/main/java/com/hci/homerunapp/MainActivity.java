@@ -23,6 +23,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.hci.homerunapp.databinding.ActivityMainBinding;
+import com.hci.homerunapp.ui.room.DeviceData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private ImageButton upButton, notificationsButton;
     private TextView title;
+    private List<DeviceData> recentDevices = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +75,24 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_recents, R.id.navigation_routines, R.id.navigation_room, R.id.navigation_device, R.id.navigation_routine)
+                R.id.navigation_home, R.id.navigation_recents, R.id.navigation_routines, R.id.navigation_room, R.id.navigation_device)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+    }
+
+    public void addToRecents(DeviceData device) {
+        if (recentDevices.contains(device))
+            return;
+
+        recentDevices.add(device);
+
+        if (recentDevices.size() > 10)
+            recentDevices.remove(0);
+    }
+
+    public List<DeviceData> getRecentDevices() {
+        return recentDevices;
     }
 
     public ImageButton getUpButton() {
@@ -109,26 +128,6 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
-    @Nullable
-    @Override
-    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-                Log.d("CREATED", "CREATED");
-
-        return super.onCreateView(parent, name, context, attrs);
-    }
-
-    @Override
-    protected void onStart() {
-        Log.d("CREATED", "CREATED");
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        Log.d("CREATED", "CREATED");
-
-        super.onResume();
-    }
 
     //    @Override
 //    public void onBackPressed() {

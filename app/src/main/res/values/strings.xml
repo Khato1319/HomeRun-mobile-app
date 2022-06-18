@@ -6,12 +6,14 @@
     <string name="large_text">20sp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="switch_on_state">State: %s</string>
+
     <string name="turn_on">On</string>
     <string name="turn_off">Off</string>
-    <string name="select_mode">Select mode</string>
+    <string name="select_mode">Select an option</string>
 
     <!--Air conditioner    -->
-    <string name="temperature_slider">Temperature: %d °C</string>
+    <string name="temperature_slider">Temperature: %d°C</string>
 
     <string-array
         name="cooling_modes">
@@ -54,12 +56,20 @@
 
     <!--Blinds   -->
     <string name="blinds_state">State: %s</string>
-    <string name="blinds_toggle_open">Open</string>
-    <string name="blinds_toggle_closed">Closed</string>
+    <string-array
+        name="blinds_actions">
+        <item>Open</item>
+        <item>Close</item>
+    </string-array>
+    <string-array
+        name="blinds_states">
+        <item>Opened</item>
+        <item>Closed</item>
+    </string-array>
     <string name="close_limit">Close limit</string>
 
     <!--Light    -->
-    <string name="color_picket">Set color</string>
+    <string name="color_picker">Set color</string>
     <string name="brightness">Set brightness</string>
 
     <!--Oven   -->

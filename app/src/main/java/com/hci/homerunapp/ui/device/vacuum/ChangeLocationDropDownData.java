@@ -1,4 +1,4 @@
-package com.hci.homerunapp.ui.device;
+package com.hci.homerunapp.ui.device.vacuum;
 
 import android.content.Context;
 import android.view.View;
@@ -8,37 +8,20 @@ import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.slider.Slider;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.ui.device.ControlData;
+import com.hci.homerunapp.ui.device.CustomAdapter;
+import com.hci.homerunapp.ui.device.DropDownData;
 
-import java.util.List;
-
-public class DropDownData extends ControlData{
-    private String[] items;
-    private String[] apiItems;
+public class ChangeLocationDropDownData extends ControlData {
+//    private String[] items;
     private String hint;
     private String selected = null;
-    private String apiAction;
 
-    public DropDownData(Context context, String actionLabel, String apiAction, String[] items, String[] apiItems, String deviceId) {
-        super(context, R.layout.drop_down_container_item, actionLabel, deviceId);
-        this.items = items;
-        this.hint = context.getResources().getString(R.string.select_mode);
-        this.apiAction = apiAction;
-        this.apiItems = apiItems;
-    }
-
-    public String getApiAction() {
-        return apiAction;
-    }
-
-    public String getApiSelectedValue() {
-        for (int i=0 ; i< items.length ; i++) {
-            if (items[i].equals(selected))
-                return apiItems[i];
-        }
-
-        throw new IllegalStateException("La seleccion no existe");
+    ChangeLocationDropDownData(Context context, String deviceId) {
+        super(context, R.layout.drop_down_container_item, context.getResources().getString(R.string.vacuum_location), deviceId );
+//        this.items = items;
+        this.hint = context.getResources().getString(R.string.vacuum_location);
     }
 
     public void setSelected(String value) {
@@ -50,7 +33,8 @@ public class DropDownData extends ControlData{
     }
 
     public String[] getItems() {
-        return items;
+
+        return new String[]{"hola", "uno"};
     }
 
     public String getHint() {
@@ -74,20 +58,20 @@ public class DropDownData extends ControlData{
         autoCompleteTextView.setText(getSelected(), false);
     }
 
-    public static class ViewHolder extends CustomAdapter.ViewHolder {
-        private final AutoCompleteTextView autoCompleteTextView;
+//    public static class ViewHolder extends CustomAdapter.ViewHolder {
+//        private final AutoCompleteTextView autoCompleteTextView;
+//
+//
+//        public ViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            autoCompleteTextView = itemView.findViewById(R.id.autoCompleteTextView);
+//        }
+//
+//
+//        public AutoCompleteTextView getAutoCompleteTextView() {
+//            return autoCompleteTextView;
+//        }
 
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            autoCompleteTextView = itemView.findViewById(R.id.autoCompleteTextView);
-        }
-
-
-        public AutoCompleteTextView getAutoCompleteTextView() {
-            return autoCompleteTextView;
-        }
-
-
-    }
+//    }
 }

@@ -59,7 +59,7 @@ public class DeviceFragment extends SecondaryFragment {
                 deviceData = (DeviceData)savedInstanceState.getSerializable(DEVICE_DATA);
             }
             if (deviceData != null) {
-                model.setDevice(deviceData.getDeviceInstance());
+                model.setDevice(deviceData.getDeviceInstance(getContext()));
                 device = model.getDevice();
             }
         }
@@ -81,6 +81,10 @@ public class DeviceFragment extends SecondaryFragment {
                 notificationsButton.setImageResource(device.getNotificationState().getIconId());
             }
         });
+//        Log.d("DEVICE", String.valueOf(device));
+        mainActivity.addToRecents(device.getDeviceData());
+        for (DeviceData device : mainActivity.getRecentDevices())
+            Log.d("device", String.valueOf(device));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.hci.homerunapp.ui.device;
 
+import android.content.Context;
+
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.ui.room.DeviceData;
 
@@ -8,11 +10,13 @@ import java.util.List;
 public abstract class Device {
     private DeviceData deviceData;
     private NotificationState notificationState = NotificationState.OFF;
+    protected Context context;
 
     public abstract List<ControlData> getControls();
 
-    public Device(DeviceData deviceData) {
+    public Device(DeviceData deviceData, Context context) {
         this.deviceData = deviceData;
+        this.context = context;
     }
 
     public DeviceData getDeviceData() {

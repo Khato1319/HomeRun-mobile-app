@@ -59,7 +59,7 @@ public class SimpleDeviceButtonAdapter extends RecyclerView.Adapter<SimpleDevice
 
     @Override
     public int getItemCount() {
-        return devices.size();
+        return devices == null ? 0 : devices.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

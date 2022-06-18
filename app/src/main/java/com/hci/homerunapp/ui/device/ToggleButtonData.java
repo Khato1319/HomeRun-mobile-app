@@ -1,5 +1,6 @@
 package com.hci.homerunapp.ui.device;
 
+import android.content.Context;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,8 @@ public class ToggleButtonData extends ControlData{
     private String[] btnLabels;
     private String[] actionLabels;
 
-    ToggleButtonData(boolean state, String[] btnLabels, String[] actionLabels) {
-        super(R.layout.toggle_button_item, "Estado: %s");
+    public ToggleButtonData(Context context, String[] btnLabels, String[] actionLabels, String deviceId) {
+        super(context, R.layout.toggle_button_item, context.getResources().getString(R.string.blinds_state), deviceId);
         this.state = state;
         this.btnLabels = btnLabels;
         this.actionLabels = actionLabels;

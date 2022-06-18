@@ -1,5 +1,6 @@
 package com.hci.homerunapp.ui.device;
 
+import android.content.Context;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -12,11 +13,14 @@ public class ProgressBarData extends ControlData{
     private int progress = 40;
     private final int color;
 
-    ProgressBarData(int progress, String actionLabel, int color) {
-        super(R.layout.progress_bar_item, actionLabel);
+    public ProgressBarData(Context context, String actionLabel, int color, String deviceId) {
+        super(context, R.layout.progress_bar_item, actionLabel, deviceId);
         this.progress = progress;
         this.color = color;
+
     }
+
+
 
     public void setProgress(int progress) {
         this.progress = progress;

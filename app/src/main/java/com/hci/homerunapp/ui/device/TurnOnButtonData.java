@@ -13,10 +13,21 @@ import com.hci.homerunapp.R;
 
 public class TurnOnButtonData extends ControlData{
     private boolean state;
+    private String onApiAction, offApiAction;
 
-    TurnOnButtonData(boolean state) {
-        super(R.layout.switch_on_item, "Estado: %s");
-        this.state = state;
+    public TurnOnButtonData(Context context, String onApiAction,String offApiAction, String deviceId) {
+        super(context, R.layout.switch_on_item, context.getResources().getString(R.string.switch_on_state), deviceId);
+        this.onApiAction = onApiAction;
+        this.offApiAction = offApiAction;
+    }
+
+    public String getOnApiAction() {
+        return onApiAction;
+    }
+
+
+    public String getOffApiAction() {
+        return offApiAction;
     }
 
     public boolean isOn() {
@@ -29,7 +40,7 @@ public class TurnOnButtonData extends ControlData{
 
     @Override
     public String getActionLabel() {
-        return String.format(super.getActionLabel(), state ? "encendido" : "apagado");
+        return String.format(super.getActionLabel(), state ? context.getResources().getString(R.string.turn_on) : context.getResources().getString(R.string.turn_off));
     }
 
     @Override
@@ -37,7 +48,7 @@ public class TurnOnButtonData extends ControlData{
         super.setupViewHolder(holder);
         TurnOnButtonData.ViewHolder turnOnButtonViewHolder = (TurnOnButtonData.ViewHolder) holder;
         FloatingActionButton turnOnbutton = turnOnButtonViewHolder.getButton();
-        Context context = turnOnbutton.getContext();
+//        Context context = turnOnbutton.getContext();
         turnOnbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

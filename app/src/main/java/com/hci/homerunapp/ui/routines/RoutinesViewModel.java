@@ -1,15 +1,20 @@
 package com.hci.homerunapp.ui.routines;
 
+
 import androidx.lifecycle.ViewModel;
 
-import com.hci.homerunapp.ui.home.RoomData;
-import com.hci.homerunapp.ui.home.SimpleButtonViewModel;
+import com.hci.homerunapp.ui.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoutinesViewModel extends SimpleButtonViewModel {
+public class RoutinesViewModel  extends ViewModel {
+    protected List<Data> elements = new ArrayList<>();
 
+
+    public List<Data> getElements() {
+        return elements;
+    }
     public RoutinesViewModel() {
         elements.add(new RoutineData("A dormir", "1"));
         elements.add(new RoutineData("A despertarse", "1"));
