@@ -17,22 +17,22 @@ import android.view.ViewGroup;
 
 import com.hci.homerunapp.MainActivity;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.SecondaryFragment;
 import com.hci.homerunapp.databinding.FragmentRoomBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;
 import com.hci.homerunapp.ui.home.RoomData;
 
-public class RoomFragment extends SecondarySimpleDeviceButtonFragment<RoomViewModel> implements ButtonListenerMaker {
+public class RoomFragment extends SecondaryFragment implements ButtonListenerMaker {
 
-    public static final String ROOM_DATA = "com.hci.homerunapp.ui.room/roomId";
-
-    public static RoomFragment newInstance() {
-        return new RoomFragment();
-    }
+    protected RoomViewModel model;
+    SimpleDeviceButtonAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        model = new ViewModelProvider(this).get(RoomViewModel.class);
 
         Bundle args = getArguments();
 
@@ -56,11 +56,6 @@ public class RoomFragment extends SecondarySimpleDeviceButtonFragment<RoomViewMo
     }
 
     @Override
-    protected RoomViewModel getViewModel() {
-        return new ViewModelProvider(this).get(RoomViewModel.class);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         onCreate(savedInstanceState);
@@ -77,11 +72,6 @@ public class RoomFragment extends SecondarySimpleDeviceButtonFragment<RoomViewMo
         return binding.getRoot();
     }
 
-    @Override
-    protected SimpleDeviceButtonAdapter getAdapter() {
-        return new CustomAdapter(model.getDevices(), model.getRoomData(), this);
-    }
-
 
     @Override
     public View.OnClickListener getButtonClickListener(Data deviceData) {
@@ -89,18 +79,16 @@ public class RoomFragment extends SecondarySimpleDeviceButtonFragment<RoomViewMo
             Bundle bundle = new Bundle();
             bundle.putSerializable("deviceData", deviceData);
 
-
             MainActivity mainActivity = (MainActivity) getActivity();
             if (mainActivity != null)
                 mainActivity.hideBottomNav();
+
             NavHostFragment.findNavController(this).navigate(R.id.action_navigation_room_to_navigation_device, bundle);
         };
     }
 
-    @Override
-    protected int getNavigationId() {
-        return R.id.action_navigation_room_to_navigation_device;
-    }
+    public static final String ROOM_DATA = "com.hci.homerunapp.ui.room/roomId";
+
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -122,6 +110,7 @@ public class RoomFragment extends SecondarySimpleDeviceButtonFragment<RoomViewMo
     public NavController getNavController() {
         return NavHostFragment.findNavController(this);
     }
+
 
 
 }

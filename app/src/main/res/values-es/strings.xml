@@ -8,10 +8,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="turn_on">Encendido</string>
     <string name="turn_off">Apagado</string>
-    <string name="select_mode">Seleccione un modo</string>
+    <string name="switch_on_state">Estado: %s</string>
+
+    <string name="select_mode">Seleccione una opción</string>
 
     <!--Aire acondicionado    -->
-    <string name="temperature_slider">Temperatura: %d °C</string>
+    <string name="temperature_slider">Temperatura: %d°C</string>
     <string-array
         name="cooling_modes">
         <item>Frío</item>
@@ -53,12 +55,20 @@
 
     <!--Cortinas/Persianas   -->
     <string name="blinds_state">Estado: %s</string>
-    <string name="blinds_toggle_open">Abierto</string>
-    <string name="blinds_toggle_closed">Cerrado</string>
+    <string-array
+        name="blinds_actions">
+        <item>Abrir</item>
+        <item>Cerrar</item>
+    </string-array>
+    <string-array
+        name="blinds_states">
+        <item>Abierto</item>
+        <item>Cerrado</item>
+    </string-array>
     <string name="close_limit">Límite de cerrado</string>
 
     <!--Luz    -->
-    <string name="color_picket">Cambiar color</string>
+    <string name="color_picker">Cambiar color</string>
     <string name="brightness">Cambiar brillo</string>
 
     <!--Horno    -->

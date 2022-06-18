@@ -1,5 +1,6 @@
 package com.hci.homerunapp.ui.device;
 
+import android.content.Context;
 import android.transition.Slide;
 import android.view.View;
 import android.widget.TextView;
@@ -12,12 +13,17 @@ import com.hci.homerunapp.R;
 
 public class SliderData extends ControlData{
     private int minValue, maxValue, value;
+    private String apiAction;
 
-    SliderData(String actionLabel, int minValue, int maxValue) {
-        super(R.layout.slider_item, actionLabel);
-        this.minValue = minValue;
+    public SliderData(Context context, String actionLabel, int minValue, int maxValue, String apiAction, String deviceId) {
+        super(context, R.layout.slider_item, actionLabel, deviceId);
+        this.minValue = this.value = minValue;
         this.maxValue = maxValue;
+        this.apiAction = apiAction;
+    }
 
+    public String getApiAction() {
+        return apiAction;
     }
 
     public int getMaxValue() {

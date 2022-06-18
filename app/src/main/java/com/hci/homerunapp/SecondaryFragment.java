@@ -26,10 +26,4 @@ public abstract class SecondaryFragment extends Fragment {
         ImageButton notificationsButton = mainActivity.getNotificationsButton();
         notificationsButton.setVisibility(View.INVISIBLE);
     }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        ((MainActivity) context).getUpButton().setVisibility(View.VISIBLE);
-    }
 }

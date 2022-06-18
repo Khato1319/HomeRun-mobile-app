@@ -1,20 +1,18 @@
 package com.hci.homerunapp.ui.room;
 
-import android.bluetooth.BluetoothClass;
-import android.graphics.drawable.Drawable;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.ui.Data;
 import com.hci.homerunapp.ui.device.Device;
-import com.hci.homerunapp.ui.device.DeviceAC;
-import com.hci.homerunapp.ui.device.DeviceBlinds;
-import com.hci.homerunapp.ui.device.DeviceLight;
-import com.hci.homerunapp.ui.device.DeviceVacuum;
+import com.hci.homerunapp.ui.device.ac.DeviceAC;
+import com.hci.homerunapp.ui.device.blinds.DeviceBlinds;
+import com.hci.homerunapp.ui.device.light.DeviceLight;
+import com.hci.homerunapp.ui.device.oven.DeviceOven;
+import com.hci.homerunapp.ui.device.vacuum.DeviceVacuum;
 import com.hci.homerunapp.ui.home.RoomData;
-
-import java.io.Serializable;
 
 public class DeviceData implements Data {
     private String name;
@@ -41,8 +39,8 @@ public class DeviceData implements Data {
         return roomData;
     }
 
-    public Device getDeviceInstance() {
-        return type.getDeviceInstance(this);
+    public Device getDeviceInstance(Context context) {
+        return type.getDeviceInstance(this, context);
     }
 
     public DeviceData.Type getType() {
@@ -55,35 +53,42 @@ public class DeviceData implements Data {
         return name;
     }
 
+    public boolean equals(Object other) {
+        if (!(other instanceof DeviceData aux))
+            return false;
+
+        return aux.id.equals(id);
+    }
+
     public enum Type {
         VACUUM(R.drawable.ic_vacuum_cleaner_icon) {
             @Override
-            public Device getDeviceInstance(DeviceData data) {
-                return new DeviceVacuum(data);
+            public Device getDeviceInstance(DeviceData data, Context context) {
+                return new DeviceVacuum(data, context);
             }
         },
         LIGHT(R.drawable.ic_light_icon) {
             @Override
-            public Device getDeviceInstance(DeviceData data) {
-                return new DeviceLight(data);
+            public Device getDeviceInstance(DeviceData data, Context context) {
+                return new DeviceLight(data, context);
             }
         },
         BLINDS(R.drawable.ic_blinds_icon) {
             @Override
-            public Device getDeviceInstance(DeviceData data) {
-                return new DeviceBlinds(data);
+            public Device getDeviceInstance(DeviceData data, Context context) {
+                return new DeviceBlinds(data, context);
             }
         },
         OVEN(R.drawable.ic_oven_icon) {
             @Override
-            public Device getDeviceInstance(DeviceData data) {
-                return new DeviceVacuum(data);
+            public Device getDeviceInstance(DeviceData data, Context context) {
+                return new DeviceOven(data, context);
             }
         },
         AC(R.drawable.ic_ac_icon) {
             @Override
-            public Device getDeviceInstance(DeviceData data) {
-                return new DeviceAC(data);
+            public Device getDeviceInstance(DeviceData data, Context context) {
+                return new DeviceAC(data, context);
             }
         };
 
@@ -94,7 +99,7 @@ public class DeviceData implements Data {
 
         private int icon;
 
-        public abstract Device getDeviceInstance(DeviceData data);
+        public abstract Device getDeviceInstance(DeviceData data, Context context);
 
         public int getIcon() {
             return icon;

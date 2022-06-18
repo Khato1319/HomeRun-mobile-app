@@ -23,6 +23,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.hci.homerunapp.databinding.ActivityMainBinding;
+import com.hci.homerunapp.ui.room.DeviceData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private ImageButton upButton, notificationsButton;
     private TextView title;
+    private List<DeviceData> recentDevices = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,20 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+    }
+
+    public void addToRecents(DeviceData device) {
+        if (recentDevices.contains(device))
+            return;
+
+        recentDevices.add(device);
+
+        if (recentDevices.size() > 10)
+            recentDevices.remove(0);
+    }
+
+    public List<DeviceData> getRecentDevices() {
+        return recentDevices;
     }
 
     public ImageButton getUpButton() {
