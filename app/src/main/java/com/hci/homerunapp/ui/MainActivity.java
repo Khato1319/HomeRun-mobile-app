@@ -120,34 +120,13 @@ public class MainActivity extends AppCompatActivity {
         return navHostFragment == null ? null : navHostFragment.getChildFragmentManager().getFragments().get(0);
     }
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-//        Log.d("CREATED", "CREATED");
-//        return super.onCreateView(parent, name, context, attrs);
-//
-//    }
+    public void showProgressBar() {
+        binding.loading.setVisibility(View.VISIBLE);
+    }
 
-
-
-    //    @Override
-//    public void onBackPressed() {
-//        showTabIfReturningHome();
-//        super.onBackPressed();
-//
-//    }
-
-//    private void showTabIfReturningHome() {
-//        List<Integer> homeIds = Arrays.asList(R.id.navigation_room, R.id.routineFragment, R.id.navigation_home);
-//        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-//        Fragment lastFragment = fragments.get(fragments.size()-1);
-//        Log.d("id", String.valueOf(lastFragment.getId()));
-//        Log.d("id", String.valueOf(R.id.room_fragment));
-//
-//
-////        if(homeIds.contains())
-////            showBottomNav();
-//    }
+    public void hideProgressBar() {
+        binding.loading.setVisibility(View.GONE);
+    }
 
     @Override
     public boolean onSupportNavigateUp() {

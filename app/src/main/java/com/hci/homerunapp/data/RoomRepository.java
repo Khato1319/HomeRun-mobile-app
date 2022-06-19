@@ -41,7 +41,7 @@ public class RoomRepository {
     }
 
     private RoomData mapRoomLocalToModel(LocalRoom local) {
-        return new RoomData(local.id, local.name);
+        return new RoomData(local.name, local.id);
     }
 
     private LocalRoom mapRoomRemoteToLocal(RemoteRoom remote) {
@@ -49,7 +49,7 @@ public class RoomRepository {
     }
 
     private RoomData mapRoomRemoteToModel(RemoteRoom remote) {
-        return new RoomData(remote.getId(), remote.getName());
+        return new RoomData(remote.getName(), remote.getId());
     }
 
     private RemoteRoom mapRoomModelToRemote(RoomData model) {

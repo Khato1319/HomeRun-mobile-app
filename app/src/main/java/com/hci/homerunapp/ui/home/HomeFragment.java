@@ -1,5 +1,6 @@
 package com.hci.homerunapp.ui.home;
 
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,6 @@ import android.view.ViewGroup;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -22,6 +22,9 @@ import com.hci.homerunapp.databinding.FragmentHomeBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;
 import com.hci.homerunapp.ui.RepositoryViewModelFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker {
@@ -41,26 +44,42 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
         MyApplication application = (MyApplication) getActivity().getApplication();
         activity = (MainActivity)getActivity();
 
-        adapter = getAdapter();
-
-        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoomRepository.class, application.getRoomRepository());
+        RepositoryViewModelFactory<RoomRepository> viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
         homeViewModel =  new ViewModelProvider(this, viewModelFactory).get(HomeViewModel.class);
 
-        binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        List<RoomData> rooms = new ArrayList<>();
+        adapter =  new HomeViewAdapter(rooms, this, R.id.simple_button, R.layout.simple_button_layout);
+
+        homeViewModel.getRooms().observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING -> activity.showProgressBar();
+                case SUCCESS -> {
+                    activity.hideProgressBar();
+                    rooms.clear();
+                    if (resource.data != null &&
+                            resource.data.size() > 0) {
+                        rooms.addAll(resource.data);
+                        adapter.notifyDataSetChanged();
+//                        binding.list.setVisibility(View.VISIBLE);
+//                        binding.empty.setVisibility(View.GONE);
+                    } else {
+//                        binding.list.setVisibility(View.GONE);
+//                        binding.empty.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
+
+//        binding.list.setHasFixedSize(true);
+//        binding.list.setLayoutManager(new LinearLayoutManager(activity));
+//        binding.list.setAdapter(adapter);
+
+        binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
         //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
         binding.homeRecyclerView.setAdapter(adapter);
 
-        View root = binding.getRoot();
 
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        MainActivity mainActivity = (MainActivity) getActivity();
-        if(mainActivity != null)
-            mainActivity.showBottomNav();
+        return binding.getRoot();
     }
 
     @Override
@@ -74,13 +93,6 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
         return getButtonClickListener(roomData, "roomData", R.id.action_navigation_home_to_navigation_room);
     }
 
-    private HomeViewAdapter getAdapter(int buttonId, int layoutId) {
-        return new HomeViewAdapter(homeViewModel.getElements(), this, R.id.simple_button, R.layout.simple_button_layout);
-    }
-
-    protected HomeViewAdapter getAdapter() {
-        return getAdapter(R.id.simple_button, R.layout.simple_button_layout);
-    }
 
     @Override
     public NavController getNavController() {
