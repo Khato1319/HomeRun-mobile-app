@@ -10,23 +10,15 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
-import com.hci.homerunapp.MainActivity;
-import com.hci.homerunapp.R;
-import com.hci.homerunapp.SecondaryFragment;
+import com.hci.homerunapp.ui.MainActivity;
+import com.hci.homerunapp.ui.SecondaryFragment;
 import com.hci.homerunapp.databinding.FragmentDeviceBinding;
-import com.hci.homerunapp.ui.home.RoomData;
 import com.hci.homerunapp.ui.room.DeviceData;
-
-
-
-import java.util.Arrays;
-import java.util.List;
 
 public class DeviceFragment extends SecondaryFragment {
 

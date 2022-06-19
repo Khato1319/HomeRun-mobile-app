@@ -1,4 +1,4 @@
-package com.hci.homerunapp;
+package com.hci.homerunapp.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.hci.homerunapp.R;
 import com.hci.homerunapp.databinding.ActivityMainBinding;
 import com.hci.homerunapp.ui.room.DeviceData;
 

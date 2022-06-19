@@ -1,6 +1,5 @@
-package com.hci.homerunapp;
+package com.hci.homerunapp.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -8,6 +7,8 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.hci.homerunapp.ui.MainActivity;
 
 public abstract class PrimaryFragment extends Fragment{
     protected String label;

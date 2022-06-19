@@ -16,9 +16,9 @@ public class RoutinesViewModel  extends ViewModel {
         return elements;
     }
     public RoutinesViewModel() {
-        elements.add(new RoutineData("A dormir", "1"));
-        elements.add(new RoutineData("A despertarse", "1"));
-        elements.add(new RoutineData("Juegos", "1"));
-        elements.add(new RoutineData("Chill", "1"));
+//        elements.add(new RoutineData("A dormir", "1"));
+//        elements.add(new RoutineData("A despertarse", "1"));
+//        elements.add(new RoutineData("Juegos", "1"));
+//        elements.add(new RoutineData("Chill", "1"));
     }
 }

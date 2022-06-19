@@ -12,8 +12,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.hci.homerunapp.MainActivity;
-import com.hci.homerunapp.PrimaryFragment;
+import com.hci.homerunapp.ui.MainActivity;
+import com.hci.homerunapp.ui.PrimaryFragment;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.databinding.FragmentRoutinesBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;

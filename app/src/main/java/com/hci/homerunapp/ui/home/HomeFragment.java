@@ -13,37 +13,44 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.hci.homerunapp.MainActivity;
-import com.hci.homerunapp.PrimaryFragment;
+import com.hci.homerunapp.MyApplication;
+import com.hci.homerunapp.data.RoomRepository;
+import com.hci.homerunapp.ui.MainActivity;
+import com.hci.homerunapp.ui.PrimaryFragment;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.databinding.FragmentHomeBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;
+import com.hci.homerunapp.ui.RepositoryViewModelFactory;
 
 
 public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker {
-
     private FragmentHomeBinding binding;
     HomeViewAdapter adapter;
     HomeViewModel homeViewModel;
+    private MainActivity activity;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        label = getResources().getString(R.string.title_rooms);
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
+        label = getResources().getString(R.string.title_rooms);
+
+        MyApplication application = (MyApplication) getActivity().getApplication();
+        activity = (MainActivity)getActivity();
 
         adapter = getAdapter();
+
+        RepositoryViewModelFactory viewModelFactory = new RepositoryViewModelFactory(RoomRepository.class, application.getRoomRepository());
+        homeViewModel =  new ViewModelProvider(this, viewModelFactory).get(HomeViewModel.class);
 
         binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
         binding.homeRecyclerView.setAdapter(adapter);
 
+        View root = binding.getRoot();
 
         return root;
     }

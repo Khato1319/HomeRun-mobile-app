@@ -6,8 +6,6 @@ import android.view.View;
 
 import androidx.navigation.NavController;
 
-import com.hci.homerunapp.MainActivity;
-
 public interface ButtonListenerMaker {
 
     Activity getActivity();

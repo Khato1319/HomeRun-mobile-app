@@ -15,9 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hci.homerunapp.MainActivity;
+import com.hci.homerunapp.ui.MainActivity;
 import com.hci.homerunapp.R;
-import com.hci.homerunapp.SecondaryFragment;
+import com.hci.homerunapp.ui.SecondaryFragment;
 import com.hci.homerunapp.databinding.FragmentRoomBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;

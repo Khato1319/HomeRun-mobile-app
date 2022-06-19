@@ -14,15 +14,15 @@ import com.hci.homerunapp.ui.Data;
 
 import java.util.List;
 
-public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHolder> {
+public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.HomeViewHolder> {
 
     private static final String TAG = "CustomAdapter";
-    private final List<? extends Data> elements;
+    private final List<Data> elements;
     private final ButtonListenerMaker buttonListenerMaker;
     private final int buttonId, layoutId;
 
 
-    HomeViewAdapter(List<? extends Data> elements, ButtonListenerMaker buttonListenerMaker, int buttonId, int layoutId) {
+    public HomeViewAdapter(List<Data> elements, ButtonListenerMaker buttonListenerMaker, int buttonId, int layoutId) {
         this.elements = elements;
         this.buttonListenerMaker = buttonListenerMaker;
         this.buttonId = buttonId;
@@ -31,26 +31,22 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HomeViewAdapter.HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(layoutId, parent, false);
 
-        return new ViewHolder(view, buttonId);
+        return new HomeViewAdapter.HomeViewHolder(view,buttonId);
     }
 
-
-
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
         Log.d(TAG, "Element " + position + " set.");
 
         Button button = holder.getButton();
         Data data = elements.get(position);
 
         button.setOnClickListener(buttonListenerMaker.getButtonClickListener(data));
-
         button.setText(data.getName());
-
     }
 
     @Override
@@ -58,10 +54,10 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
         return elements.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class HomeViewHolder extends RecyclerView.ViewHolder {
         private final Button button;
 
-        public ViewHolder(@NonNull View itemView, int viewId) {
+        public HomeViewHolder(@NonNull View itemView, int viewId) {
             super(itemView);
             button = itemView.findViewById(viewId);
         }
