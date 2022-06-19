@@ -45,7 +45,7 @@ public abstract class NetworkBoundResource<ModelType, LocalType, RemoteType> {
             if (shouldFetch(data)) {
                 Log.d(TAG,"NetworkBoundResource - fetchFromNetwork()");
                 fetchFromNetwork(dbSource);
-            } else {
+            } else if (mapLocalToModel != null && mapRemoteToLocal != null){
                 Log.d(TAG,"NetworkBoundResource - no need to fetch network, processing database value");
                 result.addSource(dbSource, newData -> {
                     ModelType model = (newData != null) ?
@@ -68,7 +68,8 @@ public abstract class NetworkBoundResource<ModelType, LocalType, RemoteType> {
         Log.d(TAG,"NetworkBoundResource - fetching API");
         LiveData<ApiResponse<RemoteResult<RemoteType>>> apiResponse = createCall();
         // we re-attach dbSource as a new source, it will dispatch its latest value quickly
-        result.addSource(dbSource,
+        if (mapLocalToModel != null)
+            result.addSource(dbSource,
                 newData -> {
                     Log.d(TAG,"NetworkBoundResource - processing database value");
                     ModelType model = (newData != null) ?
@@ -79,7 +80,8 @@ public abstract class NetworkBoundResource<ModelType, LocalType, RemoteType> {
         );
         result.addSource(apiResponse, response -> {
             result.removeSource(apiResponse);
-            result.removeSource(dbSource);
+            if (mapLocalToModel != null)
+                result.removeSource(dbSource);
 
             if (response.getError() != null) {
                 Log.d(TAG,"NetworkBoundResource - processing fetch error");
@@ -97,7 +99,7 @@ public abstract class NetworkBoundResource<ModelType, LocalType, RemoteType> {
             } else /*if (response.getData() != null)*/ {
                 Log.d(TAG,"NetworkBoundResource - processing fetch response");
                 RemoteType remote = processResponse(response);
-                if (shouldPersist(remote)) {
+                if (shouldPersist(remote) && mapRemoteToLocal != null) {
                     appExecutors.diskIO().execute(() -> {
                         LocalType local = mapRemoteToLocal.apply(remote);
                         saveCallResult(local);
@@ -153,7 +155,7 @@ public abstract class NetworkBoundResource<ModelType, LocalType, RemoteType> {
     @MainThread
     protected abstract boolean shouldPersist(@Nullable RemoteType remote);
 
-    @NonNull
+//    @NonNull
     @MainThread
     protected abstract LiveData<LocalType> loadFromDb();
 
