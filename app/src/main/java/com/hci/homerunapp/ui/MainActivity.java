@@ -1,10 +1,14 @@
 package com.hci.homerunapp.ui;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -32,6 +38,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
+
     private ActivityMainBinding binding;
     private NavController navController;
     private ImageButton upButton, notificationsButton;
@@ -41,10 +50,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
 
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -181,5 +192,8 @@ public class MainActivity extends AppCompatActivity {
         if (binding != null)
             binding.navView.setVisibility(View.VISIBLE);
     }
+
+
+
 
 }
