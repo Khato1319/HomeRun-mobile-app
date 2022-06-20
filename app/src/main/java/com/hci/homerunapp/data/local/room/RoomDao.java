@@ -31,6 +31,7 @@ public abstract class RoomDao {
     @Delete
     public abstract void delete(LocalRoom room);
 
+
     @Query("DELETE FROM Room WHERE id = :id")
     public abstract void delete(String id);
 

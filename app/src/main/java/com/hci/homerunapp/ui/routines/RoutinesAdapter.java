@@ -20,11 +20,11 @@ import java.util.List;
 public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.ViewHolder> {
 
     private static final String TAG = "CustomAdapter";
-    private final List<? extends Data> elements;
+    private final List<RoutineData> elements;
     private final ButtonListenerMaker buttonListenerMaker;
 
 
-    RoutinesAdapter(List<? extends Data> elements, ButtonListenerMaker buttonListenerMaker) {
+    RoutinesAdapter(List<RoutineData> elements, ButtonListenerMaker buttonListenerMaker) {
         this.elements = elements;
         this.buttonListenerMaker = buttonListenerMaker;
 
