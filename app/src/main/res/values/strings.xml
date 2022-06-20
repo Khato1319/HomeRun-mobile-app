@@ -109,4 +109,6 @@
     </string-array>
     <string name="vacuum_mode">Set mode</string>
 
+    <!-- Routines   -->
+    <string name="routine_exec_success">Routine executed successfully</string>
 </resources>
