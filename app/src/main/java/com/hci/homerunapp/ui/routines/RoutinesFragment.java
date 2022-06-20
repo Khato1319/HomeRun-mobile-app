@@ -12,40 +12,69 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.hci.homerunapp.MyApplication;
+import com.hci.homerunapp.data.RoomRepository;
+import com.hci.homerunapp.data.RoutineRepository;
 import com.hci.homerunapp.ui.MainActivity;
 import com.hci.homerunapp.ui.PrimaryFragment;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.databinding.FragmentRoutinesBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;
+import com.hci.homerunapp.ui.RepositoryViewModelFactory;
+import com.hci.homerunapp.ui.home.RoomData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoutinesFragment extends PrimaryFragment implements ButtonListenerMaker {
 
     private FragmentRoutinesBinding binding;
     RoutinesAdapter adapter;
-    RoutinesViewModel model;
+    RoutinesViewModel routinesViewModel;
+    private MainActivity activity;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        model = new ViewModelProvider(this).get(RoutinesViewModel.class);
-
         binding = FragmentRoutinesBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        label = getResources().getString(R.string.title_routines);
 
+        MyApplication application = (MyApplication) getActivity().getApplication();
+        activity = (MainActivity) getActivity();
 
-        adapter = new RoutinesAdapter(model.getElements(), this);
+        RepositoryViewModelFactory<RoutineRepository> viewModelFactory = new RepositoryViewModelFactory<>(RoutineRepository.class, application.getRoutineRepository());
+        routinesViewModel = new ViewModelProvider(this,viewModelFactory).get(RoutinesViewModel.class);
+
+        List<RoutineData> routines = new ArrayList<>();
+        adapter = new RoutinesAdapter(routines, this);
+
+        routinesViewModel.getRoutines().observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING -> activity.showProgressBar();
+                case SUCCESS -> {
+                    activity.hideProgressBar();
+                    routines.clear();
+                    if (resource.data != null &&
+                            resource.data.size() > 0) {
+                        routines.addAll(resource.data);
+                        adapter.notifyDataSetChanged();
+//                        binding.list.setVisibility(View.VISIBLE);
+//                        binding.empty.setVisibility(View.GONE);
+                    } else {
+//                        binding.list.setVisibility(View.GONE);
+//                        binding.empty.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        });
 
 
         binding.routinesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
         binding.routinesRecyclerView.setAdapter(adapter);
 
-        label = getResources().getString(R.string.title_routines);
-
-
-        return root;
+        return binding.getRoot();
     }
 
     @Override
