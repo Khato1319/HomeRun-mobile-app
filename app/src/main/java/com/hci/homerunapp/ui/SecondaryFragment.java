@@ -1,6 +1,7 @@
 package com.hci.homerunapp.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -21,6 +22,7 @@ public abstract class SecondaryFragment extends Fragment {
     }
 
     protected void executeActions(MainActivity mainActivity) {
+        Log.d("EXECUTING", "EXECUTING");
         mainActivity.hideBottomNav();
         mainActivity.getUpButton().setVisibility(View.VISIBLE);
         mainActivity.getTitleText().setText(label);

@@ -8,7 +8,7 @@ public class ActionBody<T> extends ArrayList<T> {
         add(param);
     }
 
-    ActionBody() {
+    public ActionBody() {
         super();
     }
 }

@@ -8,9 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
 import com.google.android.material.slider.Slider;
+import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.data.remote.device.action.ColorActionBody;
+import com.hci.homerunapp.data.remote.device.action.IntActionBody;
+import com.hci.homerunapp.ui.MainActivity;
 import com.hci.homerunapp.ui.device.ControlData;
-import com.hci.homerunapp.ui.device.ControlDataAdapter;
+import com.hci.homerunapp.ui.device.DeviceFragment;
+import com.hci.homerunapp.ui.device.SliderData;
 
 public class ColorPickerData extends ControlData {
     private int red, green, blue;
@@ -94,12 +99,12 @@ public class ColorPickerData extends ControlData {
         private final CardView colorCard;
 
         private static void configureSlider(Slider slider) {
-            slider.setValueTo(100);
+            slider.setValueTo(255);
             slider.setValueFrom(0);
         }
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder(@NonNull View itemView, DeviceFragment deviceFragment) {
+            super(itemView, deviceFragment);
             redSlider = itemView.findViewById(R.id.redSlider);
             configureSlider(redSlider);
             greenSlider = itemView.findViewById(R.id.greenSlider);
@@ -137,6 +142,8 @@ public class ColorPickerData extends ControlData {
                 public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                     controlData.setRed((int) value);
                     colorCard.setCardBackgroundColor(controlData.getCardColor());
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), "setColor", new ColorActionBody(controlData.getRed(),controlData.getGreen(), controlData.getBlue()), ViewHolder.this, false);
+
                 }
             });
             Slider greenSlider = getGreenSlider();
@@ -145,6 +152,7 @@ public class ColorPickerData extends ControlData {
                 public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                     controlData.setGreen((int) value);
                     colorCard.setCardBackgroundColor(controlData.getCardColor());
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), "setColor", new ColorActionBody(controlData.getRed(),controlData.getGreen(), controlData.getBlue()), ViewHolder.this, false);
                 }
             });
             Slider blueSlider = getBlueSlider();
@@ -153,6 +161,7 @@ public class ColorPickerData extends ControlData {
                 public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                     controlData.setBlue((int) value);
                     colorCard.setCardBackgroundColor(controlData.getCardColor());
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), "setColor", new ColorActionBody(controlData.getRed(),controlData.getGreen(), controlData.getBlue()), ViewHolder.this, false);
 
                 }
             });

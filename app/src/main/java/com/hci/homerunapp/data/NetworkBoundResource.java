@@ -37,7 +37,7 @@ public abstract class NetworkBoundResource<ModelType, LocalType, RemoteType> {
         this.mapRemoteToLocal = mapRemoteToLocal;
         this.mapRemoteToModel = mapRemoteToModel;
 
-        result.setValue(Resource.loading(null));
+        result.postValue(Resource.loading(null));
 
         LiveData<LocalType> dbSource = loadFromDb();
 
@@ -91,7 +91,7 @@ public abstract class NetworkBoundResource<ModelType, LocalType, RemoteType> {
     @MainThread
     private void setValue(Resource<ModelType> newValue) {
         if (!Objects.equals(result.getValue(), newValue)) {
-            result.setValue(newValue);
+            result.postValue(newValue);
         }
     }
 

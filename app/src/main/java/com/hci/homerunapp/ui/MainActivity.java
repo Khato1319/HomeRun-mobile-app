@@ -1,8 +1,6 @@
 package com.hci.homerunapp.ui;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -10,19 +8,21 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.data.Resource;
+import com.hci.homerunapp.data.Status;
 import com.hci.homerunapp.databinding.ActivityMainBinding;
 import com.hci.homerunapp.ui.home.RoomData;
 import com.hci.homerunapp.ui.room.DeviceData;
@@ -98,10 +98,6 @@ public class MainActivity extends AppCompatActivity {
         this.rooms = rooms;
     }
 
-    public List<RoomData> getRooms() {
-        return rooms;
-    }
-
     public List<DeviceData> getRecentDevices() {
         return recentDevices;
     }
@@ -138,13 +134,19 @@ public class MainActivity extends AppCompatActivity {
         return navHostFragment == null ? null : navHostFragment.getChildFragmentManager().getFragments().get(0);
     }
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-//        Log.d("CREATED", "CREATED");
-//        return super.onCreateView(parent, name, context, attrs);
-//
-//    }
+    public MutableLiveData<Resource<List<RoomData>>> getRooms() {
+        MediatorLiveData<Resource<List<RoomData>>> rooms = new MediatorLiveData<>();
+        rooms.addSource(((MyApplication)getApplication()).getRoomRepository().getRooms(), resource -> {
+            if (resource.status == Status.SUCCESS) {
+                rooms.setValue(Resource.success(resource.data));
+            } else {
+                rooms.setValue(resource);
+            }
+        });
+
+        return rooms;
+    }
+
 
 
 

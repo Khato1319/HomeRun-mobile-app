@@ -9,7 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.data.remote.device.action.ActionBody;
+import com.hci.homerunapp.ui.MainActivity;
 
 public class TurnOnButtonData extends ControlData{
     private boolean state;
@@ -73,8 +76,8 @@ public class TurnOnButtonData extends ControlData{
     public static class ViewHolder extends ControlDataViewHolder<TurnOnButtonData> {
         private final FloatingActionButton button;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder(@NonNull View itemView, DeviceFragment deviceFragment) {
+            super(itemView, deviceFragment);
             button = itemView.findViewById(R.id.device_button);
         }
 
@@ -87,24 +90,42 @@ public class TurnOnButtonData extends ControlData{
             super.bindTo(controlData);
 //            TurnOnButtonData.ViewHolder turnOnButtonViewHolder = (TurnOnButtonData.ViewHolder) holder;
             FloatingActionButton turnOnbutton = getButton();
-//        Context context = turnOnbutton.getContext();
+//
+            if (!controlData.isOn()) {
+                controlData.setState(false);
+                if (turnOnbutton.getBackground() != null)
+                    turnOnbutton.getBackground().setTint(Color.DKGRAY);
+
+                turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.primary)));
+
+            }
+            else {
+                controlData.setState(true);
+                if (turnOnbutton.getBackground() != null)
+                    turnOnbutton.getBackground().setTint(ContextCompat.getColor(context, R.color.primary));
+                turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(Color.WHITE));
+            }
+            getControlText().setText(controlData.getActionLabel());
+
             turnOnbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (controlData.isOn()) {
-                        controlData.setState(false);
-                        turnOnbutton.getBackground().setTint(Color.DKGRAY);
+//                        controlData.setState(false);
+                        ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getOffApiAction(), new ActionBody(), ViewHolder.this, true);
+//                        turnOnbutton.getBackground().setTint(Color.DKGRAY);
 
-                        turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.primary)));
+//                        turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.primary)));
 
                     }
                     else {
-                        controlData.setState(true);
-                        turnOnbutton.getBackground().setTint(ContextCompat.getColor(context, R.color.primary));
-                        turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(Color.WHITE));
-                    }
-                   getControlText().setText(controlData.getActionLabel());
+//                        controlData.setState(true);
+                        ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getOnApiAction(), new ActionBody(), ViewHolder.this, true);
 
+//                        turnOnbutton.getBackground().setTint(ContextCompat.getColor(context, R.color.primary));
+//                        turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(Color.WHITE));
+                    }
+//                   getControlText().setText(controlData.getActionLabel());
                 }
             });
 

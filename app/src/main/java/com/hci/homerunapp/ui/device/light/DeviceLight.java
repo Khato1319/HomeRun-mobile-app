@@ -21,7 +21,7 @@ public class DeviceLight extends Device {
     public DeviceLight(DeviceData deviceData, Context context) {
         super(deviceData, context);
 
-        turnOnButton = new TurnOnButtonData(context, "on", "off", deviceData.getId());
+        turnOnButton = new TurnOnButtonData(context, "turnOn", "turnOff", deviceData.getId());
         colorPicker = new ColorPickerData(context, deviceData.getId());
         brightnessSlider = new SliderData(context, context.getResources().getString(R.string.brightness),  0, 100, "setBrightness", deviceData.getId());
 

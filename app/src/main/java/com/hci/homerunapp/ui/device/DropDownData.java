@@ -8,7 +8,10 @@ import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 
+import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.data.remote.device.action.StringActionBody;
+import com.hci.homerunapp.ui.MainActivity;
 
 public class DropDownData extends ControlData{
     private String[] items;
@@ -62,6 +65,14 @@ public class DropDownData extends ControlData{
         return selected;
     }
 
+    public String getSelectedApi() {
+        for (int i=0 ; i< items.length ; i++) {
+            if (items[i].equals(selected))
+                return apiItems[i];
+        }
+        throw new IllegalStateException("No selected value that matches in items");
+    }
+
     public String[] getItems() {
         return items;
     }
@@ -80,8 +91,8 @@ public class DropDownData extends ControlData{
         private final AutoCompleteTextView autoCompleteTextView;
 
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder(@NonNull View itemView, DeviceFragment deviceFragment) {
+            super(itemView, deviceFragment);
             autoCompleteTextView = itemView.findViewById(R.id.autoCompleteTextView);
         }
 
@@ -95,6 +106,8 @@ public class DropDownData extends ControlData{
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     controlData.setSelected(arrayAdapter.getItem(position));
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getApiAction(), new StringActionBody(controlData.getApiSelectedValue()), ViewHolder.this, false);
+
                 }
             });
             autoCompleteTextView.setAdapter(arrayAdapter);

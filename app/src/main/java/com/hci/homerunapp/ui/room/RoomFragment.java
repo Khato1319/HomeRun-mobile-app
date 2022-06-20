@@ -11,6 +11,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import com.hci.homerunapp.ui.home.RoomData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RoomFragment extends SecondaryFragment implements ButtonListenerMaker {
 
@@ -72,23 +74,22 @@ public class RoomFragment extends SecondaryFragment implements ButtonListenerMak
 
         FragmentRoomBinding binding = FragmentRoomBinding.inflate(inflater, container, false);
 
-        MyApplication application = (MyApplication) getActivity().getApplication();
         activity = (MainActivity)getActivity();
+        MyApplication application = (MyApplication) activity.getApplication();
 
 
         Bundle args = getArguments();
-        RoomData roomData = (RoomData)args.get("roomData");
-        label = roomData.getName();
+        RoomData roomData = null;
+        if (args != null)
+            roomData = (RoomData)args.get("roomData");
+
 
 
         DataRepositoryViewModelFactory viewModelFactory = new DataRepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository(), RoomData.class, roomData);
         model = new ViewModelProvider(this, viewModelFactory).get(RoomViewModel.class);
-//
+        label = model.getData().getName();
 
-//        if (args != null) {
-//
-//
-//        }
+
 
         List<Device> devices =  new ArrayList<>();
 
@@ -102,7 +103,11 @@ public class RoomFragment extends SecondaryFragment implements ButtonListenerMak
                     devices.clear();
                     if (resource.data != null &&
                             resource.data.size() > 0) {
-                        devices.addAll(resource.data);
+//                        Log.d("ROOM DEVICE NAME", model.getData().getName());
+                        devices.addAll(resource.data.stream().filter(
+                                d -> d.getDeviceData().getRoomData().getName()
+                                        .equals(model.getData().getName()))
+                                .collect(Collectors.toList()));
                         adapter.notifyDataSetChanged();
 //                        binding.list.setVisibility(View.VISIBLE);
 //                        binding.empty.setVisibility(View.GONE);

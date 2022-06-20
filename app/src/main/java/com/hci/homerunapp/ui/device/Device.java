@@ -3,12 +3,13 @@ package com.hci.homerunapp.ui.device;
 import android.content.Context;
 
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.ui.Data;
 import com.hci.homerunapp.ui.room.DeviceData;
 
 import java.util.List;
 
-public abstract class Device {
-    private DeviceData deviceData;
+public abstract class Device implements Data {
+    private final DeviceData deviceData;
     protected Context context;
     private NotificationState notificationState = NotificationState.OFF;
 
@@ -34,6 +35,16 @@ public abstract class Device {
 
     public NotificationState getNotificationState() {
         return notificationState;
+    }
+
+    @Override
+    public String getName() {
+        return deviceData.getName();
+    }
+
+    @Override
+    public String getId() {
+        return deviceData.getId();
     }
 
     public enum NotificationState {

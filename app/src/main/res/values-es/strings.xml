@@ -97,8 +97,11 @@
     <string name="convection_mode_title">Cambiar modo convección</string>
 
     <!--Aspiradora -->
-    <string name="vacuum_battery">Batería: </string>
+    <string name="vacuum_battery">Batería: %d</string>
     <string name="vacuum_location">Cambiar ubicación</string>
+    <string name="dock_state_docked">Estado: En dock</string>
+    <string name="dock_state_undocked">Estado: Fuera de dock</string>
+    <string name="dock_action">Volver a base de carga</string>
 
     <string-array
         name="vacuum_modes">
@@ -106,6 +109,8 @@
         <item>Trapear</item>
     </string-array>
     <string name="vacuum_mode">Cambiar modo</string>
+    <string name="charge_msg">La batería debe estar por encima del 5% para utilizar el dispositivo.</string>
+
 
 
 </resources>
