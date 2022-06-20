@@ -40,5 +40,6 @@ public class RoutinesViewModel  extends RepositoryViewModel<RoutineRepository> {
                 routines.setValue(resource);
             }
         });
+
     }
 }

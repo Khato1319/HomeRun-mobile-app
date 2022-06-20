@@ -22,15 +22,25 @@ public class DeviceLight extends Device {
         super(deviceData, context);
 
         turnOnButton = new TurnOnButtonData(context, "on", "off", deviceData.getId());
-
         colorPicker = new ColorPickerData(context, deviceData.getId());
         brightnessSlider = new SliderData(context, context.getResources().getString(R.string.brightness),  0, 100, "setBrightness", deviceData.getId());
-
 
     }
 
     @Override
     public List<ControlData> getControls() {
         return Arrays.asList(turnOnButton, colorPicker, brightnessSlider);
+    }
+
+    public TurnOnButtonData getTurnOnButton() {
+        return turnOnButton;
+    }
+
+    public ColorPickerData getColorPicker() {
+        return colorPicker;
+    }
+
+    public SliderData getBrightnessSlider() {
+        return brightnessSlider;
     }
 }

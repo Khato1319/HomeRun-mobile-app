@@ -30,4 +30,16 @@ public class DeviceBlinds extends Device {
     public List<ControlData> getControls() {
         return Arrays.asList(stateProgressBar, toggleStateButton, closePercentageSlider);
     }
+
+    public ProgressBarData getStateProgressBar() {
+        return stateProgressBar;
+    }
+
+    public ToggleButtonData getToggleStateButton() {
+        return toggleStateButton;
+    }
+
+    public SliderData getClosePercentageSlider() {
+        return closePercentageSlider;
+    }
 }

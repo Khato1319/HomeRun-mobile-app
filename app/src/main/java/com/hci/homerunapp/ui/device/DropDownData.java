@@ -8,10 +8,7 @@ import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.slider.Slider;
 import com.hci.homerunapp.R;
-
-import java.util.List;
 
 public class DropDownData extends ControlData{
     private String[] items;
@@ -41,8 +38,24 @@ public class DropDownData extends ControlData{
         throw new IllegalStateException("La seleccion no existe");
     }
 
+//    public String getSelectedValueFromApiValue(String ) {
+//        for (int i=0 ; i< items.length ; i++) {
+//            if (items[i].equals(selected))
+//                return apiItems[i];
+//        }
+//
+//        throw new IllegalStateException("La seleccion no existe");
+//    }
+
     public void setSelected(String value) {
         this.selected = value;
+    }
+
+    public void setSelectedApi(String apiValue) {
+        for (int i=0 ; i< apiItems.length ; i++) {
+            if (apiItems[i].equals(apiValue))
+                selected = items[i];
+        }
     }
 
     public String getSelected() {
@@ -57,24 +70,13 @@ public class DropDownData extends ControlData{
         return hint;
     }
 
-    @Override
-    public void setupViewHolder(CustomAdapter.ViewHolder holder) {
-        super.setupViewHolder(holder);
-        DropDownData.ViewHolder dropDownViewHolder = (DropDownData.ViewHolder) holder;
-        AutoCompleteTextView autoCompleteTextView = dropDownViewHolder.getAutoCompleteTextView();
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(autoCompleteTextView.getContext(), R.layout.drop_down_item, getItems());
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                setSelected(arrayAdapter.getItem(position));
-            }
-        });
-        autoCompleteTextView.setAdapter(arrayAdapter);
-        autoCompleteTextView.setHint(getHint());
-        autoCompleteTextView.setText(getSelected(), false);
-    }
+//    @Override
+//    public void setupViewHolder(ControlDataAdapter.ViewHolder holder) {
+//        super.setupViewHolder(holder);
+//
+//    }
 
-    public static class ViewHolder extends CustomAdapter.ViewHolder {
+    public static class ViewHolder extends ControlDataViewHolder<DropDownData> {
         private final AutoCompleteTextView autoCompleteTextView;
 
 
@@ -83,6 +85,23 @@ public class DropDownData extends ControlData{
             autoCompleteTextView = itemView.findViewById(R.id.autoCompleteTextView);
         }
 
+        @Override
+        public void bindTo(DropDownData controlData) {
+            super.bindTo(controlData);
+//            DropDownData.ViewHolder dropDownViewHolder = (DropDownData.ViewHolder) holder;
+            AutoCompleteTextView autoCompleteTextView = getAutoCompleteTextView();
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(autoCompleteTextView.getContext(), R.layout.drop_down_item, controlData.getItems());
+            autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    controlData.setSelected(arrayAdapter.getItem(position));
+                }
+            });
+            autoCompleteTextView.setAdapter(arrayAdapter);
+            autoCompleteTextView.setHint(controlData.getHint());
+            autoCompleteTextView.setText(controlData.getSelected(), false);
+
+        }
 
         public AutoCompleteTextView getAutoCompleteTextView() {
             return autoCompleteTextView;

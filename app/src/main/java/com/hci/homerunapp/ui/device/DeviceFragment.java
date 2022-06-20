@@ -23,7 +23,7 @@ import com.hci.homerunapp.ui.room.DeviceData;
 public class DeviceFragment extends SecondaryFragment {
 
     private DeviceViewModel model;
-    CustomAdapter adapter;
+    ControlDataAdapter adapter;
     public static final String DEVICE_DATA = "com.hci.homerunapp.ui.device/deviceData";
     Device device;
 
@@ -86,7 +86,7 @@ public class DeviceFragment extends SecondaryFragment {
         FragmentDeviceBinding binding = FragmentDeviceBinding.inflate(inflater, container, false);
 
 
-        adapter = new CustomAdapter(device.getControls(), this);
+        adapter = new ControlDataAdapter(device.getControls(), this);
 
         binding.deviceRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));

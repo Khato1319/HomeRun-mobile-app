@@ -8,4 +8,8 @@ public class DataRepositoryViewModel<T, D extends Data> extends RepositoryViewMo
         super(repository);
         this.data=data;
     }
+
+    public D getData() {
+        return data;
+    }
 }

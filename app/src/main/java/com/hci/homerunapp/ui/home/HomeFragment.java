@@ -32,6 +32,7 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
     HomeViewAdapter adapter;
     HomeViewModel homeViewModel;
     private MainActivity activity;
+    List<RoomData> rooms;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -46,7 +47,7 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
         RepositoryViewModelFactory<RoomRepository> viewModelFactory = new RepositoryViewModelFactory<>(RoomRepository.class, application.getRoomRepository());
         homeViewModel =  new ViewModelProvider(this, viewModelFactory).get(HomeViewModel.class);
 
-        List<RoomData> rooms = new ArrayList<>();
+        rooms = new ArrayList<>();
         adapter =  new HomeViewAdapter(rooms, this, R.id.simple_button, R.layout.simple_button_layout);
 
         homeViewModel.getRooms().observe(getViewLifecycleOwner(), resource -> {
@@ -55,6 +56,7 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
                 case SUCCESS -> {
                     activity.hideProgressBar();
                     rooms.clear();
+                    activity.setRooms(rooms);
                     if (resource.data != null &&
                             resource.data.size() > 0) {
                         rooms.addAll(resource.data);

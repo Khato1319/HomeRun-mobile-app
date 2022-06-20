@@ -14,12 +14,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DeviceAC extends Device {
-    private final TurnOnButtonData turnOnButton;
-    private final SliderData temperatureSlider;
-    private final DropDownData coolingModeDropDown;
-    private final DropDownData verticalSwingDropDown;
-    private final DropDownData horizontalSwingDropDown;
-    private final DropDownData speedDropDown;
+    public final TurnOnButtonData turnOnButton;
+    public final SliderData temperatureSlider;
+    public final DropDownData coolingModeDropDown;
+    public final DropDownData verticalSwingDropDown;
+    public final DropDownData horizontalSwingDropDown;
+    public final DropDownData speedDropDown;
 
     public DeviceAC(DeviceData deviceData, Context context) {
         super(deviceData, context);
@@ -43,5 +43,29 @@ public class DeviceAC extends Device {
     @Override
     public List<ControlData> getControls() {
         return Arrays.asList(turnOnButton, temperatureSlider, coolingModeDropDown, verticalSwingDropDown, horizontalSwingDropDown, speedDropDown);
+    }
+
+    public TurnOnButtonData getTurnOnButton() {
+        return turnOnButton;
+    }
+
+    public SliderData getTemperatureSlider() {
+        return temperatureSlider;
+    }
+
+    public DropDownData getCoolingModeDropDown() {
+        return coolingModeDropDown;
+    }
+
+    public DropDownData getVerticalSwingDropDown() {
+        return verticalSwingDropDown;
+    }
+
+    public DropDownData getHorizontalSwingDropDown() {
+        return horizontalSwingDropDown;
+    }
+
+    public DropDownData getSpeedDropDown() {
+        return speedDropDown;
     }
 }

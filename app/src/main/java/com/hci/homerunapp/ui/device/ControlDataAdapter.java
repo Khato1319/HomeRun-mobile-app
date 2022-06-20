@@ -11,23 +11,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.ui.device.light.ColorPickerData;
+import com.hci.homerunapp.ui.device.vacuum.ChangeLocationDropDownData;
 
 import java.util.List;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class ControlDataAdapter extends RecyclerView.Adapter<ControlData.ControlDataViewHolder> {
 
     private static final String TAG = "CustomAdapter";
     private final List<ControlData> controls;
     private final DeviceFragment deviceFragment;
 
-    CustomAdapter(List<ControlData> controls, DeviceFragment deviceFragment) {
+    ControlDataAdapter(List<ControlData> controls, DeviceFragment deviceFragment) {
         this.controls = controls;
         this.deviceFragment = deviceFragment;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ControlData.ControlDataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(viewType, parent, false);
 
@@ -35,6 +36,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             case R.layout.slider_item -> new SliderData.ViewHolder(view);
             case R.layout.color_picker_item -> new ColorPickerData.ViewHolder(view);
             case R.layout.drop_down_container_item -> new DropDownData.ViewHolder(view);
+            case R.layout.change_location_drop_down_container_item -> new ChangeLocationDropDownData.ViewHolder(view);
             case R.layout.switch_on_item -> new TurnOnButtonData.ViewHolder(view);
             case R.layout.toggle_button_item -> new ToggleButtonData.ViewHolder(view);
             case R.layout.progress_bar_item -> new ProgressBarData.ViewHolder(view);
@@ -44,50 +46,23 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
     @Override
+    public void onBindViewHolder(@NonNull ControlData.ControlDataViewHolder holder, int position) {
+        Log.d(TAG, "Element " + position + " set.");
+
+//        ControlData.ControlDataViewHolder<ControlData> viewHolder = (ControlData.ControlDataViewHolder<ControlData>) holder;
+
+        ControlData controlData = controls.get(position);
+//        controlData.setupViewHolder(holder);
+        holder.bindTo(controlData);
+    }
+
+    @Override
     public int getItemViewType(int position) {
         // Just as an example, return 0 or 2 depending on position
         // Note that unlike in ListView adapters, types don't have to be contiguous
         return controls.get(position).getLayoutId();
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d(TAG, "Element " + position + " set.");
-
-//        holder.getDeviceButton().setText(dataSet.get(position));
-        ControlData controlData = controls.get(position);
-        controlData.setupViewHolder(holder);
-
-//        switch(controlData.getLayoutId()) {
-//            case R.layout.progress_bar_item:
-//                ProgressBarData progressBarData = (ProgressBarData) controlData;
-//
-//                break;
-//            case R.layout.toggle_button_item:
-//                break;
-//            case R.layout.switch_on_item:
-//                TurnOnButtonData turnOnButtonData = (TurnOnButtonData) controlData;
-//
-//                break;
-//            case R.layout.slider_item:
-//                controlData.setupViewHolder(holder);
-//                break;
-//            case R.layout.drop_down_container_item:
-//                DropDownData dropDownData = (DropDownData) controlData;
-//
-//                break;
-//            case R.layout.color_picker_item:
-//                ColorPickerData colorPickerData = (ColorPickerData) controlData;
-//
-////                slider.setValue(sliderData.getValue());
-//
-//        }
-//
-//
-////        deviceButton.setOnClickListener(deviceFragment.getButtonClickListener(deviceText.getText(),deviceRoom.getText(), deviceId.getText()));
-
-
-    }
 
     @Override
     public int getItemCount() {
@@ -102,7 +77,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
            controlText = itemView.findViewById(R.id.text_control);
-
         }
 
 
