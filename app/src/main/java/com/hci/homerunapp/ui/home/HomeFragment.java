@@ -38,7 +38,6 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-
         label = getResources().getString(R.string.title_rooms);
 
         MyApplication application = (MyApplication) getActivity().getApplication();
