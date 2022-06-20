@@ -41,7 +41,7 @@ public class RoomRepository {
     }
 
     private RoomData mapRoomLocalToModel(LocalRoom local) {
-        return new RoomData(local.name, local.id);
+        return new RoomData(local.id, local.name);
     }
 
     private LocalRoom mapRoomRemoteToLocal(RemoteRoom remote) {
@@ -49,7 +49,7 @@ public class RoomRepository {
     }
 
     private RoomData mapRoomRemoteToModel(RemoteRoom remote) {
-        return new RoomData(remote.getName(), remote.getId());
+        return new RoomData(remote.getId(), remote.getName());
     }
 
     private RemoteRoom mapRoomModelToRemote(RoomData model) {
@@ -112,40 +112,40 @@ public class RoomRepository {
         }.asLiveData();
     }
 
-    public LiveData<Resource<RoomData>> getRoom(String roomId) {
-        Log.d(TAG, "getRoom()");
-        return new NetworkBoundResource<RoomData, LocalRoom, RemoteRoom>(
-                executors,
-                this::mapRoomLocalToModel,
-                this::mapRoomRemoteToLocal,
-                this::mapRoomRemoteToModel) {
-
-            @Override
-            protected void saveCallResult(@NonNull LocalRoom local) {
-                database.roomDao().insert(local);
-            }
-
-            @Override
-            protected boolean shouldFetch(@Nullable LocalRoom local) {
-                return (local == null);
-            }
-
-            @Override
-            protected boolean shouldPersist(@Nullable RemoteRoom remote) {
-                return true;
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<LocalRoom> loadFromDb() {
-                return database.roomDao().findById(roomId);
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<ApiResponse<RemoteResult<RemoteRoom>>> createCall() {
-                return service.getRoom(roomId);
-            }
-        }.asLiveData();
-    }
+//    public LiveData<Resource<RoomData>> getRoom(String roomId) {
+//        Log.d(TAG, "getRoom()");
+//        return new NetworkBoundResource<RoomData, LocalRoom, RemoteRoom>(
+//                executors,
+//                this::mapRoomLocalToModel,
+//                this::mapRoomRemoteToLocal,
+//                this::mapRoomRemoteToModel) {
+//
+//            @Override
+//            protected void saveCallResult(@NonNull LocalRoom local) {
+//                database.roomDao().insert(local);
+//            }
+//
+//            @Override
+//            protected boolean shouldFetch(@Nullable LocalRoom local) {
+//                return (local == null);
+//            }
+//
+//            @Override
+//            protected boolean shouldPersist(@Nullable RemoteRoom remote) {
+//                return true;
+//            }
+//
+//            @NonNull
+//            @Override
+//            protected LiveData<LocalRoom> loadFromDb() {
+//                return database.roomDao().findById(roomId);
+//            }
+//
+//            @NonNull
+//            @Override
+//            protected LiveData<ApiResponse<RemoteResult<RemoteRoom>>> createCall() {
+//                return service.getRoom(roomId);
+//            }
+//        }.asLiveData();
+//    }
 }

@@ -9,9 +9,11 @@ public class RemoteRoom {
     @SerializedName("id")
     @Expose
     private String id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("meta")
     @Expose
     private RemoteRoomMeta meta;

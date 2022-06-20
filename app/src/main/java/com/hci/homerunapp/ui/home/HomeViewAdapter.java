@@ -17,12 +17,12 @@ import java.util.List;
 public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.HomeViewHolder> {
 
     private static final String TAG = "CustomAdapter";
-    private final List<RoomData> elements;
+    private final List<Data> elements;
     private final ButtonListenerMaker buttonListenerMaker;
     private final int buttonId, layoutId;
 
 
-    public HomeViewAdapter(List<RoomData> elements, ButtonListenerMaker buttonListenerMaker, int buttonId, int layoutId) {
+    public HomeViewAdapter(List<Data> elements, ButtonListenerMaker buttonListenerMaker, int buttonId, int layoutId) {
         this.elements = elements;
         this.buttonListenerMaker = buttonListenerMaker;
         this.buttonId = buttonId;

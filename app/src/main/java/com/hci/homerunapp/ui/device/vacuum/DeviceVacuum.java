@@ -22,7 +22,7 @@ public class DeviceVacuum extends Device {
     public DeviceVacuum(DeviceData deviceData, Context context) {
         super(deviceData, context);
         batteryProgressBar = new ProgressBarData(context, context.getResources().getString(R.string.vacuum_battery), R.color.primary, deviceData.getId());
-        turnOnButton = new TurnOnButtonData(context, "start", "pause", deviceData.getId());;
+        turnOnButton = new TurnOnButtonData( context, "start", "pause", deviceData.getId());;
 
         changeLocationDropDown = new ChangeLocationDropDownData(context, deviceData.getId());
 
@@ -34,5 +34,21 @@ public class DeviceVacuum extends Device {
     @Override
     public List<ControlData> getControls() {
         return Arrays.asList(batteryProgressBar, turnOnButton, changeLocationDropDown, setModeDropDownData);
+    }
+
+    public ProgressBarData getBatteryProgressBar() {
+        return batteryProgressBar;
+    }
+
+    public TurnOnButtonData getTurnOnButton() {
+        return turnOnButton;
+    }
+
+    public ChangeLocationDropDownData getChangeLocationDropDown() {
+        return changeLocationDropDown;
+    }
+
+    public DropDownData getSetModeDropDownData() {
+        return setModeDropDownData;
     }
 }

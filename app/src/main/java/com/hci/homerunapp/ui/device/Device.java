@@ -9,14 +9,16 @@ import java.util.List;
 
 public abstract class Device {
     private DeviceData deviceData;
-    private NotificationState notificationState = NotificationState.OFF;
     protected Context context;
+    private NotificationState notificationState = NotificationState.OFF;
+
 
     public abstract List<ControlData> getControls();
 
     public Device(DeviceData deviceData, Context context) {
         this.deviceData = deviceData;
         this.context = context;
+
     }
 
     public DeviceData getDeviceData() {

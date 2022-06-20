@@ -14,12 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeViewModel extends RepositoryViewModel<RoomRepository> {
-    protected List<Data> elements = new ArrayList<>();
     private final MediatorLiveData<Resource<List<RoomData>>> rooms = new MediatorLiveData<>();
 
-//    public List<Data> getElements() {
-//        return elements;
-//    }
+    public List<Data> getElements() {
+        return elements;
+    }
 
 
     public HomeViewModel(RoomRepository roomRepository) {

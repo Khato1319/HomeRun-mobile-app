@@ -40,4 +40,24 @@ public class DeviceOven extends Device {
     public List<ControlData> getControls() {
         return Arrays.asList(turnOnButton, temperatureSlider, changeHeatSourceDropDown, setGrillModeDropDown, setConvectionModeDropDown);
     }
+
+    public TurnOnButtonData getTurnOnButton() {
+        return turnOnButton;
+    }
+
+    public SliderData getTemperatureSlider() {
+        return temperatureSlider;
+    }
+
+    public DropDownData getChangeHeatSourceDropDown() {
+        return changeHeatSourceDropDown;
+    }
+
+    public DropDownData getSetGrillModeDropDown() {
+        return setGrillModeDropDown;
+    }
+
+    public DropDownData getSetConvectionModeDropDown() {
+        return setConvectionModeDropDown;
+    }
 }

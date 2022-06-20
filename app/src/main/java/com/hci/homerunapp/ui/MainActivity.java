@@ -24,6 +24,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.databinding.ActivityMainBinding;
+import com.hci.homerunapp.ui.home.RoomData;
 import com.hci.homerunapp.ui.room.DeviceData;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton upButton, notificationsButton;
     private TextView title;
     private List<DeviceData> recentDevices = new ArrayList<>();
+    private List<RoomData> rooms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
             recentDevices.remove(0);
     }
 
+    public void setRooms(List<RoomData> rooms) {
+        this.rooms = rooms;
+    }
+
+    public List<RoomData> getRooms() {
+        return rooms;
+    }
+
     public List<DeviceData> getRecentDevices() {
         return recentDevices;
     }
@@ -120,13 +130,34 @@ public class MainActivity extends AppCompatActivity {
         return navHostFragment == null ? null : navHostFragment.getChildFragmentManager().getFragments().get(0);
     }
 
-    public void showProgressBar() {
-        binding.loading.setVisibility(View.VISIBLE);
-    }
+//    @Nullable
+//    @Override
+//    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+//        Log.d("CREATED", "CREATED");
+//        return super.onCreateView(parent, name, context, attrs);
+//
+//    }
 
-    public void hideProgressBar() {
-        binding.loading.setVisibility(View.GONE);
-    }
+
+
+    //    @Override
+//    public void onBackPressed() {
+//        showTabIfReturningHome();
+//        super.onBackPressed();
+//
+//    }
+
+//    private void showTabIfReturningHome() {
+//        List<Integer> homeIds = Arrays.asList(R.id.navigation_room, R.id.routineFragment, R.id.navigation_home);
+//        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+//        Fragment lastFragment = fragments.get(fragments.size()-1);
+//        Log.d("id", String.valueOf(lastFragment.getId()));
+//        Log.d("id", String.valueOf(R.id.room_fragment));
+//
+//
+////        if(homeIds.contains())
+////            showBottomNav();
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {

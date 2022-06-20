@@ -5,7 +5,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.hci.homerunapp.R;
 
@@ -35,21 +34,30 @@ public class ProgressBarData extends ControlData{
         return String.format(super.getActionLabel(),progress);
     }
 
-    @Override
-    public void setupViewHolder(CustomAdapter.ViewHolder holder) {
-        super.setupViewHolder(holder);
-        ProgressBarData.ViewHolder progressBarViewHolder = (ProgressBarData.ViewHolder) holder;
-        LinearProgressIndicator progressBar = progressBarViewHolder.getProgressBar();
-        progressBar.setIndicatorColor(color);
-        progressBar.setProgress(getProgress());
-    }
+//    @Override
+//    public void setupViewHolder(ControlDataAdapter.ViewHolder holder) {
+//        super.setupViewHolder(holder);
+//        ProgressBarData.ViewHolder progressBarViewHolder = (ProgressBarData.ViewHolder) holder;
+//        LinearProgressIndicator progressBar = progressBarViewHolder.getProgressBar();
+//        progressBar.setIndicatorColor(color);
+//        progressBar.setProgress(getProgress());
+//    }
 
-    public static class ViewHolder extends CustomAdapter.ViewHolder {
+    public static class ViewHolder extends ControlDataViewHolder<ProgressBarData> {
         private final LinearProgressIndicator progressBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             progressBar = itemView.findViewById(R.id.progressBar);
+        }
+
+        @Override
+        public void bindTo(ProgressBarData controlData) {
+            super.bindTo(controlData);
+//            ProgressBarData.ViewHolder progressBarViewHolder = (ProgressBarData.ViewHolder) holder;
+            LinearProgressIndicator progressBar = getProgressBar();
+            progressBar.setIndicatorColor(controlData.color);
+            progressBar.setProgress(controlData.getProgress());
         }
 
         public LinearProgressIndicator getProgressBar() {
