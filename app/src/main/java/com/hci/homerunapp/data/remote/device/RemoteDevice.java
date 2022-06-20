@@ -2,7 +2,6 @@ package com.hci.homerunapp.data.remote.device;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.hci.homerunapp.data.remote.room.RemoteRoomMeta;
 
 public class RemoteDevice {
     @SerializedName("state")

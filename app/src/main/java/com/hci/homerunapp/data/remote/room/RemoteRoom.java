@@ -14,10 +14,6 @@ public class RemoteRoom {
     @Expose
     private String name;
 
-    @SerializedName("meta")
-    @Expose
-    private RemoteRoomMeta meta;
-
     public String getId() {
         return id;
     }
@@ -32,13 +28,5 @@ public class RemoteRoom {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public RemoteRoomMeta getMeta() {
-        return meta;
-    }
-
-    public void setMeta(RemoteRoomMeta meta) {
-        this.meta = meta;
     }
 }

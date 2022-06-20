@@ -14,7 +14,6 @@ import com.hci.homerunapp.data.remote.ApiResponse;
 import com.hci.homerunapp.data.remote.RemoteResult;
 import com.hci.homerunapp.data.remote.room.ApiRoomService;
 import com.hci.homerunapp.data.remote.room.RemoteRoom;
-import com.hci.homerunapp.data.remote.room.RemoteRoomMeta;
 import com.hci.homerunapp.ui.home.RoomData;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class RoomRepository {
     }
 
     private LocalRoom mapRoomRemoteToLocal(RemoteRoom remote) {
-        return new LocalRoom(remote.getId(), remote.getName(), remote.getMeta().getSize(), remote.getMeta().getColor());
+        return new LocalRoom(remote.getId(), remote.getName());
     }
 
     private RoomData mapRoomRemoteToModel(RemoteRoom remote) {
@@ -53,13 +52,9 @@ public class RoomRepository {
     }
 
     private RemoteRoom mapRoomModelToRemote(RoomData model) {
-        RemoteRoomMeta remoteMeta = new RemoteRoomMeta();
-
         RemoteRoom remote = new RemoteRoom();
         remote.setId(model.getId());
         remote.setName(model.getName());
-        remote.setMeta(remoteMeta);
-
         return remote;
     }
 
