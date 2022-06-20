@@ -7,7 +7,7 @@ public class RoutineData implements Data {
     private String name;
     private String id;
 
-    RoutineData(String name, String id) {
+    public RoutineData(String name, String id) {
         this.name = name;
         this.id = id;
     }
