@@ -1,9 +1,11 @@
 package com.hci.homerunapp.ui.routines;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -96,7 +98,7 @@ public class RoutinesFragment extends PrimaryFragment implements ButtonListenerM
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                executeRoutine();
             }
         };
 
@@ -108,5 +110,29 @@ public class RoutinesFragment extends PrimaryFragment implements ButtonListenerM
         return NavHostFragment.findNavController(this);
     }
 
-
+    private void executeRoutine() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(R.string.app_name);
+            RoutineData routine = routinesViewModel.getRoutine().getValue().data;
+            // Removed getRoom() observer to avoid null value update notification after delete.
+            routinesViewModel.getRoutine().removeObservers(getViewLifecycleOwner());
+            routinesViewModel.executeRoutine(routine).observe(getViewLifecycleOwner(), resource -> {
+                switch (resource.status) {
+                    case LOADING:
+                        activity.showProgressBar();
+                        break;
+                    case SUCCESS:
+                        activity.hideProgressBar();
+                        //activity.popBackStack();
+                        Toast.makeText(activity, R.string.routine_exec_success, Toast.LENGTH_SHORT).show();
+                        break;
+                    case ERROR:
+                        activity.hideProgressBar();
+                        Toast.makeText(activity, resource.error.getDescription(), Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+            });
+    }
 }

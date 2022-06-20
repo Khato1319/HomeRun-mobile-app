@@ -77,15 +77,6 @@ public abstract class NetworkBoundResource<ModelType, LocalType, RemoteType> {
                 }
             });
         }
-
-
-
-
-
-
-
-
-
     }
 
     @MainThread

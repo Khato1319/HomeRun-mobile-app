@@ -46,7 +46,7 @@ public class RoutineRepository {
         return new RoutineData(remote.getName(), remote.getId());
     }
 
-    private RemoteRoutine mapRoutineModelToRemoet(RoutineData model){
+    private RemoteRoutine mapRoutineModelToRemote(RoutineData model){
         RemoteRoutine remote=new RemoteRoutine();
         remote.setId(model.getId());
         remote.setName(model.getName());
@@ -135,6 +135,43 @@ public class RoutineRepository {
             @Override
             protected LiveData<ApiResponse<RemoteResult<RemoteRoutine>>> createCall() {
                 return service.getRoutine(routineId);
+            }
+        }.asLiveData();
+    }
+
+    public LiveData<Resource<Void>> executeRoutine(RoutineData routine) {
+        Log.d(TAG, "RoutineRepository - executeRoutine()");
+        return new NetworkBoundResource<Void, LocalRoutine, Boolean>(
+                executors,
+                local -> null,
+                remote -> null,
+                remote -> null) {
+
+            @Override
+            protected void saveCallResult(@NonNull LocalRoutine local) {
+                //database.roomDao().delete(room.getId());
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable LocalRoutine local) {
+                return true;
+            }
+
+            @Override
+            protected boolean shouldPersist(@Nullable Boolean remote) {
+                return true;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<LocalRoutine> loadFromDb() {
+                return database.routineDao().findById(routine.getId());
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<RemoteResult<Boolean>>> createCall() {
+                return service.executeRoutine(routine.getId());
             }
         }.asLiveData();
     }
