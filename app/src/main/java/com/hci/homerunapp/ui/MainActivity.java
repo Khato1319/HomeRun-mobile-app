@@ -125,6 +125,14 @@ public class MainActivity extends AppCompatActivity {
         super.onResumeFragments();
     }
 
+    public void showProgressBar() {
+        binding.loading.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressBar() {
+        binding.loading.setVisibility(View.GONE);
+    }
+
     public Fragment getForegroundFragment(){
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         return navHostFragment == null ? null : navHostFragment.getChildFragmentManager().getFragments().get(0);

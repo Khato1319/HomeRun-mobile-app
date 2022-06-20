@@ -39,7 +39,7 @@ public class MyApplication extends Application {
         ApiDeviceService deviceService = ApiClient.create(ApiDeviceService.class);
         MyDatabase database = Room.databaseBuilder(this, MyDatabase.class, DATABASE_NAME).build();
         roomRepository = new RoomRepository(appExecutors, roomService, database);
-        deviceRepository = new DeviceRepository(deviceService, appExecutors, getApplicationContext());
+        deviceRepository = new DeviceRepository(deviceService, appExecutors, getApplicationContext(), database);
 
 
     }

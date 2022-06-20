@@ -21,16 +21,16 @@ import com.hci.homerunapp.ui.home.RoomData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ChangeLocationDropDownData extends ControlData {
-//    private String[] items;
+
     private String hint;
     private RoomData selected = null;
     private List<RoomData> rooms = new ArrayList<>();
 
     ChangeLocationDropDownData(Context context, String deviceId) {
         super(context, R.layout.change_location_drop_down_container_item, context.getResources().getString(R.string.vacuum_location), deviceId );
-//        this.items = items;
         this.hint = context.getResources().getString(R.string.vacuum_location);
     }
 
@@ -56,9 +56,8 @@ public class ChangeLocationDropDownData extends ControlData {
         return selected == null ? null : selected.getName();
     }
 
-    public String[] getItems() {
-
-        return (String[])rooms.stream().map(RoomData::getName).toArray();
+    public List<String> getItems() {
+        return rooms.stream().map(RoomData::getName).collect(Collectors.toList());
     }
 
     public String getHint() {
@@ -113,7 +112,6 @@ public class ChangeLocationDropDownData extends ControlData {
             autoCompleteTextView.setHint(controlData.getHint());
             autoCompleteTextView.setText(controlData.getSelected(), false);
             controlData.setRooms(((MainActivity) context).getRooms());
-
         }
     }
 }
