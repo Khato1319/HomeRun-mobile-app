@@ -1,29 +1,44 @@
 package com.hci.homerunapp.ui.device;
 
-import android.graphics.Color;
 
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 
+import com.hci.homerunapp.data.DeviceRepository;
+import com.hci.homerunapp.data.Resource;
+import com.hci.homerunapp.data.Status;
+import com.hci.homerunapp.data.remote.ApiClient;
+import com.hci.homerunapp.data.remote.RemoteResult;
+import com.hci.homerunapp.data.remote.device.ApiDeviceService;
+import com.hci.homerunapp.data.remote.device.RemoteDevice;
+import com.hci.homerunapp.ui.DataRepositoryViewModel;
 import com.hci.homerunapp.ui.room.DeviceData;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class DeviceViewModel extends ViewModel {
 
-    private Device device;
+public class DeviceViewModel extends DataRepositoryViewModel<DeviceRepository, DeviceData> {
 
-    public DeviceViewModel() {
-        super();
+    private final MediatorLiveData<Resource<Device>> device = new MediatorLiveData<>();
+    ApiDeviceService deviceService = ApiClient.create(ApiDeviceService.class);
 
+    public DeviceViewModel(DeviceRepository repository, DeviceData data) {
+        super(repository, data);
     }
 
-    public void setDevice(Device device) {
-        this.device = device;
-    }
-
-    public Device getDevice() {
+    public LiveData<Resource<Device>> getDevice() {
+        loadDevice();
         return device;
+    }
+
+    public void loadDevice() {
+        device.addSource(repository.getDevice(getData().getId()), resource -> {
+            if (resource.status == Status.SUCCESS) {
+                device.postValue(Resource.success(resource.data));
+            } else {
+                device.postValue(resource);
+            }
+        });
     }
 
 }

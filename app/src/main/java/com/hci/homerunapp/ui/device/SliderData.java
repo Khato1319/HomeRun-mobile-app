@@ -7,7 +7,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.slider.Slider;
+import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.data.remote.ApiClient;
+import com.hci.homerunapp.data.remote.device.ApiDeviceService;
+import com.hci.homerunapp.data.remote.device.action.IntActionBody;
+import com.hci.homerunapp.ui.MainActivity;
 
 public class SliderData extends ControlData{
     private int minValue, maxValue, value;
@@ -37,7 +42,8 @@ public class SliderData extends ControlData{
     }
 
     public void setValue(int value) {
-        this.value = value;
+        ApiDeviceService deviceService = ApiClient.create(ApiDeviceService.class);
+       this.value = value;
     }
 
     @Override
@@ -65,8 +71,8 @@ public class SliderData extends ControlData{
     public static class ViewHolder extends ControlDataViewHolder<SliderData> {
         private final Slider slider;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder(@NonNull View itemView, DeviceFragment deviceRefresher) {
+            super(itemView, deviceRefresher);
             slider = itemView.findViewById(R.id.slider);
         }
 
@@ -82,6 +88,9 @@ public class SliderData extends ControlData{
             slider.addOnChangeListener(new Slider.OnChangeListener() {
                 @Override
                 public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+                    if ((int)value != controlData.getValue())
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getApiAction(), new IntActionBody(value), ViewHolder.this, false);
+
                     controlData.setValue((int) value);
                     controlText.setText(controlData.getActionLabel());
                 }

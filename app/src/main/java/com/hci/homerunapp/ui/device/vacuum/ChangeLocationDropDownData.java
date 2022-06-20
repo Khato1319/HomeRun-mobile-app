@@ -7,16 +7,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 
 import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
-import com.hci.homerunapp.data.Resource;
-import com.hci.homerunapp.data.remote.device.RemoteDeviceRoom;
+import com.hci.homerunapp.data.remote.device.action.StringActionBody;
 import com.hci.homerunapp.ui.MainActivity;
 import com.hci.homerunapp.ui.device.ControlData;
-import com.hci.homerunapp.ui.device.ControlDataAdapter;
-import com.hci.homerunapp.ui.device.DropDownData;
+import com.hci.homerunapp.ui.device.DeviceFragment;
 import com.hci.homerunapp.ui.home.RoomData;
 
 import java.util.ArrayList;
@@ -56,8 +53,8 @@ public class ChangeLocationDropDownData extends ControlData {
         return selected == null ? null : selected.getName();
     }
 
-    public List<String> getItems() {
-        return rooms.stream().map(RoomData::getName).collect(Collectors.toList());
+    public String[] getItems() {
+        return rooms.stream().map(RoomData::getName).collect(Collectors.toList()).toArray(new String[]{});
     }
 
     public String getHint() {
@@ -85,8 +82,8 @@ public class ChangeLocationDropDownData extends ControlData {
         private final AutoCompleteTextView autoCompleteTextView;
 
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder(@NonNull View itemView, DeviceFragment deviceFragment) {
+            super(itemView, deviceFragment);
             autoCompleteTextView = itemView.findViewById(R.id.autoCompleteTextView);
         }
 
@@ -98,6 +95,9 @@ public class ChangeLocationDropDownData extends ControlData {
         @Override
         public void bindTo(ChangeLocationDropDownData controlData) {
             super.bindTo(controlData);
+//            controlData.setRooms(((MainActivity) context).getRooms());
+
+//            ((MainActivity) context).getRooms().
 
 //            DropDownData.ViewHolder dropDownViewHolder = (DropDownData.ViewHolder) holder;
             AutoCompleteTextView autoCompleteTextView = getAutoCompleteTextView();
@@ -106,12 +106,13 @@ public class ChangeLocationDropDownData extends ControlData {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     controlData.setSelected(arrayAdapter.getItem(position));
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), "setLocation", new StringActionBody(controlData.getSelected()), ViewHolder.this, false);
+
                 }
             });
             autoCompleteTextView.setAdapter(arrayAdapter);
             autoCompleteTextView.setHint(controlData.getHint());
             autoCompleteTextView.setText(controlData.getSelected(), false);
-            controlData.setRooms(((MainActivity) context).getRooms());
         }
     }
 }

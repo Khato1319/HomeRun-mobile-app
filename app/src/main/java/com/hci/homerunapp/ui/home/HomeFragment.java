@@ -56,7 +56,7 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
                 case SUCCESS -> {
                     activity.hideProgressBar();
                     rooms.clear();
-                    activity.setRooms(rooms);
+//                    activity.setRooms(rooms);
                     if (resource.data != null &&
                             resource.data.size() > 0) {
                         rooms.addAll(resource.data);

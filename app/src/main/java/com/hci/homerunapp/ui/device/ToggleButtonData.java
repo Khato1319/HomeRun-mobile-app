@@ -6,7 +6,10 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.button.MaterialButton;
+import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.data.remote.device.action.ActionBody;
+import com.hci.homerunapp.ui.MainActivity;
 
 public class ToggleButtonData extends ControlData{
     private boolean state;
@@ -15,13 +18,12 @@ public class ToggleButtonData extends ControlData{
 
     public ToggleButtonData(Context context, String[] btnLabels, String[] actionLabels, String deviceId) {
         super(context, R.layout.toggle_button_item, context.getResources().getString(R.string.blinds_state), deviceId);
-        this.state = state;
         this.btnLabels = btnLabels;
         this.actionLabels = actionLabels;
     }
 
     public String getButtonText() {
-        return btnLabels[state ? 0 : 1];
+        return btnLabels[state ? 1 : 0];
     }
 
     private String getLabelText() {
@@ -64,8 +66,8 @@ public class ToggleButtonData extends ControlData{
     public static class ViewHolder extends ControlDataViewHolder<ToggleButtonData> {
         private final MaterialButton button;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder(@NonNull View itemView, DeviceFragment deviceFragment) {
+            super(itemView, deviceFragment);
             button = itemView.findViewById(R.id.device_button);
         }
 
@@ -78,13 +80,15 @@ public class ToggleButtonData extends ControlData{
             super.bindTo(controlData);
 //            ToggleButtonData.ViewHolder toggleButtonViewHolder = (ToggleButtonData.ViewHolder) holder;
             MaterialButton toggleButton = getButton();
+            getControlText().setText(controlData.getActionLabel());
             toggleButton.setText(controlData.getButtonText());
             toggleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    controlData.setState(!controlData.getState());
-                    toggleButton.setText(controlData.getButtonText());
-                    getControlText().setText(controlData.getActionLabel());
+//                    controlData.setState(!controlData.getState());
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getState() ? "close" : "open", new ActionBody(), ViewHolder.this, true);
+//                    toggleButton.setText(controlData.getButtonText());
+//                    getControlText().setText(controlData.getActionLabel());
 
                 }
             });

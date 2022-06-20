@@ -1,5 +1,7 @@
 package com.hci.homerunapp.data.remote.device;
 
+import android.database.Observable;
+
 import androidx.lifecycle.LiveData;
 
 import com.hci.homerunapp.data.remote.ApiResponse;
@@ -9,6 +11,7 @@ import com.hci.homerunapp.data.remote.room.RemoteRoom;
 
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
@@ -19,11 +22,12 @@ public interface ApiDeviceService {
         @GET("devices")
         LiveData<ApiResponse<RemoteResult<List<RemoteDevice>>>> getDevices();
 
-        @GET("rooms/{roomId}")
-        LiveData<ApiResponse<RemoteResult<RemoteRoom>>> getRoom(@Path("roomId") String roomId);
+        @GET("devices/{deviceId}")
+        LiveData<ApiResponse<RemoteResult<RemoteDevice>>> getDevice(@Path("deviceId") String deviceId);
 
-        @PUT("device/{deviceId}/{actionName}")
-        LiveData<ApiResponse<RemoteResult<Boolean>>> putAction(@Path("deviceId") String deviceId, @Path("actionName") String actionName, @Body ActionBody action);
+
+        @PUT("devices/{deviceId}/{actionName}")
+        Call<ApiResponse<RemoteResult<Object>>> putAction(@Path("deviceId") String deviceId, @Path("actionName") String actionName, @Body ActionBody action);
 
 
 }

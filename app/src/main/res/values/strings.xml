@@ -76,8 +76,8 @@
 <!--    TODO Revisar traducciones-->
     <string-array
         name="heat_sources">
-        <item>Upper</item>
-        <item>Lower</item>
+        <item>Top</item>
+        <item>Bottom</item>
         <item>Conventional</item>
     </string-array>
     <string name="heat_source_title">Set heat source</string>
@@ -99,8 +99,12 @@
     <string name="convection_mode_title">Set convection mode</string>
 
     <!--Vacuum    -->
-    <string name="vacuum_battery">Battery: </string>
+    <string name="vacuum_battery">Battery: %d</string>
     <string name="vacuum_location">Set location</string>
+    <string name="dock_state_docked">State: Docked</string>
+    <string name="dock_state_undocked">State: Undocked</string>
+    <string name="dock_action">Dock vacuum</string>
+
 
     <string-array
         name="vacuum_modes">
@@ -108,6 +112,7 @@
         <item>Mop</item>
     </string-array>
     <string name="vacuum_mode">Set mode</string>
+    <string name="charge_msg">Battery must be above 5% to turn on the device.</string>
 
     <!-- Routines   -->
     <string name="routine_exec_success">Routine executed successfully</string>

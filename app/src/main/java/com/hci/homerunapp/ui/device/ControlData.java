@@ -41,8 +41,8 @@ public class ControlData implements Serializable {
         private final TextView controlText;
         protected final Context context;
 
-        public ControlDataViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ControlDataViewHolder(@NonNull View itemView, DeviceFragment deviceFragment) {
+            super(itemView, deviceFragment);
             controlText = itemView.findViewById(R.id.text_control);
             context = itemView.getContext();
         }

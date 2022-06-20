@@ -17,7 +17,8 @@ import com.hci.homerunapp.data.remote.device.ApiDeviceService;
 import com.hci.homerunapp.data.remote.device.RemoteDevice;
 import com.hci.homerunapp.data.remote.device.RemoteDeviceRoom;
 import com.hci.homerunapp.data.remote.device.RemoteDeviceState;
-import com.hci.homerunapp.data.remote.room.RemoteRoom;
+import com.hci.homerunapp.data.remote.device.action.ActionBody;
+import com.hci.homerunapp.ui.device.ControlDataAdapter;
 import com.hci.homerunapp.ui.device.Device;
 import com.hci.homerunapp.ui.device.ac.DeviceAC;
 import com.hci.homerunapp.ui.device.blinds.DeviceBlinds;
@@ -29,6 +30,10 @@ import com.hci.homerunapp.ui.room.DeviceData;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DeviceRepository {
 
@@ -77,8 +82,8 @@ public class DeviceRepository {
                 state = remote.getState();
                 deviceAC.getCoolingModeDropDown().setSelectedApi(state.getMode());
                 deviceAC.getHorizontalSwingDropDown().setSelectedApi(state.getHorizontalSwing());
-                deviceAC.getSpeedDropDown().setSelectedApi(state.getVerticalSwing());
-                deviceAC.getVerticalSwingDropDown().setSelectedApi(state.getFanSpeed());
+                deviceAC.getSpeedDropDown().setSelectedApi(state.getFanSpeed());
+                deviceAC.getVerticalSwingDropDown().setSelectedApi(state.getVerticalSwing());
                 deviceAC.getTemperatureSlider().setValue(state.getTemperature());
                 deviceAC.getTurnOnButton().setState(state.getStatus().equals("on"));
                 return deviceAC;
@@ -98,6 +103,7 @@ public class DeviceRepository {
                 deviceData = new DeviceData(remote.getName(), remote.getId(), roomData, type);
                 DeviceLight deviceLamp = (DeviceLight) deviceData.getDeviceInstance(context);
                 state = remote.getState();
+                Log.d("Brightness", String.valueOf(state.getBrightness()));
                 deviceLamp.getBrightnessSlider().setValue(state.getBrightness());
                 deviceLamp.getTurnOnButton().setState(state.getStatus().equals("on"));
                 deviceLamp.getColorPicker().setRGB(state.getColor());
@@ -124,6 +130,8 @@ public class DeviceRepository {
                 RemoteDeviceRoom deviceRoom = state.getLocation();
                 deviceVacuum.getChangeLocationDropDown().setSelected(new RoomData(deviceRoom.getName(), deviceRoom.getId()));
                 deviceVacuum.getTurnOnButton().setState(state.getStatus().equals("active"));
+                deviceVacuum.getSetModeDropDownData().setSelectedApi(state.getMode());
+                deviceVacuum.getDockButton().setState(state.getStatus().equals("docked"));
                 return deviceVacuum;
             }
         }
@@ -180,40 +188,97 @@ public class DeviceRepository {
         }.asLiveData();
     }
 
-//    public LiveData<Resource<RoomData>> getRoom(String roomId) {
-//        Log.d(TAG, "getRoom()");
-//        return new NetworkBoundResource<RoomData, LocalRoom, RemoteRoom>(
-//                executors,
-//                this::mapRoomLocalToModel,
-//                this::mapRoomRemoteToLocal,
-//                this::mapRoomRemoteToModel) {
+    public LiveData<Resource<Device>> getDevice(String id) {
+        Log.d(TAG, "DeviceRepository - getDevice()");
+        return new NetworkBoundResource<Device, LocalRoom, RemoteDevice>(
+                executors,
+                null,
+                null,
+                this::mapDeviceRemoteToModel) {
+
+
+            @Override
+            protected void saveCallResult(@NonNull LocalRoom local) {
+
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable LocalRoom local) {
+                return false;
+            }
+
+            @Override
+            protected boolean shouldPersist(@Nullable RemoteDevice remote) {
+                return false;
+            }
+
+            @Override
+            protected LiveData<LocalRoom> loadFromDb() {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<RemoteResult<RemoteDevice>>> createCall() {
+                return service.getDevice(id);
+            }
+        }.asLiveData();
+    }
+
+    public LiveData<Resource<Void>> putAction(String deviceId, String actionName, ActionBody action, ControlDataAdapter.ViewHolder viewHolder, boolean b) {
+
+            Log.d(TAG, "DeviceRepository - putAction()");
+        Call<ApiResponse<RemoteResult<Object>>> call = service.putAction(deviceId, actionName, action);
+        call.enqueue(new Callback<ApiResponse<RemoteResult<Object>>>() {
+
+            @Override
+            public void onResponse(Call<ApiResponse<RemoteResult<Object>>> call, Response<ApiResponse<RemoteResult<Object>>> response) {
+                Log.d("Response", String.valueOf(response.code()));
+                if (b)
+                    viewHolder.refreshDevice();
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<RemoteResult<Object>>> call, Throwable t) {
+
+            }
+        });
+//            var result =  new NetworkBoundResource<Void, Void, Object>(
+//                    executors,
+//                    local -> null,
+//                    remote -> null,
+//                    remote -> null) {
 //
-//            @Override
-//            protected void saveCallResult(@NonNull LocalRoom local) {
-//                database.roomDao().insert(local);
-//            }
+//                @Override
+//                protected void saveCallResult(@NonNull Void local) {
 //
-//            @Override
-//            protected boolean shouldFetch(@Nullable LocalRoom local) {
-//                return (local == null);
-//            }
+//                }
 //
-//            @Override
-//            protected boolean shouldPersist(@Nullable RemoteRoom remote) {
-//                return true;
-//            }
+//                @Override
+//                protected boolean shouldFetch(@Nullable Void local) {
+//                    return true;
+//                }
 //
-//            @NonNull
-//            @Override
-//            protected LiveData<LocalRoom> loadFromDb() {
-//                return database.roomDao().findById(roomId);
-//            }
+//                @Override
+//                protected boolean shouldPersist(@Nullable Object remote) {
+//                    return false;
+//                }
 //
-//            @NonNull
-//            @Override
-//            protected LiveData<ApiResponse<RemoteResult<RemoteRoom>>> createCall() {
-//                return service.getRoom(roomId);
-//            }
-//        }.asLiveData();
-//    }
+//
+//                @Override
+//                protected LiveData<Void> loadFromDb() {
+//                    return null;
+//                }
+//
+//                @NonNull
+//                @Override
+//                protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
+//                    return service.putAction(deviceId, actionName, action);
+//                }
+//            }.asLiveData();
+        return null;
+        }
+
+
+
 }
