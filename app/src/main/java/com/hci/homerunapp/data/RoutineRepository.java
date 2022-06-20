@@ -141,7 +141,7 @@ public class RoutineRepository {
 
     public LiveData<Resource<Void>> executeRoutine(RoutineData routine) {
         Log.d(TAG, "RoutineRepository - executeRoutine()");
-        return new NetworkBoundResource<Void, LocalRoutine, Boolean>(
+        return new NetworkBoundResource<Void, LocalRoutine, Object>(
                 executors,
                 local -> null,
                 remote -> null,
@@ -158,7 +158,7 @@ public class RoutineRepository {
             }
 
             @Override
-            protected boolean shouldPersist(@Nullable Boolean remote) {
+            protected boolean shouldPersist(@Nullable Object remote) {
                 return true;
             }
 
@@ -170,7 +170,7 @@ public class RoutineRepository {
 
             @NonNull
             @Override
-            protected LiveData<ApiResponse<RemoteResult<Boolean>>> createCall() {
+            protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
                 return service.executeRoutine(routine.getId());
             }
         }.asLiveData();

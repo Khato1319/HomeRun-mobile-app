@@ -20,5 +20,5 @@ public interface ApiRoutineService {
     LiveData<ApiResponse<RemoteResult<RemoteRoutine>>> getRoutine(@Path("routineId") String routineId);
 
     @PUT("routines/{routineId}/execute")
-    LiveData<ApiResponse<RemoteResult<Boolean>>> executeRoutine(@Path("routineId") String routineId);
+    LiveData<ApiResponse<RemoteResult<Object>>> executeRoutine(@Path("routineId") String routineId);
 }
