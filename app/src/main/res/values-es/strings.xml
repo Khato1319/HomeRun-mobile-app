@@ -118,4 +118,26 @@
 
     <!-- Rutinas   -->
     <string name="routine_exec_success">Rutina ejecutada exitosamente</string>
+
+    <!-- Actions   -->
+    <string name="device_from">%s from %s</string>
+    <string name="action_state">Set state: %s</string>
+    <string name="action_on">Turn on</string>
+    <string name="action_off">Turn off</string>
+    <string name="action_temperature">Set temperature</string>
+
+    <!--Air conditioner    -->
+    <!-- Se usan los mismos strings que en su fragment, menos temperatura que se agrega-->
+
+    <!--Blinds    -->
+    <!-- Se usan los mismos strings que en su fragment-->
+
+    <!--Light    -->
+    <!-- Se usan los mismos strings que en su fragment-->
+
+    <!--Oven    -->
+    <!-- Se usan los mismos strings que en su fragment, usamos mismo temperatura aire-->
+
+    <!--Vacuum    -->
+    <!-- Se usan los mismos strings que en su fragment    -->
 </resources>

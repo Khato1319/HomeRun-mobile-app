@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_recents, R.id.navigation_routines, R.id.navigation_room, R.id.navigation_device)
+                R.id.navigation_home, R.id.navigation_recents, R.id.navigation_routines, R.id.navigation_room, R.id.navigation_device, R.id.navigation_routine)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResumeFragments() {
         Log.d("CURRENT FRAGM", String.valueOf(getForegroundFragment()));
-
         super.onResumeFragments();
     }
 

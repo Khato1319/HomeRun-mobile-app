@@ -2,6 +2,7 @@ package com.hci.homerunapp.data;
 
 import static java.util.stream.Collectors.toList;
 
+import android.app.RemoteAction;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -14,9 +15,12 @@ import com.hci.homerunapp.data.remote.ApiResponse;
 import com.hci.homerunapp.data.remote.RemoteResult;
 import com.hci.homerunapp.data.remote.routine.ApiRoutineService;
 import com.hci.homerunapp.data.remote.routine.RemoteRoutine;
+import com.hci.homerunapp.data.remote.routine.RemoteRoutineAction;
 import com.hci.homerunapp.ui.routines.RoutineData;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class RoutineRepository {
@@ -43,7 +47,13 @@ public class RoutineRepository {
     }
 
     private RoutineData mapRoutineRemoteToModel(RemoteRoutine remote){
-        return new RoutineData(remote.getName(), remote.getId());
+        RoutineData routineData = new RoutineData(remote.getName(), remote.getId());
+        Map<String, Object> actions = new HashMap<>();
+        for (RemoteRoutineAction action : remote.getActions()) {
+            actions.put(action.getActionName(), action.getParams().size() == 0 ? null : action.getParams().get(0));
+        }
+        routineData.setActions(actions);
+        return routineData;
     }
 
     private RemoteRoutine mapRoutineModelToRemote(RoutineData model){
@@ -57,16 +67,8 @@ public class RoutineRepository {
         Log.d(TAG, "RoutineRepository - getRoutines()");
         return new NetworkBoundResource<List<RoutineData>, List<LocalRoutine>, List<RemoteRoutine>>(
                 executors,
-                locals -> {
-                    return locals.stream()
-                            .map(this::mapRoutineLocalToModel)
-                            .collect(toList());
-                },
-                remotes -> {
-                    return remotes.stream()
-                            .map(this::mapRoutineRemoteToLocal)
-                            .collect(toList());
-                },
+                null,
+                null,
                 remotes -> {
                     return remotes.stream()
                             .map(this::mapRoutineRemoteToModel)
@@ -74,13 +76,11 @@ public class RoutineRepository {
                 }) {
             @Override
             protected void saveCallResult(@NonNull List<LocalRoutine> locals) {
-                database.routineDao().deleteAll();
-                database.routineDao().insert(locals);
             }
 
             @Override
             protected boolean shouldFetch(@Nullable List<LocalRoutine> locals) {
-                return ((locals == null) || (locals.size() == 0) || rateLimit.shouldFetch(RATE_LIMITER_ALL_KEY));
+                return true;
             }
 
             @Override
@@ -91,50 +91,13 @@ public class RoutineRepository {
             @NonNull
             @Override
             protected LiveData<List<LocalRoutine>> loadFromDb() {
-                return database.routineDao().findAll();
+                return null;
             }
 
             @NonNull
             @Override
             protected LiveData<ApiResponse<RemoteResult<List<RemoteRoutine>>>> createCall() {
                 return service.getRoutines();
-            }
-        }.asLiveData();
-    }
-
-    public LiveData<Resource<RoutineData>> getRoutine(String routineId) {
-        Log.d(TAG, "getRoutine()");
-        return new NetworkBoundResource<RoutineData, LocalRoutine, RemoteRoutine>(
-                executors,
-                this::mapRoutineLocalToModel,
-                this::mapRoutineRemoteToLocal,
-                this::mapRoutineRemoteToModel) {
-
-            @Override
-            protected void saveCallResult(@NonNull LocalRoutine local) {
-                database.routineDao().insert(local);
-            }
-
-            @Override
-            protected boolean shouldFetch(@Nullable LocalRoutine local) {
-                return (local == null);
-            }
-
-            @Override
-            protected boolean shouldPersist(@Nullable RemoteRoutine remote) {
-                return true;
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<LocalRoutine> loadFromDb() {
-                return database.routineDao().findById(routineId);
-            }
-
-            @NonNull
-            @Override
-            protected LiveData<ApiResponse<RemoteResult<RemoteRoutine>>> createCall() {
-                return service.getRoutine(routineId);
             }
         }.asLiveData();
     }
@@ -165,7 +128,7 @@ public class RoutineRepository {
             @NonNull
             @Override
             protected LiveData<LocalRoutine> loadFromDb() {
-                return database.routineDao().findById(routine.getId());
+                return null;
             }
 
             @NonNull
