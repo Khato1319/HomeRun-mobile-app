@@ -29,6 +29,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        app:borderWidth="0dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/card_view"
         app:layout_constraintRight_toRightOf="@+id/card_view"
