@@ -41,14 +41,13 @@ public class DropDownData extends ControlData{
         throw new IllegalStateException("La seleccion no existe");
     }
 
-//    public String getSelectedValueFromApiValue(String ) {
-//        for (int i=0 ; i< items.length ; i++) {
-//            if (items[i].equals(selected))
-//                return apiItems[i];
-//        }
-//
-//        throw new IllegalStateException("La seleccion no existe");
-//    }
+    public String getDisplayValue(String apiValue) {
+        for (int i=0 ; i< items.length ; i++) {
+            if (apiItems[i].equals(apiValue))
+                return items[i];
+        }
+        throw new IllegalStateException("La seleccion no existe");
+    }
 
     public void setSelected(String value) {
         this.selected = value;
@@ -65,13 +64,13 @@ public class DropDownData extends ControlData{
         return selected;
     }
 
-    public String getSelectedApi() {
-        for (int i=0 ; i< items.length ; i++) {
-            if (items[i].equals(selected))
-                return apiItems[i];
-        }
-        throw new IllegalStateException("No selected value that matches in items");
-    }
+//    public String getSelectedApi() {
+//        for (int i=0 ; i< items.length ; i++) {
+//            if (items[i].equals(selected))
+//                return apiItems[i];
+//        }
+//        throw new IllegalStateException("No selected value that matches in items");
+//    }
 
     public String[] getItems() {
         return items;

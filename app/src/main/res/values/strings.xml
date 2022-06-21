@@ -115,31 +115,39 @@
         <item>Vacuum</item>
         <item>Mop</item>
     </string-array>
-    <string name="vacuum_mode">Set mode</string>
+    <string name="set_mode">Set mode</string>
+    <string name="set_speed">Set speed</string>
+
+
+
     <string name="charge_msg">Battery must be above 5% to turn on the device.</string>
 
-    <!-- Routines   -->
-    <string name="routine_exec_success">Routine executed successfully</string>
+    <!-- Rutinas   -->
+    <string name="routine_exec_success">Rutine executed successfully</string>
 
-    <!-- Acciones   -->
-    <string name="device_from">%s de %s</string>
-    <string name="action_state">Cambiar estado: %s</string>
-    <string name="action_on">Encender</string>
-    <string name="action_off">Apagar</string>
-    <string name="action_temperature">Cambiar temperatura</string>
+    <!-- Actions   -->
+    <string name="device_from">%s from %s</string>
+<!--    <string name="action_state">Set state: %s</string>-->
+    <string name="action_on">Set state: Turn on</string>
+    <string name="action_off">Set state: Turn off</string>
+    <string name="action_temperature">Set temperature: %d°C</string>
 
-    <!--Aire acondicionado    -->
+    <!--Air conditioner    -->
     <!-- Se usan los mismos strings que en su fragment, menos temperatura que se agrega-->
 
-    <!--Cortinas/Persianas    -->
+    <!--Blinds    -->
+    <string name="action_open">Set state: Open</string>
+    <string name="action_close">Set state: Close</string>
+    <string name="action_set_level">Set level</string>
+
+
+    <!--Light    -->
     <!-- Se usan los mismos strings que en su fragment-->
 
-    <!--Luz    -->
-    <!-- Se usan los mismos strings que en su fragment-->
-
-    <!--Horno    -->
+    <!--Oven    -->
     <!-- Se usan los mismos strings que en su fragment, usamos mismo temperatura aire-->
 
-    <!--Aspiradora    -->
+    <!--Vacuum    -->
     <!-- Se usan los mismos strings que en su fragment    -->
+    <string name="action_dock">Set state: Dock</string>
 </resources>

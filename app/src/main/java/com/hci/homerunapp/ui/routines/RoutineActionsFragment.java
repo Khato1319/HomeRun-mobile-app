@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.data.RoutineRepository;
+import com.hci.homerunapp.databinding.FragmentRoutineActionsBinding;
 import com.hci.homerunapp.databinding.FragmentRoutinesBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;
@@ -31,9 +33,9 @@ import com.hci.homerunapp.ui.home.RoomData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoutineActionsFragment extends SecondaryFragment implements ButtonListenerMaker {
+public class RoutineActionsFragment extends SecondaryFragment {
 
-    private FragmentRoutinesBinding binding;
+    private FragmentRoutineActionsBinding binding;
     RoutineActionsAdapter adapter;
     RoutineActionsViewModel routinesViewModel;
     private MainActivity activity;
@@ -41,7 +43,7 @@ public class RoutineActionsFragment extends SecondaryFragment implements ButtonL
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentRoutinesBinding.inflate(inflater, container, false);
+        binding = FragmentRoutineActionsBinding.inflate(inflater, container, false);
 
         MyApplication application = (MyApplication) getActivity().getApplication();
         activity = (MainActivity) getActivity();
@@ -56,22 +58,7 @@ public class RoutineActionsFragment extends SecondaryFragment implements ButtonL
 
         label = routinesViewModel.getData().getName();
 
-        adapter = new RoutineActionsAdapter(routinesViewModel.getData().getActions(), this);
-
-//        routinesViewModel.getRoutines().observe(getViewLifecycleOwner(), resource -> {
-//            switch (resource.status) {
-//                case LOADING -> activity.showProgressBar();
-//                case SUCCESS -> {
-//                    activity.hideProgressBar();
-//                    routines.clear();
-//                    if (resource.data != null &&
-//                            resource.data.size() > 0) {
-//                        routines.addAll(resource.data);
-//                        adapter.notifyDataSetChanged();
-//                    }
-//                }
-//            }
-//        });
+        adapter = new RoutineActionsAdapter(routinesViewModel.getData().getActions());
 
 
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
@@ -91,8 +78,32 @@ public class RoutineActionsFragment extends SecondaryFragment implements ButtonL
                 binding.routinesRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
         }
         binding.routinesRecyclerView.setAdapter(adapter);
+        binding.executeButton.setOnClickListener((it) -> executeRoutine());
+
 
         return binding.getRoot();
+    }
+
+    private void executeRoutine() {
+        // Removed getRoom() observer to avoid null value update notification after delete.
+        routinesViewModel.executeRoutine().observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    activity.showProgressBar();
+                    break;
+                case SUCCESS:
+                    activity.hideProgressBar();
+                    //activity.popBackStack();
+                    Toast.makeText(activity, R.string.routine_exec_success, Toast.LENGTH_SHORT).show();
+                    break;
+                case ERROR:
+                    activity.hideProgressBar();
+                    Toast.makeText(activity, resource.error.getDescription(), Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     @Override
@@ -109,22 +120,8 @@ public class RoutineActionsFragment extends SecondaryFragment implements ButtonL
         binding = null;
     }
 
-    @Override
-    public View.OnClickListener getButtonClickListener(Data data) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        };
-
-    }
 
 
-    @Override
-    public NavController getNavController() {
-        return NavHostFragment.findNavController(this);
-    }
 
 
 }

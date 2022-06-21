@@ -125,25 +125,5 @@ public class RoutinesFragment extends PrimaryFragment implements ButtonListenerM
         return NavHostFragment.findNavController(this);
     }
 
-    private void executeRoutine(RoutineData routine) {
-        // Removed getRoom() observer to avoid null value update notification after delete.
-        routinesViewModel.executeRoutine(routine).observe(getViewLifecycleOwner(), resource -> {
-            switch (resource.status) {
-                case LOADING:
-                    activity.showProgressBar();
-                    break;
-                case SUCCESS:
-                    activity.hideProgressBar();
-                    //activity.popBackStack();
-                    Toast.makeText(activity, R.string.routine_exec_success, Toast.LENGTH_SHORT).show();
-                    break;
-                case ERROR:
-                    activity.hideProgressBar();
-                    Toast.makeText(activity, resource.error.getDescription(), Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    break;
-            }
-        });
-    }
+
 }
