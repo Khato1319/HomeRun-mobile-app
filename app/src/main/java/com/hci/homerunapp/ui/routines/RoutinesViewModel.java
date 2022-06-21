@@ -19,24 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoutinesViewModel  extends RepositoryViewModel<RoutineRepository> {
-    protected List<Data> elements = new ArrayList<>();
+
     private final MediatorLiveData<Resource<List<RoutineData>>> routines = new MediatorLiveData<>();
-
-
-    private final MutableLiveData<String> routineId = new MutableLiveData<>();
-    private final LiveData<Resource<RoutineData>> routine;
 
 
 
     public RoutinesViewModel(RoutineRepository routineRepository) {
         super(routineRepository);
-        routine = Transformations.switchMap(routineId, routineId -> {
-            if (routineId == null) {
-                return AbsentLiveData.create();
-            } else {
-                return repository.getRoutine(routineId);
-            }
-        });
+
     }
 
     public LiveData<Resource<List<RoutineData>>> getRoutines(){
@@ -44,9 +34,6 @@ public class RoutinesViewModel  extends RepositoryViewModel<RoutineRepository> {
         return routines;
     }
 
-    public LiveData<Resource<RoutineData>> getRoutine() {
-        return routine;
-    }
 
 
     public LiveData<Resource<Void>> executeRoutine(RoutineData routine) {

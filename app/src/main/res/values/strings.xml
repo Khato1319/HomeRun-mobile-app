@@ -120,4 +120,26 @@
 
     <!-- Routines   -->
     <string name="routine_exec_success">Routine executed successfully</string>
+
+    <!-- Acciones   -->
+    <string name="device_from">%s de %s</string>
+    <string name="action_state">Cambiar estado: %s</string>
+    <string name="action_on">Encender</string>
+    <string name="action_off">Apagar</string>
+    <string name="action_temperature">Cambiar temperatura</string>
+
+    <!--Aire acondicionado    -->
+    <!-- Se usan los mismos strings que en su fragment, menos temperatura que se agrega-->
+
+    <!--Cortinas/Persianas    -->
+    <!-- Se usan los mismos strings que en su fragment-->
+
+    <!--Luz    -->
+    <!-- Se usan los mismos strings que en su fragment-->
+
+    <!--Horno    -->
+    <!-- Se usan los mismos strings que en su fragment, usamos mismo temperatura aire-->
+
+    <!--Aspiradora    -->
+    <!-- Se usan los mismos strings que en su fragment    -->
 </resources>

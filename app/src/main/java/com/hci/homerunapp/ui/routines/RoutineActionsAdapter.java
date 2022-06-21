@@ -4,37 +4,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
-import com.hci.homerunapp.ui.Data;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.ViewHolder> {
+public class RoutineActionsAdapter extends RecyclerView.Adapter<RoutineActionsAdapter.ViewHolder> {
 
     private static final String TAG = "CustomAdapter";
-    private final List<RoutineData> elements;
+    private List<Map.Entry<String, Object>> actions;
     private final ButtonListenerMaker buttonListenerMaker;
 
 
-    RoutinesAdapter(List<RoutineData> elements, ButtonListenerMaker buttonListenerMaker) {
-        this.elements = elements;
+    RoutineActionsAdapter(Map<String, Object> actions, ButtonListenerMaker buttonListenerMaker) {
+        this.actions = new ArrayList<>(actions.entrySet());
         this.buttonListenerMaker = buttonListenerMaker;
-
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.routine_item, parent, false);
+                .inflate(R.layout.routine_action, parent, false);
 
         return new ViewHolder(view);
     }
@@ -45,31 +43,35 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "Element " + position + " set.");
 
-        Button button = holder.getButton();
-        Data data = elements.get(position);
+        Map.Entry<String, Object> action = actions.get(position);
 
-        button.setOnClickListener(buttonListenerMaker.getButtonClickListener(data));
-
-        button.setText(data.getName());
+        holder.getDeviceText().setText(action.getKey());
+        holder.getActionText().setText(String.valueOf(action.getValue()));
 
 
     }
 
     @Override
     public int getItemCount() {
-        return elements.size();
+        return actions.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final Button button;
+        private final TextView deviceText;
+        private final TextView actionText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            button = itemView.findViewById(R.id.routine_button);
+            deviceText = itemView.findViewById(R.id.text_device);
+            actionText = itemView.findViewById(R.id.text_action);
         }
 
-        public Button getButton() {
-            return button;
+        public TextView getDeviceText() {
+            return deviceText;
+        }
+
+        public TextView getActionText() {
+            return actionText;
         }
     }
 }

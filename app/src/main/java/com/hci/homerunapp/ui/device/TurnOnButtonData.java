@@ -94,9 +94,9 @@ public class TurnOnButtonData extends ControlData{
             if (!controlData.isOn()) {
                 controlData.setState(false);
                 if (turnOnbutton.getBackground() != null)
-                    turnOnbutton.getBackground().setTint(Color.DKGRAY);
+                    turnOnbutton.getBackground().setTint(Color.LTGRAY);
 
-                turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.primary)));
+                turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(Color.BLACK));
 
             }
             else {

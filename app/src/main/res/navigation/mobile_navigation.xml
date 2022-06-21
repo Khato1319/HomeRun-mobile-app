@@ -32,6 +32,9 @@
         android:label="@string/title_routines"
         tools:layout="@layout/fragment_notifications" >
 
+        <action
+            android:id="@+id/action_navigation_routines_to_navigation_routine"
+            app:destination="@id/navigation_routine" />
     </fragment>
     <fragment
         android:id="@+id/navigation_room"
@@ -53,6 +56,14 @@
         <argument
             android:name="deviceData"
             app:argType="com.hci.homerunapp.ui.room.DeviceData" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_routine"
+        android:name="com.hci.homerunapp.ui.routines.RoutineActionsFragment"
+        android:label="RoutineFragment" >
+        <argument
+            android:name="routineData"
+            app:argType="com.hci.homerunapp.ui.routines.RoutineData" />
     </fragment>
 
 </navigation>

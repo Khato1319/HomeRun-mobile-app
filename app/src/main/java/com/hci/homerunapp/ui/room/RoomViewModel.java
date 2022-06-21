@@ -17,22 +17,11 @@ import java.util.List;
 
 
 public class RoomViewModel extends DataRepositoryViewModel<DeviceRepository, RoomData> {
-//    private RoomData roomData;
 private final MediatorLiveData<Resource<List<Device>>> devices = new MediatorLiveData<>();
 
     public RoomViewModel(DeviceRepository repository, RoomData data) {
         super(repository, data);
     }
-
-
-//    public void setRoomData(RoomData roomData) {
-////        devices = new ArrayList<>();
-////        devices.add(new DeviceData("Aspiradora", "1", roomData, DeviceData.Type.VACUUM));
-////        devices.add(new DeviceData("Luz", "2", roomData, DeviceData.Type.LIGHT));
-////        devices.add(new DeviceData("Blindss", "3", roomData, DeviceData.Type.BLINDS));
-////        devices.add(new DeviceData("AC 2", "4", roomData, DeviceData.Type.AC));
-////        devices.add(new DeviceData("Oven 1", "5", roomData, DeviceData.Type.OVEN));
-//    }
 
     public LiveData<Resource<List<Device>>> getDevices() {
         loadDevices();

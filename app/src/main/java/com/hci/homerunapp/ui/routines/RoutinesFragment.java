@@ -111,11 +111,10 @@ public class RoutinesFragment extends PrimaryFragment implements ButtonListenerM
 
     @Override
     public View.OnClickListener getButtonClickListener(Data data) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                executeRoutine((RoutineData) data);
-            }
+        return (it) -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("routineData", data);
+            NavHostFragment.findNavController(this).navigate(R.id.action_navigation_routines_to_navigation_routine, bundle);
         };
 
     }
