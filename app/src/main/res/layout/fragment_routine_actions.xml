@@ -19,6 +19,7 @@
         android:clickable="true"
         android:layout_width="65dp"
         android:layout_height="65dp"
+        app:borderWidth="0dp"
         app:fabCustomSize="65dp"
         android:scaleType="center"
         android:backgroundTint="#BBDEFB"
