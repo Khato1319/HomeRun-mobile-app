@@ -38,7 +38,6 @@ public class RoutineActionsFragment extends SecondaryFragment implements ButtonL
     RoutineActionsViewModel routinesViewModel;
     private MainActivity activity;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
