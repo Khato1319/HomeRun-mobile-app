@@ -4,11 +4,12 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:layout_margin="8dp">
+    android:layout_margin="5dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
+        android:layout_margin="5dp"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="16dp"
@@ -27,11 +28,8 @@
         app:boxStrokeColor="@drawable/selector_box_stroke_color"
         app:boxStrokeWidth="2dp"
         android:translationZ="90dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/card_view"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/card_view"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/card_view"
+        app:layout_constraintLeft_toLeftOf="@+id/card_view"
         app:layout_constraintTop_toBottomOf="@+id/text_control">
 
         <AutoCompleteTextView

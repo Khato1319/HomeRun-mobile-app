@@ -23,7 +23,7 @@
     <string name="cooling_mode_title">Cambiar modo de aire</string>
 
     <string-array
-        name="vertical_swing_modes">
+        name="horizontal_swing_modes">
         <item>Automático</item>
         <item>-90 grados</item>
         <item>-45 grados</item>
@@ -34,7 +34,7 @@
     <string name="vertical_swing_mode_title">Cambiar swing vertical</string>
 
     <string-array
-        name="horizontal_swing_modes">
+        name="vertical_swing_modes">
         <item>Auto</item>
         <item>22 grados</item>
         <item>45 grados</item>
@@ -54,7 +54,9 @@
     <string name="set_fan_speed">Cambiar velocidad de aire</string>
 
     <!--Cortinas/Persianas   -->
-    <string name="blinds_state">Estado: %s</string>
+    <string name="blinds_level">Nivel actual: %s</string>
+    <string name="blinds_state">Estado actual: %s</string>
+
     <string-array
         name="blinds_actions">
         <item>Abrir</item>
@@ -64,6 +66,8 @@
         name="blinds_states">
         <item>Abierto</item>
         <item>Cerrado</item>
+        <item>Abriendo</item>
+        <item>Cerrando</item>
     </string-array>
     <string name="close_limit">Límite de cerrado</string>
 

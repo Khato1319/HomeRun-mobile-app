@@ -1,7 +1,9 @@
 package com.hci.homerunapp.ui.home;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hci.homerunapp.MyApplication;
@@ -61,22 +64,27 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
                             resource.data.size() > 0) {
                         rooms.addAll(resource.data);
                         adapter.notifyDataSetChanged();
-//                        binding.list.setVisibility(View.VISIBLE);
-//                        binding.empty.setVisibility(View.GONE);
-                    } else {
-//                        binding.list.setVisibility(View.GONE);
-//                        binding.empty.setVisibility(View.VISIBLE);
                     }
                 }
             }
         });
 
-//        binding.list.setHasFixedSize(true);
-//        binding.list.setLayoutManager(new LinearLayoutManager(activity));
-//        binding.list.setAdapter(adapter);
+            boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+            int orientation = this.getResources().getConfiguration().orientation;
 
-        binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
+        if (isTablet) {
+            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+                binding.homeRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
+            else
+                binding.homeRecyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
+
+        }
+        else {
+            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+                binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            else
+                binding.homeRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
+        }
         binding.homeRecyclerView.setAdapter(adapter);
 
 

@@ -1,5 +1,6 @@
 package com.hci.homerunapp.ui.recents;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hci.homerunapp.ui.MainActivity;
@@ -24,6 +26,7 @@ public class RecentsFragment extends PrimaryFragment implements ButtonListenerMa
 
     protected RecentsViewModel model;
     SimpleDeviceButtonAdapter adapter;
+    MainActivity activity;
 
 //    public static SimpleDeviceButtonFragment newInstance() {
 //        return new SimpleDeviceButtonFragment();
@@ -45,13 +48,29 @@ public class RecentsFragment extends PrimaryFragment implements ButtonListenerMa
 
         label = getResources().getString(R.string.title_recents);
 
+        activity = (MainActivity) getActivity();
+
 
         FragmentRecentsBinding binding = FragmentRecentsBinding.inflate(inflater, container, false);
         model.setDevices(((MainActivity)getActivity()).getRecentDevices());
         adapter = new SimpleDeviceButtonAdapter(model.getDevices(), this);
 
-        binding.recentsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        int orientation = this.getResources().getConfiguration().orientation;
+
+        if (isTablet) {
+            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+                binding.recentsRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
+            else
+                binding.recentsRecyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
+
+        }
+        else {
+            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+                binding.recentsRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            else
+                binding.recentsRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
+        }
         binding.recentsRecyclerView.setAdapter(adapter);
 
         return binding.getRoot();

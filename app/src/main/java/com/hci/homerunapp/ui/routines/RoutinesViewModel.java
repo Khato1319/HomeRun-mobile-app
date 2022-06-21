@@ -22,13 +22,11 @@ public class RoutinesViewModel  extends RepositoryViewModel<RoutineRepository> {
     protected List<Data> elements = new ArrayList<>();
     private final MediatorLiveData<Resource<List<RoutineData>>> routines = new MediatorLiveData<>();
 
-    //Guarda la que está seleccionada
+
     private final MutableLiveData<String> routineId = new MutableLiveData<>();
     private final LiveData<Resource<RoutineData>> routine;
 
-//    public List<Data> getElements() {
-//        return elements;
-//    }
+
 
     public RoutinesViewModel(RoutineRepository routineRepository) {
         super(routineRepository);

@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class Device implements Data {
     private final DeviceData deviceData;
     protected Context context;
-    private NotificationState notificationState = NotificationState.OFF;
+
 
 
     public abstract List<ControlData> getControls();
@@ -27,15 +27,16 @@ public abstract class Device implements Data {
     }
 
     public void toggleNotificationState() {
-        if (notificationState.equals(NotificationState.OFF))
-            notificationState = NotificationState.ON;
+        if (deviceData.getNotifications().equals(DeviceData.NotificationState.OFF))
+            deviceData.setNotifications(DeviceData.NotificationState.ON);
         else
-            notificationState = NotificationState.OFF;
+            deviceData.setNotifications(DeviceData.NotificationState.OFF);
     }
 
-    public NotificationState getNotificationState() {
-        return notificationState;
+    public DeviceData.NotificationState getNotificationState() {
+        return deviceData.getNotifications();
     }
+
 
     @Override
     public String getName() {
@@ -47,17 +48,6 @@ public abstract class Device implements Data {
         return deviceData.getId();
     }
 
-    public enum NotificationState {
-        ON(R.drawable.ic_notifications_black_24dp),
-        OFF(R.drawable.ic_baseline_notifications_off_24);
-        private int iconId;
-        NotificationState(int iconId) {
-            this.iconId = iconId;
-        }
 
-        public int getIconId() {
-            return iconId;
-        }
-    }
 
 }

@@ -9,6 +9,10 @@ public class RemoteDeviceMeta {
     @Expose
     private String group;
 
+    @SerializedName("notifications")
+    @Expose
+    private boolean notifications;
+
     public String getGroup() {
         return group;
     }
@@ -17,4 +21,11 @@ public class RemoteDeviceMeta {
         this.group = group;
     }
 
+    public boolean isNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(boolean notifications) {
+        this.notifications = notifications;
+    }
 }

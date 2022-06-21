@@ -24,7 +24,7 @@
     <string name="cooling_mode_title">Set AC mode</string>
 
     <string-array
-        name="vertical_swing_modes">
+        name="horizontal_swing_modes">
         <item>Auto</item>
         <item>-90 degrees</item>
         <item>-45 degrees</item>
@@ -35,7 +35,7 @@
     <string name="vertical_swing_mode_title">Set vertical swing</string>
 
     <string-array
-        name="horizontal_swing_modes">
+        name="vertical_swing_modes">
         <item>Auto</item>
         <item>22 degrees</item>
         <item>45 degrees</item>
@@ -55,7 +55,9 @@
     <string name="set_fan_speed">Set fan speed</string>
 
     <!--Blinds   -->
-    <string name="blinds_state">State: %s</string>
+    <string name="blinds_state">Current state: %s</string>
+    <string name="blinds_level">Current level: %s</string>
+
     <string-array
         name="blinds_actions">
         <item>Open</item>
@@ -65,6 +67,8 @@
         name="blinds_states">
         <item>Opened</item>
         <item>Closed</item>
+        <item>Opening</item>
+        <item>Closing</item>
     </string-array>
     <string name="close_limit">Close limit</string>
 
