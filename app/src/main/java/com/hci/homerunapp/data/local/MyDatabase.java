@@ -10,11 +10,10 @@ import com.hci.homerunapp.data.local.routine.LocalRoutine;
 import com.hci.homerunapp.data.local.routine.RoutineDao;
 
 
-@Database(entities = {LocalRoom.class, LocalRoutine.class}, exportSchema = true, version = 2,
+@Database(entities = {LocalRoom.class, LocalRoutine.class}, exportSchema = true, version = 3,
         autoMigrations = {
-                @AutoMigration(from = 1, to = 2)
+                @AutoMigration(from = 2, to = 3)
         })
-
 public abstract class MyDatabase extends RoomDatabase {
     abstract public RoomDao roomDao();
     abstract public RoutineDao routineDao();

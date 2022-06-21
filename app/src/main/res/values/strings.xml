@@ -118,4 +118,6 @@
     <string name="vacuum_mode">Set mode</string>
     <string name="charge_msg">Battery must be above 5% to turn on the device.</string>
 
+    <!-- Routines   -->
+    <string name="routine_exec_success">Routine executed successfully</string>
 </resources>

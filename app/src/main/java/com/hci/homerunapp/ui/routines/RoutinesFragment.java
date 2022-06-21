@@ -1,10 +1,16 @@
 package com.hci.homerunapp.ui.routines;
 
+
 import android.content.res.Configuration;
+
+import android.app.AlertDialog;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -108,7 +114,7 @@ public class RoutinesFragment extends PrimaryFragment implements ButtonListenerM
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                executeRoutine((RoutineData) data);
             }
         };
 
@@ -120,5 +126,25 @@ public class RoutinesFragment extends PrimaryFragment implements ButtonListenerM
         return NavHostFragment.findNavController(this);
     }
 
-
+    private void executeRoutine(RoutineData routine) {
+        // Removed getRoom() observer to avoid null value update notification after delete.
+        routinesViewModel.executeRoutine(routine).observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case LOADING:
+                    activity.showProgressBar();
+                    break;
+                case SUCCESS:
+                    activity.hideProgressBar();
+                    //activity.popBackStack();
+                    Toast.makeText(activity, R.string.routine_exec_success, Toast.LENGTH_SHORT).show();
+                    break;
+                case ERROR:
+                    activity.hideProgressBar();
+                    Toast.makeText(activity, resource.error.getDescription(), Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
 }

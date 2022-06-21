@@ -116,5 +116,6 @@
     <string name="charge_msg">La batería debe estar por encima del 5% para utilizar el dispositivo.</string>
 
 
-
+    <!-- Rutinas   -->
+    <string name="routine_exec_success">Rutina ejecutada exitosamente</string>
 </resources>
