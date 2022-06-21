@@ -27,8 +27,8 @@ public class RoutineActionsViewModel extends DataRepositoryViewModel<RoutineRepo
     }
 
 
-    public LiveData<Resource<Void>> executeRoutine(RoutineData routine) {
-        return repository.executeRoutine(routine);
+    public LiveData<Resource<Void>> executeRoutine() {
+        return repository.executeRoutine(getData());
     }
 
 }

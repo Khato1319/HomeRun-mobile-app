@@ -105,39 +105,46 @@
     <string name="vacuum_location">Cambiar ubicación</string>
     <string name="dock_state_docked">Estado: En dock</string>
     <string name="dock_state_undocked">Estado: Fuera de dock</string>
-    <string name="dock_action">Volver a base de carga</string>
+    <string name="dock_action">Volver a base</string>
 
     <string-array
         name="vacuum_modes">
         <item>Aspirar</item>
         <item>Trapear</item>
     </string-array>
-    <string name="vacuum_mode">Cambiar modo</string>
+    <string name="set_mode">Cambiar modo</string>
+    <string name="set_speed">Cambiar velocidad</string>
+
     <string name="charge_msg">La batería debe estar por encima del 5% para utilizar el dispositivo.</string>
 
 
     <!-- Rutinas   -->
     <string name="routine_exec_success">Rutina ejecutada exitosamente</string>
 
-    <!-- Actions   -->
-    <string name="device_from">%s from %s</string>
-    <string name="action_state">Set state: %s</string>
-    <string name="action_on">Turn on</string>
-    <string name="action_off">Turn off</string>
-    <string name="action_temperature">Set temperature</string>
+    <!-- Acciones   -->
+    <string name="device_from">%s de %s</string>
 
-    <!--Air conditioner    -->
+
+    <string name="action_on">Cambiar estado: Encender</string>
+    <string name="action_off">Cambiar estado: Apagar</string>
+    <string name="action_temperature">Cambiar temperatura: %d°C</string>
+
+    <!--Aire acondicionado    -->
     <!-- Se usan los mismos strings que en su fragment, menos temperatura que se agrega-->
 
-    <!--Blinds    -->
+    <!--Cortinas/Persianas    -->
+    <string name="action_open">Cambiar estado: Abrir</string>
+    <string name="action_close">Cambiar estado: Cerrar</string>
+    <string name="action_set_level">Cambiar nivel</string>
+
+
+    <!--Luz    -->
     <!-- Se usan los mismos strings que en su fragment-->
 
-    <!--Light    -->
-    <!-- Se usan los mismos strings que en su fragment-->
-
-    <!--Oven    -->
+    <!--Horno    -->
     <!-- Se usan los mismos strings que en su fragment, usamos mismo temperatura aire-->
 
-    <!--Vacuum    -->
+    <!--Aspiradora    -->
     <!-- Se usan los mismos strings que en su fragment    -->
+    <string name="action_dock">Cambiar estado: Volver a base</string>
 </resources>

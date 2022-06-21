@@ -16,8 +16,10 @@ import com.hci.homerunapp.data.remote.RemoteResult;
 import com.hci.homerunapp.data.remote.routine.ApiRoutineService;
 import com.hci.homerunapp.data.remote.routine.RemoteRoutine;
 import com.hci.homerunapp.data.remote.routine.RemoteRoutineAction;
+import com.hci.homerunapp.ui.routines.RoutineAction;
 import com.hci.homerunapp.ui.routines.RoutineData;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,30 +40,35 @@ public class RoutineRepository {
         this.database = database;
     }
 
-    private RoutineData mapRoutineLocalToModel(LocalRoutine local){
-        return new RoutineData(local.name, local. id);
-    }
-
-    private LocalRoutine mapRoutineRemoteToLocal(RemoteRoutine remote){
-        return new LocalRoutine(remote.getId(), remote.getName());
-    }
+//    private RoutineData mapRoutineLocalToModel(LocalRoutine local){
+//        return new RoutineData(local.name, local. id);
+//    }
+//
+//    private LocalRoutine mapRoutineRemoteToLocal(RemoteRoutine remote){
+//        return new LocalRoutine(remote.getId(), remote.getName());
+//    }
 
     private RoutineData mapRoutineRemoteToModel(RemoteRoutine remote){
         RoutineData routineData = new RoutineData(remote.getName(), remote.getId());
-        Map<String, Object> actions = new HashMap<>();
+        List<RoutineAction> actions = new ArrayList<>();
         for (RemoteRoutineAction action : remote.getActions()) {
-            actions.put(action.getActionName(), action.getParams().size() == 0 ? null : action.getParams().get(0));
+            actions.add(new RoutineAction(action.getDevice().getName(),
+                    action.getDevice().getType().getName(),
+                    action.getActionName(),
+                    action.getParams().size() == 0 ? null : action.getParams().get(0),
+                    action.getDevice().getRoom().getName()));
         }
+
         routineData.setActions(actions);
         return routineData;
     }
 
-    private RemoteRoutine mapRoutineModelToRemote(RoutineData model){
-        RemoteRoutine remote=new RemoteRoutine();
-        remote.setId(model.getId());
-        remote.setName(model.getName());
-        return remote;
-    }
+//    private RemoteRoutine mapRoutineModelToRemote(RoutineData model){
+//        RemoteRoutine remote=new RemoteRoutine();
+//        remote.setId(model.getId());
+//        remote.setName(model.getName());
+//        return remote;
+//    }
 
     public LiveData<Resource<List<RoutineData>>> getRoutines() {
         Log.d(TAG, "RoutineRepository - getRoutines()");

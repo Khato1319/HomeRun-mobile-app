@@ -2,6 +2,7 @@ package com.hci.homerunapp.ui.routines;
 
 import com.hci.homerunapp.ui.Data;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -9,15 +10,15 @@ public class RoutineData implements Data {
     private String name;
     private String id;
 
-    public Map<String, Object> getActions() {
+    public List<RoutineAction>getActions() {
         return actions;
     }
 
-    public void setActions(Map<String, Object> actions) {
+    public void setActions(List<RoutineAction> actions) {
         this.actions = actions;
     }
 
-    private Map<String, Object> actions;
+    private List<RoutineAction> actions;
 
     public RoutineData(String name, String id) {
         this.name = name;

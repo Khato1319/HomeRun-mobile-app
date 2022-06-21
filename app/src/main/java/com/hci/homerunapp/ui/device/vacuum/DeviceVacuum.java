@@ -35,7 +35,7 @@ public class DeviceVacuum extends Device {
         changeLocationDropDown = new ChangeLocationDropDownData(context, deviceData.getId());
 
         String[] modes = new String[]{"vacuum", "mop"};
-        setModeDropDownData = new DropDownData(context, context.getResources().getString(R.string.vacuum_mode), "setMode",context.getResources().getStringArray(R.array.vacuum_modes),modes, deviceData.getId());
+        setModeDropDownData = new DropDownData(context, context.getResources().getString(R.string.set_mode), "setMode",context.getResources().getStringArray(R.array.vacuum_modes),modes, deviceData.getId());
 
     }
 

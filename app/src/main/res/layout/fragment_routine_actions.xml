@@ -14,5 +14,17 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/execute_button"
+        android:clickable="true"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        app:fabCustomSize="65dp"
+        android:scaleType="center"
+        android:backgroundTint="#BBDEFB"
+        android:src="@drawable/ic_baseline_play_arrow_24"
+        android:layout_margin="25dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
