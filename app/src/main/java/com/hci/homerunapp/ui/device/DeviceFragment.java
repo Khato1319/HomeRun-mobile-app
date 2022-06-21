@@ -1,5 +1,6 @@
 package com.hci.homerunapp.ui.device;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import com.hci.homerunapp.MyApplication;
+import com.hci.homerunapp.R;
 import com.hci.homerunapp.data.DeviceRepository;
 import com.hci.homerunapp.data.Resource;
 import com.hci.homerunapp.ui.DataRepositoryViewModelFactory;
@@ -74,7 +77,7 @@ public class DeviceFragment extends SecondaryFragment {
 //        }
 //        label = device.getDeviceData().getName();
 
-        disposable = Observable.interval(1000, 5000,
+        disposable = Observable.interval(1000, 4000,
                         TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::refreshDevice, new Consumer<Throwable>() {
@@ -83,8 +86,6 @@ public class DeviceFragment extends SecondaryFragment {
 
                     }
                 });
-
-
     }
 
     private void refreshDevice(Long aLong) {
@@ -95,12 +96,14 @@ public class DeviceFragment extends SecondaryFragment {
     protected void executeActions(MainActivity mainActivity) {
         super.executeActions(mainActivity);
         ImageButton notificationsButton = mainActivity.getNotificationsButton();
-        notificationsButton.setImageResource(device.getNotificationState().getIconId());
+        DeviceData.NotificationState notificationState = device.getNotificationState();
+        notificationsButton.setImageResource(notificationState.getIconId());
         notificationsButton.setVisibility(View.VISIBLE);
         notificationsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 device.toggleNotificationState();
+                ((MyApplication)activity.getApplication()).getDeviceRepository().setNotifications(device.getDeviceData(),device.getNotificationState());
                 notificationsButton.setImageResource(device.getNotificationState().getIconId());
             }
         });
@@ -177,8 +180,22 @@ public class DeviceFragment extends SecondaryFragment {
             }
         });
 
-        binding.deviceRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        int orientation = this.getResources().getConfiguration().orientation;
+
+        if (isTablet) {
+            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+                binding.deviceRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
+            else
+                binding.deviceRecyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
+
+        }
+        else {
+            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+                binding.deviceRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            else
+                binding.deviceRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
+        }
         binding.deviceRecyclerView.setAdapter(adapter);
 
         return binding.getRoot();

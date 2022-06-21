@@ -19,9 +19,7 @@ public class RoutinesViewModel  extends RepositoryViewModel<RoutineRepository> {
     protected List<Data> elements = new ArrayList<>();
     private final MediatorLiveData<Resource<List<RoutineData>>> routines = new MediatorLiveData<>();
 
-//    public List<Data> getElements() {
-//        return elements;
-//    }
+
 
     public RoutinesViewModel(RoutineRepository routineRepository) {
         super(routineRepository);

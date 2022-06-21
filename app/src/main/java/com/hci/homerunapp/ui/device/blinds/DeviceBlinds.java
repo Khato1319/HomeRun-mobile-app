@@ -21,14 +21,14 @@ public class DeviceBlinds extends Device {
     public DeviceBlinds(DeviceData deviceData, Context context) {
         super(deviceData, context);
 
-        stateProgressBar = new ProgressBarData(context, context.getResources().getString(R.string.blinds_state), R.color.primary, deviceData.getId());
+        stateProgressBar = new ProgressBarData(context, context.getResources().getString(R.string.blinds_level), R.color.primary, deviceData.getId());
         toggleStateButton = new ToggleButtonData(context, context.getResources().getStringArray(R.array.blinds_actions), context.getResources().getStringArray(R.array.blinds_states), deviceData.getId());
         closePercentageSlider = new SliderData(context, context.getResources().getString(R.string.close_limit), 0, 100, "setLevel",deviceData.getId());
     }
 
     @Override
     public List<ControlData> getControls() {
-        return Arrays.asList(stateProgressBar, toggleStateButton, closePercentageSlider);
+        return Arrays.asList(toggleStateButton, stateProgressBar, closePercentageSlider);
     }
 
     public ProgressBarData getStateProgressBar() {

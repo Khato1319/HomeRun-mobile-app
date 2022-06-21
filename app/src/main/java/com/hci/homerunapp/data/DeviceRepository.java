@@ -14,7 +14,9 @@ import com.hci.homerunapp.data.local.room.LocalRoom;
 import com.hci.homerunapp.data.remote.ApiResponse;
 import com.hci.homerunapp.data.remote.RemoteResult;
 import com.hci.homerunapp.data.remote.device.ApiDeviceService;
+import com.hci.homerunapp.data.remote.device.ModifiedDevice;
 import com.hci.homerunapp.data.remote.device.RemoteDevice;
+import com.hci.homerunapp.data.remote.device.RemoteDeviceMeta;
 import com.hci.homerunapp.data.remote.device.RemoteDeviceRoom;
 import com.hci.homerunapp.data.remote.device.RemoteDeviceState;
 import com.hci.homerunapp.data.remote.device.action.ActionBody;
@@ -58,14 +60,6 @@ public class DeviceRepository {
 
     }
 
-//    private Device mapDeviceLocalToModel(LocalDevice local) {
-//        return new RoomData(local.name, local.id);
-//    }
-//
-//    private Device mapDeviceRemoteToLocal(RemoteDevice remote) {
-//        return new LocalRoom(remote.getId(), remote.getName(), remote.getMeta().getSize(), remote.getMeta().getColor());
-//    }
-
     private Device mapDeviceRemoteToModel(RemoteDevice remote) {
         RemoteDeviceRoom room = remote.getRoom();
         RoomData roomData = new RoomData(room.getName(), room.getId());
@@ -78,6 +72,8 @@ public class DeviceRepository {
             case "ac" -> {
                 type = DeviceData.Type.AC;
                 deviceData = new DeviceData(remote.getName(), remote.getId(), roomData, type);
+                deviceData.setGroup(remote.getMeta().getGroup());
+                deviceData.setNotifications(remote.getMeta().isNotifications() ? DeviceData.NotificationState.ON : DeviceData.NotificationState.OFF);
                 DeviceAC deviceAC = (DeviceAC) deviceData.getDeviceInstance(context);
                 state = remote.getState();
                 deviceAC.getCoolingModeDropDown().setSelectedApi(state.getMode());
@@ -91,16 +87,26 @@ public class DeviceRepository {
             case "blinds" -> {
                 type = DeviceData.Type.BLINDS;
                 deviceData = new DeviceData(remote.getName(), remote.getId(), roomData, type);
+                deviceData.setGroup(remote.getMeta().getGroup());
+                deviceData.setNotifications(remote.getMeta().isNotifications() ? DeviceData.NotificationState.ON : DeviceData.NotificationState.OFF);
                 DeviceBlinds deviceBlinds = (DeviceBlinds) deviceData.getDeviceInstance(context);
                 state = remote.getState();
                 deviceBlinds.getClosePercentageSlider().setValue(state.getLevel());
                 deviceBlinds.getStateProgressBar().setProgress(state.getCurrentLevel());
-                deviceBlinds.getToggleStateButton().setState(state.getStatus().equals("opened"));
+                deviceBlinds.getToggleStateButton().setState(switch(state.getStatus()){
+                    case "opened" -> 0;
+                    case "closed" -> 1;
+                    case "opening" -> 2;
+                    case "closing" -> 3;
+                    default -> throw new IllegalStateException();
+                });
                 return deviceBlinds;
             }
             case "lamp" -> {
                 type = DeviceData.Type.LIGHT;
                 deviceData = new DeviceData(remote.getName(), remote.getId(), roomData, type);
+                deviceData.setGroup(remote.getMeta().getGroup());
+                deviceData.setNotifications(remote.getMeta().isNotifications() ? DeviceData.NotificationState.ON : DeviceData.NotificationState.OFF);
                 DeviceLight deviceLamp = (DeviceLight) deviceData.getDeviceInstance(context);
                 state = remote.getState();
                 Log.d("Brightness", String.valueOf(state.getBrightness()));
@@ -112,6 +118,8 @@ public class DeviceRepository {
             case "oven" -> {
                 type = DeviceData.Type.OVEN;
                 deviceData = new DeviceData(remote.getName(), remote.getId(), roomData, type);
+                deviceData.setGroup(remote.getMeta().getGroup());
+                deviceData.setNotifications(remote.getMeta().isNotifications() ? DeviceData.NotificationState.ON : DeviceData.NotificationState.OFF);
                 DeviceOven deviceOven = (DeviceOven) deviceData.getDeviceInstance(context);
                 state = remote.getState();
                 deviceOven.getChangeHeatSourceDropDown().setSelectedApi(state.getHeat());
@@ -124,6 +132,8 @@ public class DeviceRepository {
             case "vacuum" -> {
                 type = DeviceData.Type.VACUUM;
                 deviceData = new DeviceData(remote.getName(), remote.getId(), roomData, type);
+                deviceData.setGroup(remote.getMeta().getGroup());
+                deviceData.setNotifications(remote.getMeta().isNotifications() ? DeviceData.NotificationState.ON : DeviceData.NotificationState.OFF);
                 DeviceVacuum deviceVacuum = (DeviceVacuum) deviceData.getDeviceInstance(context);
                 state = remote.getState();
                 deviceVacuum.getBatteryProgressBar().setProgress(state.getBatteryLevel());
@@ -138,16 +148,7 @@ public class DeviceRepository {
         return null;
     }
 
-//    private RemoteRoom mapRoomModelToRemote(RoomData model) {
-//        RemoteRoomMeta remoteMeta = new RemoteRoomMeta();
-//
-//        RemoteRoom remote = new RemoteRoom();
-//        remote.setId(model.getId());
-//        remote.setName(model.getName());
-//        remote.setMeta(remoteMeta);
-//
-//        return remote;
-//    }
+
 
     public LiveData<Resource<List<Device>>> getDevices() {
         Log.d(TAG, "DeviceRepository - getDevices()");
@@ -232,52 +233,46 @@ public class DeviceRepository {
         call.enqueue(new Callback<ApiResponse<RemoteResult<Object>>>() {
 
             @Override
-            public void onResponse(Call<ApiResponse<RemoteResult<Object>>> call, Response<ApiResponse<RemoteResult<Object>>> response) {
+            public void onResponse(@NonNull Call<ApiResponse<RemoteResult<Object>>> call, @NonNull Response<ApiResponse<RemoteResult<Object>>> response) {
                 Log.d("Response", String.valueOf(response.code()));
                 if (b)
                     viewHolder.refreshDevice();
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<RemoteResult<Object>>> call, Throwable t) {
+            public void onFailure(@NonNull Call<ApiResponse<RemoteResult<Object>>> call, @NonNull Throwable t) {
 
             }
         });
-//            var result =  new NetworkBoundResource<Void, Void, Object>(
-//                    executors,
-//                    local -> null,
-//                    remote -> null,
-//                    remote -> null) {
-//
-//                @Override
-//                protected void saveCallResult(@NonNull Void local) {
-//
-//                }
-//
-//                @Override
-//                protected boolean shouldFetch(@Nullable Void local) {
-//                    return true;
-//                }
-//
-//                @Override
-//                protected boolean shouldPersist(@Nullable Object remote) {
-//                    return false;
-//                }
-//
-//
-//                @Override
-//                protected LiveData<Void> loadFromDb() {
-//                    return null;
-//                }
-//
-//                @NonNull
-//                @Override
-//                protected LiveData<ApiResponse<RemoteResult<Object>>> createCall() {
-//                    return service.putAction(deviceId, actionName, action);
-//                }
-//            }.asLiveData();
         return null;
         }
+
+    public LiveData<Resource<Void>> setNotifications(DeviceData data, DeviceData.NotificationState notifications) {
+
+        Log.d(TAG, "DeviceRepository - putDevice()");
+        RemoteDeviceMeta meta = new RemoteDeviceMeta();
+        meta.setGroup(data.getGroup());
+        meta.setNotifications(notifications == DeviceData.NotificationState.ON);
+        ModifiedDevice modifiedDevice = new ModifiedDevice();
+        modifiedDevice.setMeta(meta);
+        modifiedDevice.setName(data.getName());
+        Call<ApiResponse<RemoteResult<Object>>> call = service.updateDevice(data.getId(), modifiedDevice);
+        call.enqueue(new Callback<ApiResponse<RemoteResult<Object>>>() {
+
+            @Override
+            public void onResponse(@NonNull Call<ApiResponse<RemoteResult<Object>>> call, @NonNull Response<ApiResponse<RemoteResult<Object>>> response) {
+                Log.d("Response", String.valueOf(response.code()));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ApiResponse<RemoteResult<Object>>> call, Throwable t) {
+
+            }
+        });
+        return null;
+    }
+
+
 
 
 

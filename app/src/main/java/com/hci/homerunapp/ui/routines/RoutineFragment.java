@@ -15,21 +15,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hci.homerunapp.MyApplication;
-import com.hci.homerunapp.data.RoomRepository;
-import com.hci.homerunapp.data.RoutineRepository;
-import com.hci.homerunapp.ui.MainActivity;
-import com.hci.homerunapp.ui.PrimaryFragment;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.data.RoutineRepository;
 import com.hci.homerunapp.databinding.FragmentRoutinesBinding;
 import com.hci.homerunapp.ui.ButtonListenerMaker;
 import com.hci.homerunapp.ui.Data;
+import com.hci.homerunapp.ui.MainActivity;
+import com.hci.homerunapp.ui.PrimaryFragment;
 import com.hci.homerunapp.ui.RepositoryViewModelFactory;
-import com.hci.homerunapp.ui.home.RoomData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoutinesFragment extends PrimaryFragment implements ButtonListenerMaker {
+public class RoutineFragment extends PrimaryFragment implements ButtonListenerMaker {
 
     private FragmentRoutinesBinding binding;
     RoutinesAdapter adapter;

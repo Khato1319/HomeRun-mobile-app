@@ -1,6 +1,7 @@
 package com.hci.homerunapp.ui.device;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,7 @@ import com.hci.homerunapp.data.remote.device.action.ActionBody;
 import com.hci.homerunapp.ui.MainActivity;
 
 public class ToggleButtonData extends ControlData{
-    private boolean state;
+    private int state;
     private String[] btnLabels;
     private String[] actionLabels;
 
@@ -23,18 +24,18 @@ public class ToggleButtonData extends ControlData{
     }
 
     public String getButtonText() {
-        return btnLabels[state ? 1 : 0];
+        return btnLabels[state == 0 || state == 3 ? 1 : 0];
     }
 
     private String getLabelText() {
-        return actionLabels[state ? 0 : 1];
+        return actionLabels[state];
     }
 
-    public void setState(boolean state) {
+    public void setState(int state) {
         this.state = state;
     }
 
-    public boolean getState() {
+    public int getState() {
         return state;
     }
 
@@ -80,13 +81,22 @@ public class ToggleButtonData extends ControlData{
             super.bindTo(controlData);
 //            ToggleButtonData.ViewHolder toggleButtonViewHolder = (ToggleButtonData.ViewHolder) holder;
             MaterialButton toggleButton = getButton();
+            if (controlData.getState() > 1) {
+                toggleButton.setEnabled(false);
+                toggleButton.setBackgroundColor(Color.GRAY);
+            }
+            else {
+                toggleButton.setEnabled(true);
+                toggleButton.setBackgroundColor(context.getColor(R.color.primary));
+
+            }
             getControlText().setText(controlData.getActionLabel());
             toggleButton.setText(controlData.getButtonText());
             toggleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 //                    controlData.setState(!controlData.getState());
-                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getState() ? "close" : "open", new ActionBody(), ViewHolder.this, true);
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getState() == 0 ? "close" : "open", new ActionBody(), ViewHolder.this, true);
 //                    toggleButton.setText(controlData.getButtonText());
 //                    getControlText().setText(controlData.getActionLabel());
 

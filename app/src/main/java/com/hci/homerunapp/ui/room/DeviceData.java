@@ -20,6 +20,26 @@ public class DeviceData implements Data {
     private DeviceData.Type type;
     private String id;
 
+    public NotificationState getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(NotificationState notifications) {
+        this.notifications = notifications;
+    }
+
+    private NotificationState notifications = NotificationState.OFF;
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    private String group;
+
     public DeviceData(String name, String id, RoomData roomData, DeviceData.Type type) {
         this.name = name;
         this.id = id;
@@ -58,6 +78,19 @@ public class DeviceData implements Data {
             return false;
 
         return aux.id.equals(id);
+    }
+
+    public enum NotificationState {
+        ON(R.drawable.ic_notifications_black_24dp),
+        OFF(R.drawable.ic_baseline_notifications_off_24);
+        private int iconId;
+        NotificationState(int iconId) {
+            this.iconId = iconId;
+        }
+
+        public int getIconId() {
+            return iconId;
+        }
     }
 
     public enum Type {

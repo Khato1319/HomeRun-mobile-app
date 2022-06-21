@@ -3,12 +3,14 @@ package com.hci.homerunapp.ui.room;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -116,8 +118,22 @@ public class RoomFragment extends SecondaryFragment implements ButtonListenerMak
             }
         });
 
-        binding.roomRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //binding.recyclerview.setLayoutManager(new GridLayoutManager(this, 3));
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        int orientation = this.getResources().getConfiguration().orientation;
+
+        if (isTablet) {
+            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+                binding.roomRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
+            else
+                binding.roomRecyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
+
+        }
+        else {
+            if (orientation == Configuration.ORIENTATION_PORTRAIT)
+                binding.roomRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            else
+                binding.roomRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
+        }
         binding.roomRecyclerView.setAdapter(adapter);
 
         return binding.getRoot();

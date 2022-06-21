@@ -1,6 +1,7 @@
 package com.hci.homerunapp.ui.device;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,14 @@ public class DockButtonData extends ControlData{
             super.bindTo(controlData);
 //            ToggleButtonData.ViewHolder toggleButtonViewHolder = (ToggleButtonData.ViewHolder) holder;
             MaterialButton toggleButton = getButton();
+            if (controlData.docked) {
+                toggleButton.setEnabled(false);
+                toggleButton.setBackgroundColor(Color.GRAY);
+            }
+            else {
+                toggleButton.setEnabled(true);
+                toggleButton.setBackgroundColor(context.getColor(R.color.primary));
+            }
             getControlText().setText(controlData.getActionLabel());
             toggleButton.setText(context.getString(R.string.dock_action));
             toggleButton.setOnClickListener(new View.OnClickListener() {
