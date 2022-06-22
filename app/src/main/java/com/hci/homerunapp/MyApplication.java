@@ -78,7 +78,5 @@ public class MyApplication extends Application {
                 .getInstance(this)
                 .enqueueUniquePeriodicWork("MyNotificationWorker", ExistingPeriodicWorkPolicy.KEEP, notificationWorkRequest);
 
-
-
     }
 }

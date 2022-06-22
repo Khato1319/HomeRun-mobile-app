@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.routines.RoutinesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/routines_recycler_view"
-        android:clipToPadding="false"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/routines_recycler_view"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/execute_button"
-        android:clickable="true"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        app:borderWidth="0dp"
-        app:fabCustomSize="65dp"
-        android:scaleType="center"
-        android:backgroundTint="#BBDEFB"
-        android:src="@drawable/ic_baseline_play_arrow_24"
-        android:layout_margin="25dp"
-       app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/execute_button"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_margin="25dp"
+            android:backgroundTint="#BBDEFB"
+            android:clickable="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_baseline_play_arrow_24"
+            app:borderWidth="0dp"
+            app:fabCustomSize="65dp"
+            android:layout_gravity="bottom|end"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

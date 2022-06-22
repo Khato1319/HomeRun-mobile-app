@@ -2,36 +2,30 @@ package com.hci.homerunapp.ui.routines;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.data.RoutineRepository;
 import com.hci.homerunapp.databinding.FragmentRoutineActionsBinding;
-import com.hci.homerunapp.databinding.FragmentRoutinesBinding;
-import com.hci.homerunapp.ui.ButtonListenerMaker;
-import com.hci.homerunapp.ui.Data;
-import com.hci.homerunapp.ui.DataRepositoryViewModel;
+
 import com.hci.homerunapp.ui.DataRepositoryViewModelFactory;
 import com.hci.homerunapp.ui.MainActivity;
-import com.hci.homerunapp.ui.PrimaryFragment;
-import com.hci.homerunapp.ui.RepositoryViewModelFactory;
-import com.hci.homerunapp.ui.SecondaryFragment;
-import com.hci.homerunapp.ui.home.RoomData;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.hci.homerunapp.ui.SecondaryFragment;
+
 
 public class RoutineActionsFragment extends SecondaryFragment {
 
@@ -78,13 +72,12 @@ public class RoutineActionsFragment extends SecondaryFragment {
                 binding.routinesRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
         }
         binding.routinesRecyclerView.setAdapter(adapter);
-        binding.executeButton.setOnClickListener((it) -> executeRoutine());
-
+        binding.executeButton.setOnClickListener(this::executeRoutine);
 
         return binding.getRoot();
     }
 
-    private void executeRoutine() {
+    private void executeRoutine(View view) {
         // Removed getRoom() observer to avoid null value update notification after delete.
         routinesViewModel.executeRoutine().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
@@ -94,11 +87,12 @@ public class RoutineActionsFragment extends SecondaryFragment {
                 case SUCCESS:
                     activity.hideProgressBar();
                     //activity.popBackStack();
-                    Toast.makeText(activity, R.string.routine_exec_success, Toast.LENGTH_SHORT).show();
+                    Log.d("SNACKBAR", "showing snackbar");
+                    Snackbar.make(view, R.string.routine_exec_success, Snackbar.LENGTH_LONG).show();
                     break;
                 case ERROR:
                     activity.hideProgressBar();
-                    Toast.makeText(activity, resource.error.getDescription(), Toast.LENGTH_SHORT).show();
+                    Snackbar.make(view, resource.error.getDescription(), Snackbar.LENGTH_SHORT).show();
                     break;
                 default:
                     break;

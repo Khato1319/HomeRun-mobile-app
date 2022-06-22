@@ -7,6 +7,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -121,6 +122,8 @@ public class MyNotificationWorker extends Worker {
                         }
                         default -> {}
                     }
+
+
                 }
             }
 
@@ -173,7 +176,6 @@ public class MyNotificationWorker extends Worker {
                 .setDestination(R.id.navigation_device)
                 .setArguments(bundle)
                 .createPendingIntent();
-
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(application, CHANNEL)
                 .setSmallIcon(deviceData.getType().getIcon())
