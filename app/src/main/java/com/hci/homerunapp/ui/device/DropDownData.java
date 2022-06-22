@@ -12,6 +12,7 @@ import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.data.remote.device.action.StringActionBody;
 import com.hci.homerunapp.ui.MainActivity;
+import com.hci.homerunapp.ui.room.DeviceData;
 
 public class DropDownData extends ControlData{
     private String[] items;
@@ -20,8 +21,8 @@ public class DropDownData extends ControlData{
     private String selected = null;
     private String apiAction;
 
-    public DropDownData(Context context, String actionLabel, String apiAction, String[] items, String[] apiItems, String deviceId) {
-        super(context, R.layout.drop_down_container_item, actionLabel, deviceId);
+    public DropDownData(Context context, String actionLabel, String apiAction, String[] items, String[] apiItems, DeviceData deviceData) {
+        super(context, R.layout.drop_down_container_item, actionLabel, deviceData);
         this.items = items;
         this.hint = context.getResources().getString(R.string.select_mode);
         this.apiAction = apiAction;
@@ -105,7 +106,7 @@ public class DropDownData extends ControlData{
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     controlData.setSelected(arrayAdapter.getItem(position));
-                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getApiAction(), new StringActionBody(controlData.getApiSelectedValue()), ViewHolder.this, false);
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceData(), controlData.getApiAction(), new StringActionBody(controlData.getApiSelectedValue()), ViewHolder.this, false, 0);
 
                 }
             });

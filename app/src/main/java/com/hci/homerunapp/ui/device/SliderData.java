@@ -13,13 +13,14 @@ import com.hci.homerunapp.data.remote.ApiClient;
 import com.hci.homerunapp.data.remote.device.ApiDeviceService;
 import com.hci.homerunapp.data.remote.device.action.IntActionBody;
 import com.hci.homerunapp.ui.MainActivity;
+import com.hci.homerunapp.ui.room.DeviceData;
 
 public class SliderData extends ControlData{
     private int minValue, maxValue, value;
     private String apiAction;
 
-    public SliderData(Context context, String actionLabel, int minValue, int maxValue, String apiAction, String deviceId) {
-        super(context, R.layout.slider_item, actionLabel, deviceId);
+    public SliderData(Context context, String actionLabel, int minValue, int maxValue, String apiAction, DeviceData deviceData) {
+        super(context, R.layout.slider_item, actionLabel, deviceData);
         this.minValue = this.value = minValue;
         this.maxValue = maxValue;
         this.apiAction = apiAction;
@@ -89,7 +90,7 @@ public class SliderData extends ControlData{
                 @Override
                 public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
                     if ((int)value != controlData.getValue())
-                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getApiAction(), new IntActionBody(value), ViewHolder.this, false);
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceData(), controlData.getApiAction(), new IntActionBody(value), ViewHolder.this, false, 0);
 
                     controlData.setValue((int) value);
                     controlText.setText(controlData.getActionLabel());

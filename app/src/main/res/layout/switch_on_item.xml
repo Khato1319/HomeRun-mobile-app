@@ -8,7 +8,7 @@
     android:layout_margin="5dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
+        android:id="@+id/card_view_device"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/white"
@@ -31,11 +31,11 @@
         android:layout_marginBottom="8dp"
         app:borderWidth="0dp"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/card_view"
-        app:layout_constraintRight_toRightOf="@+id/card_view"
-        app:layout_constraintTop_toTopOf="@+id/card_view"
+        app:layout_constraintBottom_toBottomOf="@+id/card_view_device"
+        app:layout_constraintRight_toRightOf="@+id/card_view_device"
+        app:layout_constraintTop_toTopOf="@+id/card_view_device"
         android:scaleType="center"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/ltgray"
         app:tint="@android:color/white"
         app:srcCompat="@drawable/ic_baseline_power_settings_new_24" />
 
@@ -56,8 +56,8 @@
         android:layout_height="wrap_content"
         android:text="Estado: encendido"
         android:translationZ="90dp"
-        app:layout_constraintLeft_toLeftOf="@+id/card_view"
-        app:layout_constraintTop_toTopOf="@+id/card_view" />
+        app:layout_constraintLeft_toLeftOf="@+id/card_view_device"
+        app:layout_constraintTop_toTopOf="@+id/card_view_device" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"

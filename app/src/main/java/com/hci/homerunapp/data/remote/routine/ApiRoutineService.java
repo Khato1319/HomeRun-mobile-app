@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 
 import com.hci.homerunapp.data.remote.ApiResponse;
 import com.hci.homerunapp.data.remote.RemoteResult;
-import com.hci.homerunapp.data.remote.room.RemoteRoom;
 
 import java.util.List;
 

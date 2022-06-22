@@ -1,10 +1,6 @@
 package com.hci.homerunapp.ui.home;
 
-import android.os.Parcelable;
-
 import com.hci.homerunapp.ui.Data;
-
-import java.io.Serializable;
 
 public class RoomData implements Data {
     private String name;

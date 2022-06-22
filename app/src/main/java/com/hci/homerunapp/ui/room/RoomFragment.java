@@ -1,14 +1,22 @@
 package com.hci.homerunapp.ui.room;
 
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDeepLinkBuilder;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +41,7 @@ import com.hci.homerunapp.ui.home.RoomData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class RoomFragment extends SecondaryFragment implements ButtonListenerMaker {
@@ -150,12 +159,16 @@ public class RoomFragment extends SecondaryFragment implements ButtonListenerMak
             if (mainActivity != null)
                 mainActivity.hideBottomNav();
 
+//            createNotificationChannel(deviceData.getId());
+//            Log.d("CHANNEL", deviceData.getId());
+//
+//            showNotification((DeviceData)deviceData);
+
             NavHostFragment.findNavController(this).navigate(R.id.action_navigation_room_to_navigation_device, bundle);
         };
     }
 
     public static final String ROOM_DATA = "com.hci.homerunapp.ui.room/roomId";
-
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -168,8 +181,6 @@ public class RoomFragment extends SecondaryFragment implements ButtonListenerMak
         if (model != null && roomData != null) {
             outState.putSerializable(ROOM_DATA, roomData);
         }
-
-
 
     }
 

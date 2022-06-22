@@ -2,7 +2,6 @@ package com.hci.homerunapp.data;
 
 import static java.util.stream.Collectors.toList;
 
-import android.app.RemoteAction;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -20,9 +19,7 @@ import com.hci.homerunapp.ui.routines.RoutineAction;
 import com.hci.homerunapp.ui.routines.RoutineData;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class RoutineRepository {

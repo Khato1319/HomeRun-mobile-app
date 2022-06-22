@@ -28,20 +28,20 @@ public class DeviceVacuum extends Device {
 
     public DeviceVacuum(DeviceData deviceData, Context context) {
         super(deviceData, context);
-        dockButton = new DockButtonData(context, deviceData.getId());
-        batteryProgressBar = new ProgressBarData(context, context.getResources().getString(R.string.vacuum_battery), R.color.primary, deviceData.getId());
-        turnOnButton = new TurnOnButtonData( context, "start", "pause", deviceData.getId());;
+        dockButton = new DockButtonData(context, deviceData);
+        batteryProgressBar = new ProgressBarData(context, context.getResources().getString(R.string.vacuum_battery), R.color.primary, deviceData);
+        turnOnButton = new TurnOnButtonData( context, "start", "pause", deviceData, batteryProgressBar);
 
-        changeLocationDropDown = new ChangeLocationDropDownData(context, deviceData.getId());
+        changeLocationDropDown = new ChangeLocationDropDownData(context, deviceData);
 
         String[] modes = new String[]{"vacuum", "mop"};
-        setModeDropDownData = new DropDownData(context, context.getResources().getString(R.string.set_mode), "setMode",context.getResources().getStringArray(R.array.vacuum_modes),modes, deviceData.getId());
+        setModeDropDownData = new DropDownData(context, context.getResources().getString(R.string.set_mode), "setMode",context.getResources().getStringArray(R.array.vacuum_modes),modes, deviceData);
 
     }
 
     @Override
     public List<ControlData> getControls() {
-        return Arrays.asList(batteryProgressBar, dockButton, turnOnButton, changeLocationDropDown, setModeDropDownData);
+        return Arrays.asList(batteryProgressBar, turnOnButton, dockButton, changeLocationDropDown, setModeDropDownData);
     }
 
     public ProgressBarData getBatteryProgressBar() {

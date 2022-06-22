@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
 import com.hci.homerunapp.data.local.MyDatabase;
+import com.hci.homerunapp.data.local.device.LocalDevice;
 import com.hci.homerunapp.data.local.room.LocalRoom;
 import com.hci.homerunapp.data.remote.ApiResponse;
 import com.hci.homerunapp.data.remote.RemoteResult;
@@ -148,6 +149,10 @@ public class DeviceRepository {
         return null;
     }
 
+    public Call<RemoteResult<List<RemoteDevice>>> fetchDevices() {
+        return service.fetchDevices();
+    }
+
 
 
     public LiveData<Resource<List<Device>>> getDevices() {
@@ -226,23 +231,74 @@ public class DeviceRepository {
         }.asLiveData();
     }
 
-    public LiveData<Resource<Void>> putAction(String deviceId, String actionName, ActionBody action, ControlDataAdapter.ViewHolder viewHolder, boolean b) {
+    public LiveData<Resource<Void>> putAction(DeviceData deviceData, String actionName, ActionBody action, ControlDataAdapter.ViewHolder viewHolder, boolean b, int progress) {
 
             Log.d(TAG, "DeviceRepository - putAction()");
-        Call<ApiResponse<RemoteResult<Object>>> call = service.putAction(deviceId, actionName, action);
-        call.enqueue(new Callback<ApiResponse<RemoteResult<Object>>>() {
+        Call<RemoteResult<Boolean>> call = service.putAction(deviceData.getId(), actionName, action);
+        call.enqueue(new Callback<RemoteResult<Boolean>>() {
 
             @Override
-            public void onResponse(@NonNull Call<ApiResponse<RemoteResult<Object>>> call, @NonNull Response<ApiResponse<RemoteResult<Object>>> response) {
+            public void onResponse(Call<RemoteResult<Boolean>> call, Response<RemoteResult<Boolean>> response) {
                 Log.d("Response", String.valueOf(response.code()));
-                if (b)
+                if (response.code() != 200 ||
+                        response.body() == null ||
+                        response.body().getResult() == null || !response.body().getResult())
+                    return;
+
+                executors.diskIO().execute(() -> {
+                    LocalDevice device = database.deviceDao().findById(deviceData.getId());
+                    if (device != null || deviceData.getNotifications() == DeviceData.NotificationState.ON) {
+                        switch(actionName) {
+                            case "turnOn" -> {
+                                database.deviceDao().insert(new LocalDevice(deviceData.getId(),
+                                        "on",
+                                        0));
+                            }
+                            case "turnOff" -> {
+                                database.deviceDao().insert(new LocalDevice(deviceData.getId(),
+                                        "off",
+                                        0));
+                            }
+                            case "start" -> {
+                                database.deviceDao().insert(new LocalDevice(deviceData.getId(),
+                                        "active",
+                                        progress));
+                            }
+                            case "pause" -> {
+                                database.deviceDao().insert(new LocalDevice(deviceData.getId(),
+                                        "inactive",
+                                        progress));
+                            }
+                            case "dock" -> {
+                                database.deviceDao().insert(new LocalDevice(deviceData.getId(),
+                                        "docked",
+                                        progress));
+                            }
+                            case "open" -> {
+                                database.deviceDao().insert(new LocalDevice(deviceData.getId(),
+                                        "opened",
+                                        0));
+                            }
+                            case "closed" -> {
+                                database.deviceDao().insert(new LocalDevice(deviceData.getId(),
+                                        "closed",
+                                        0));
+                            }
+                        }
+                    }
+                });
+
+                if (b){
                     viewHolder.refreshDevice();
+
+                }
             }
 
             @Override
-            public void onFailure(@NonNull Call<ApiResponse<RemoteResult<Object>>> call, @NonNull Throwable t) {
+            public void onFailure(Call<RemoteResult<Boolean>> call, Throwable t) {
 
             }
+
         });
         return null;
         }

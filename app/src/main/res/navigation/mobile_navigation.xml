@@ -23,7 +23,8 @@
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_navigation_recents_to_navigation_device"
-            app:destination="@id/navigation_device" />
+            app:destination="@id/navigation_device"
+            app:enterAnim="@android:anim/fade_in"/>
     </fragment>
 
     <fragment
@@ -34,7 +35,8 @@
 
         <action
             android:id="@+id/action_navigation_routines_to_navigation_routine"
-            app:destination="@id/navigation_routine" />
+            app:destination="@id/navigation_routine"
+            app:enterAnim="@android:anim/fade_in"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_room"

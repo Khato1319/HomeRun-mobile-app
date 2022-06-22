@@ -15,6 +15,7 @@ import com.hci.homerunapp.ui.MainActivity;
 import com.hci.homerunapp.ui.device.ControlData;
 import com.hci.homerunapp.ui.device.DeviceFragment;
 import com.hci.homerunapp.ui.home.RoomData;
+import com.hci.homerunapp.ui.room.DeviceData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ChangeLocationDropDownData extends ControlData {
     private RoomData selected = null;
     private List<RoomData> rooms = new ArrayList<>();
 
-    ChangeLocationDropDownData(Context context, String deviceId) {
+    ChangeLocationDropDownData(Context context, DeviceData deviceId) {
         super(context, R.layout.change_location_drop_down_container_item, context.getResources().getString(R.string.vacuum_location), deviceId );
         this.hint = context.getResources().getString(R.string.vacuum_location);
     }
@@ -106,7 +107,7 @@ public class ChangeLocationDropDownData extends ControlData {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                     controlData.setSelected(arrayAdapter.getItem(position));
-                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), "setLocation", new StringActionBody(controlData.getSelected()), ViewHolder.this, false);
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceData(), "setLocation", new StringActionBody(controlData.getSelected()), ViewHolder.this, false, 0);
 
                 }
             });

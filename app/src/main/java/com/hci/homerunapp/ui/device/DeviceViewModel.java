@@ -8,13 +8,9 @@ import com.hci.homerunapp.data.DeviceRepository;
 import com.hci.homerunapp.data.Resource;
 import com.hci.homerunapp.data.Status;
 import com.hci.homerunapp.data.remote.ApiClient;
-import com.hci.homerunapp.data.remote.RemoteResult;
 import com.hci.homerunapp.data.remote.device.ApiDeviceService;
-import com.hci.homerunapp.data.remote.device.RemoteDevice;
 import com.hci.homerunapp.ui.DataRepositoryViewModel;
 import com.hci.homerunapp.ui.room.DeviceData;
-
-import java.util.List;
 
 
 public class DeviceViewModel extends DataRepositoryViewModel<DeviceRepository, DeviceData> {

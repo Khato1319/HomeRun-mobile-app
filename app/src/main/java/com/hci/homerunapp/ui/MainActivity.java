@@ -1,9 +1,14 @@
 package com.hci.homerunapp.ui;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NavController navController;
     private ImageButton upButton, notificationsButton;
+    private ImageView logo;
     private TextView title;
     private List<DeviceData> recentDevices = new ArrayList<>();
     private List<RoomData> rooms;
@@ -54,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         title.setText(getTitle());
         notificationsButton = v.findViewById(R.id.notification_button);
         upButton = v.findViewById(R.id.up_button);
+        logo = v.findViewById(R.id.logo);
 
         upButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
             recentDevices.remove(0);
     }
 
-    public void setRooms(List<RoomData> rooms) {
-        this.rooms = rooms;
+    public ImageView getLogo() {
+        return logo;
     }
 
     public List<DeviceData> getRecentDevices() {
@@ -145,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
 
         return rooms;
     }
-
-
 
 
     //    @Override

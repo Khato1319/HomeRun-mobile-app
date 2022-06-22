@@ -26,6 +26,7 @@ public abstract class SecondaryFragment extends Fragment {
         mainActivity.hideBottomNav();
         mainActivity.getUpButton().setVisibility(View.VISIBLE);
         mainActivity.getTitleText().setText(label);
+        mainActivity.getLogo().setVisibility(View.INVISIBLE);
         ImageButton notificationsButton = mainActivity.getNotificationsButton();
         notificationsButton.setVisibility(View.INVISIBLE);
     }

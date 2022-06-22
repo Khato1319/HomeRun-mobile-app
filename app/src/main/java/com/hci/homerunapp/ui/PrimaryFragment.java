@@ -17,6 +17,7 @@ public abstract class PrimaryFragment extends Fragment{
         mainActivity.showBottomNav();
         mainActivity.getUpButton().setVisibility(View.INVISIBLE);
         mainActivity.getTitleText().setText(label);
+        mainActivity.getLogo().setVisibility(View.VISIBLE);
         ImageButton notificationsButton = mainActivity.getNotificationsButton();
         notificationsButton.setVisibility(View.INVISIBLE);
     }

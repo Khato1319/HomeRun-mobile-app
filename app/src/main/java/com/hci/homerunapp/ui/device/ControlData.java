@@ -7,23 +7,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.ui.room.DeviceData;
 
 import java.io.Serializable;
 
 public class ControlData implements Serializable {
     private int layoutId;
-    private String actionLabel, deviceId;
+    private String actionLabel;
+            private DeviceData deviceData;
     protected Context context;
 
-    public ControlData(Context context, int layoutId, String actionLabel, String deviceId) {
+    public ControlData(Context context, int layoutId, String actionLabel, DeviceData deviceData) {
         this.layoutId = layoutId;
         this.actionLabel = actionLabel;
         this.context = context;
-        this.deviceId = deviceId;
+        this.deviceData = deviceData;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public DeviceData getDeviceData() {
+        return deviceData;
     }
 
     public int getLayoutId() {

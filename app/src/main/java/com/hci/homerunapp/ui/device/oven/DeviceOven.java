@@ -22,17 +22,17 @@ public class DeviceOven extends Device {
     public DeviceOven(DeviceData deviceData, Context context) {
         super(deviceData, context);
 
-        turnOnButton = new TurnOnButtonData(context, "turnOn", "turnOff", deviceData.getId());
+        turnOnButton = new TurnOnButtonData(context, "turnOn", "turnOff", deviceData, null);
 
-        temperatureSlider = new SliderData(context, context.getResources().getString(R.string.temperature_slider),90, 230, "setTemperature", deviceData.getId());
+        temperatureSlider = new SliderData(context, context.getResources().getString(R.string.temperature_slider),90, 230, "setTemperature", deviceData);
         String[] heatSources = new String[]{"top", "bottom", "conventional"};
-        changeHeatSourceDropDown = new DropDownData(context, context.getResources().getString(R.string.heat_source_title), "setHeat",context.getResources().getStringArray(R.array.heat_sources), heatSources, deviceData.getId());
+        changeHeatSourceDropDown = new DropDownData(context, context.getResources().getString(R.string.heat_source_title), "setHeat",context.getResources().getStringArray(R.array.heat_sources), heatSources, deviceData);
 
         String[] modes = new String[]{"normal", "eco", "off"};
-        setGrillModeDropDown = new DropDownData(context, context.getResources().getString(R.string.grill_mode_title),"setGrill",context.getResources().getStringArray(R.array.grill_modes), modes, deviceData.getId());
+        setGrillModeDropDown = new DropDownData(context, context.getResources().getString(R.string.grill_mode_title),"setGrill",context.getResources().getStringArray(R.array.grill_modes), modes, deviceData);
 
 //        String[] convectionModes = new String[]{"Normal", "Ecológico", "Apagado"};
-        setConvectionModeDropDown = new DropDownData(context, context.getResources().getString(R.string.convection_mode_title), "setConvection", context.getResources().getStringArray(R.array.convection_modes),  modes,deviceData.getId());
+        setConvectionModeDropDown = new DropDownData(context, context.getResources().getString(R.string.convection_mode_title), "setConvection", context.getResources().getStringArray(R.array.convection_modes),  modes,deviceData);
 
     }
 
