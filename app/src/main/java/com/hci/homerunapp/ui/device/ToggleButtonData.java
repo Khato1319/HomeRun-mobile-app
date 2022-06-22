@@ -11,14 +11,15 @@ import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.data.remote.device.action.ActionBody;
 import com.hci.homerunapp.ui.MainActivity;
+import com.hci.homerunapp.ui.room.DeviceData;
 
 public class ToggleButtonData extends ControlData{
     private int state;
     private String[] btnLabels;
     private String[] actionLabels;
 
-    public ToggleButtonData(Context context, String[] btnLabels, String[] actionLabels, String deviceId) {
-        super(context, R.layout.toggle_button_item, context.getResources().getString(R.string.blinds_state), deviceId);
+    public ToggleButtonData(Context context, String[] btnLabels, String[] actionLabels, DeviceData deviceData) {
+        super(context, R.layout.toggle_button_item, context.getResources().getString(R.string.blinds_state), deviceData);
         this.btnLabels = btnLabels;
         this.actionLabels = actionLabels;
     }
@@ -96,7 +97,7 @@ public class ToggleButtonData extends ControlData{
                 @Override
                 public void onClick(View v) {
 //                    controlData.setState(!controlData.getState());
-                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getState() == 0 ? "close" : "open", new ActionBody(), ViewHolder.this, true);
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceData(), controlData.getState() == 0 ? "close" : "open", new ActionBody(), ViewHolder.this, true, 0);
 //                    toggleButton.setText(controlData.getButtonText());
 //                    getControlText().setText(controlData.getActionLabel());
 

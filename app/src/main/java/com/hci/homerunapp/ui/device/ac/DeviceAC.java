@@ -23,22 +23,22 @@ public class DeviceAC extends Device {
 
     public DeviceAC(DeviceData deviceData, Context context) {
         super(deviceData, context);
-        turnOnButton = new TurnOnButtonData(context, "turnOn", "turnOff", deviceData.getId());
+        turnOnButton = new TurnOnButtonData(context, "turnOn", "turnOff", deviceData, null);
 
-        temperatureSlider = new SliderData(context, context.getResources().getString(R.string.temperature_slider), 18, 38,"setTemperature",deviceData.getId());
+        temperatureSlider = new SliderData(context, context.getResources().getString(R.string.temperature_slider), 18, 38,"setTemperature",deviceData);
 
         String[] coolingModes = new String[]{"cool", "heat", "fan"};
-        coolingModeDropDown = new DropDownData(context, context.getResources().getString(R.string.cooling_mode_title), "setMode",context.getResources().getStringArray(R.array.cooling_modes) ,coolingModes, getDeviceData().getId());
+        coolingModeDropDown = new DropDownData(context, context.getResources().getString(R.string.cooling_mode_title), "setMode",context.getResources().getStringArray(R.array.cooling_modes) ,coolingModes, getDeviceData());
 
         String[] verticalSwingModes = new String[]{"auto", "22", "45", "67", "90"};
 
-        verticalSwingDropDown = new DropDownData(context, context.getResources().getString(R.string.vertical_swing_mode_title),"setVerticalSwing",context.getResources().getStringArray(R.array.vertical_swing_modes),verticalSwingModes, deviceData.getId());
+        verticalSwingDropDown = new DropDownData(context, context.getResources().getString(R.string.vertical_swing_mode_title),"setVerticalSwing",context.getResources().getStringArray(R.array.vertical_swing_modes),verticalSwingModes, deviceData);
         String[] horizontalSwingModes = new String[]{"auto", "-90", "-45", "0", "45", "90"};
 
-        horizontalSwingDropDown = new DropDownData(context, context.getResources().getString(R.string.horizontal_swing_mode_title), "setHorizontalSwing",context.getResources().getStringArray(R.array.horizontal_swing_modes),horizontalSwingModes, deviceData.getId());
+        horizontalSwingDropDown = new DropDownData(context, context.getResources().getString(R.string.horizontal_swing_mode_title), "setHorizontalSwing",context.getResources().getStringArray(R.array.horizontal_swing_modes),horizontalSwingModes, deviceData);
 
         String[] speedModes = new String[]{"auto", "25", "50", "75", "100"};
-        speedDropDown = new DropDownData(context, context.getResources().getString(R.string.set_fan_speed),"setFanSpeed" ,context.getResources().getStringArray(R.array.speed_modes),speedModes, deviceData.getId());
+        speedDropDown = new DropDownData(context, context.getResources().getString(R.string.set_fan_speed),"setFanSpeed" ,context.getResources().getStringArray(R.array.speed_modes),speedModes, deviceData);
     }
 
     @Override

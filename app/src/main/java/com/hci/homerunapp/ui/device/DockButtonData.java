@@ -11,12 +11,13 @@ import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.data.remote.device.action.ActionBody;
 import com.hci.homerunapp.ui.MainActivity;
+import com.hci.homerunapp.ui.room.DeviceData;
 
 public class DockButtonData extends ControlData{
     private boolean docked;
 
-    public DockButtonData(Context context, String deviceId) {
-        super(context, R.layout.dock_item, context.getString(R.string.dock_state_docked), deviceId);
+    public DockButtonData(Context context, DeviceData deviceData) {
+        super(context, R.layout.dock_item, context.getString(R.string.dock_state_docked), deviceData);
 
     }
 
@@ -62,7 +63,7 @@ public class DockButtonData extends ControlData{
                 @Override
                 public void onClick(View v) {
 //                    controlData.setState(true);
-                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), "dock", new ActionBody(), ViewHolder.this, true);
+                    ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceData(), "dock", new ActionBody(), ViewHolder.this, true, 0);
 //                    getControlText().setText(controlData.getActionLabel());
                 }
             });

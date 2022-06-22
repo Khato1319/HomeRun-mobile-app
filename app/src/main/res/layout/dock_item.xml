@@ -8,7 +8,7 @@
     android:layout_margin="8dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
+        android:id="@+id/card_view_device"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/white"
@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:text="Habitacion"
         android:translationZ="90dp"
-        app:layout_constraintLeft_toLeftOf="@+id/card_view"
-        app:layout_constraintTop_toTopOf="@+id/card_view" />
+        app:layout_constraintLeft_toLeftOf="@+id/card_view_device"
+        app:layout_constraintTop_toTopOf="@+id/card_view_device" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/device_button"
@@ -46,9 +46,9 @@
         android:text="TEXT"
         android:textSize="18sp"
         android:translationZ="90dp"
-        app:layout_constraintBottom_toBottomOf="@+id/card_view"
-        app:layout_constraintLeft_toLeftOf="@+id/card_view"
-        app:layout_constraintRight_toRightOf="@+id/card_view"
+        app:layout_constraintBottom_toBottomOf="@+id/card_view_device"
+        app:layout_constraintLeft_toLeftOf="@+id/card_view_device"
+        app:layout_constraintRight_toRightOf="@+id/card_view_device"
         app:layout_constraintTop_toBottomOf="@+id/text_control"
         app:tint="@android:color/white" />
 

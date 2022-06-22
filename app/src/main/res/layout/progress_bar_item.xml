@@ -8,7 +8,7 @@
     android:layout_margin="5dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
+        android:id="@+id/card_view_device"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/white"
@@ -28,8 +28,8 @@
         android:layout_margin="15dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/text_control"
-        app:layout_constraintLeft_toLeftOf="@id/card_view"
-        app:layout_constraintRight_toRightOf="@id/card_view"
+        app:layout_constraintLeft_toLeftOf="@id/card_view_device"
+        app:layout_constraintRight_toRightOf="@id/card_view_device"
         app:layout_constraintBottom_toTopOf="@id/text_sublabel"
         android:translationZ="90dp"
         android:progress="25"/>
@@ -42,9 +42,9 @@
         android:layout_height="wrap_content"
         android:text="Estado: cerrado"
         android:translationZ="90dp"
-        app:layout_constraintLeft_toLeftOf="@+id/card_view"
+        app:layout_constraintLeft_toLeftOf="@+id/card_view_device"
 
-        app:layout_constraintTop_toTopOf="@+id/card_view" />
+        app:layout_constraintTop_toTopOf="@+id/card_view_device" />
 
     <TextView
         android:id="@+id/text_sublabel"
@@ -55,10 +55,10 @@
         android:translationZ="90dp"
         android:textColor="@color/red"
         android:layout_margin="5dp"
-        app:layout_constraintLeft_toLeftOf="@+id/card_view"
-        app:layout_constraintRight_toRightOf="@+id/card_view"
+        app:layout_constraintLeft_toLeftOf="@+id/card_view_device"
+        app:layout_constraintRight_toRightOf="@+id/card_view_device"
         app:layout_constraintTop_toBottomOf="@+id/progressBar"
-        app:layout_constraintBottom_toBottomOf="@+id/card_view"/>
+        app:layout_constraintBottom_toBottomOf="@+id/card_view_device"/>
 
 
 

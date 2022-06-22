@@ -42,6 +42,6 @@ public abstract class DeviceDao {
     @Query("DELETE FROM Device")
     public abstract void deleteAll();
 
-//    @Query("SELECT * FROM Room WHERE id = :id")
-//    public abstract LiveData<LocalRoom> findById(String id);
+    @Query("SELECT * FROM Device WHERE id = :id")
+    public abstract LocalDevice findById(String id);
 }

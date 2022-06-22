@@ -2,7 +2,6 @@ package com.hci.homerunapp.ui.device;
 
 import android.content.Context;
 
-import com.hci.homerunapp.R;
 import com.hci.homerunapp.ui.Data;
 import com.hci.homerunapp.ui.room.DeviceData;
 

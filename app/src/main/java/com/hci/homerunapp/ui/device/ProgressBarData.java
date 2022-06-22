@@ -9,13 +9,14 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.hci.homerunapp.R;
+import com.hci.homerunapp.ui.room.DeviceData;
 
 public class ProgressBarData extends ControlData{
     private int progress;
     private final int color;
 
-    public ProgressBarData(Context context, String actionLabel, int color, String deviceId) {
-        super(context, R.layout.progress_bar_item, actionLabel, deviceId);
+    public ProgressBarData(Context context, String actionLabel, int color, DeviceData deviceData) {
+        super(context, R.layout.progress_bar_item, actionLabel, deviceData);
         this.color = color;
     }
 

@@ -3,7 +3,6 @@ package com.hci.homerunapp.ui.routines;
 import com.hci.homerunapp.ui.Data;
 
 import java.util.List;
-import java.util.Map;
 
 
 public class RoutineData implements Data {

@@ -13,15 +13,18 @@ import com.hci.homerunapp.MyApplication;
 import com.hci.homerunapp.R;
 import com.hci.homerunapp.data.remote.device.action.ActionBody;
 import com.hci.homerunapp.ui.MainActivity;
+import com.hci.homerunapp.ui.room.DeviceData;
 
 public class TurnOnButtonData extends ControlData{
     private boolean state;
     private String onApiAction, offApiAction;
+    private ProgressBarData progressBarData;
 
-    public TurnOnButtonData(Context context, String onApiAction,String offApiAction, String deviceId) {
-        super(context, R.layout.switch_on_item, context.getResources().getString(R.string.switch_on_state), deviceId);
+    public TurnOnButtonData(Context context, String onApiAction, String offApiAction, DeviceData deviceData, ProgressBarData progressBar) {
+        super(context, R.layout.switch_on_item, context.getResources().getString(R.string.switch_on_state), deviceData);
         this.onApiAction = onApiAction;
         this.offApiAction = offApiAction;
+        this.progressBarData = progressBar;
     }
 
     public String getOnApiAction() {
@@ -112,7 +115,8 @@ public class TurnOnButtonData extends ControlData{
                 public void onClick(View v) {
                     if (controlData.isOn()) {
 //                        controlData.setState(false);
-                        ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getOffApiAction(), new ActionBody(), ViewHolder.this, true);
+
+                        ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceData(), controlData.getOffApiAction(), new ActionBody(), ViewHolder.this, true, controlData.progressBarData != null ? controlData.progressBarData.getProgress() : 0);
 //                        turnOnbutton.getBackground().setTint(Color.DKGRAY);
 
 //                        turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.primary)));
@@ -120,7 +124,7 @@ public class TurnOnButtonData extends ControlData{
                     }
                     else {
 //                        controlData.setState(true);
-                        ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceId(), controlData.getOnApiAction(), new ActionBody(), ViewHolder.this, true);
+                        ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceData(), controlData.getOnApiAction(), new ActionBody(), ViewHolder.this, true, controlData.progressBarData != null ? controlData.progressBarData.getProgress() : 0);
 
 //                        turnOnbutton.getBackground().setTint(ContextCompat.getColor(context, R.color.primary));
 //                        turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(Color.WHITE));

@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -37,12 +38,10 @@ public class MyNotificationWorker extends Worker {
     private final MyApplication application;
     private final String CHANNEL = "channel";
 
-
     public MyNotificationWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         this.application = (MyApplication) context;
     }
-
 
     @Override
     public Result doWork() {
@@ -60,19 +59,25 @@ public class MyNotificationWorker extends Worker {
 
                  if (dbDevices.size() > 0) {
                      for (RemoteDevice device : devices) {
+
                          if (device.getMeta().isNotifications()) {
                              Optional<LocalDevice> oldDevice = dbDevices.stream().filter(d -> d.getId().equals(device.getId())).findFirst();
                              oldDevice.ifPresent(localDevice -> sendNotificationIfStateChanged(device, localDevice));
                          }
                      }
                  }
+                Log.d("DBDEVICE", String.valueOf(dbDevices));
+                 Log.d("APIDEVICE", String.valueOf(devices));
 
                  deviceDao.deleteAll();
                  for (RemoteDevice device : devices) {
-                     deviceDao.insert(new LocalDevice(device.getId(),
+                     if (device.getMeta().isNotifications())
+                        deviceDao.insert(new LocalDevice(device.getId(),
                              device.getState().getStatus(),
                              device.getState().getBatteryLevel()));
                  }
+                Log.d("SAVEDDEVICES", String.valueOf(deviceDao.findAll()));
+
             } else {
                 return Result.retry();
             }
@@ -86,9 +91,10 @@ public class MyNotificationWorker extends Worker {
 
     private void sendNotificationIfStateChanged(RemoteDevice newDevice, LocalDevice oldDevice) {
         createNotificationChannel();
+//        showNotification(newDevice, R.string.notification_low_battery);
         switch(newDevice.getType().getName()) {
             case "vacuum" -> {
-                if (newDevice.getState().getStatus().equals(oldDevice.getStatus())) {
+                if (!newDevice.getState().getStatus().equals(oldDevice.getStatus())) {
                     int resId = switch(newDevice.getState().getStatus()) {
                         case "active" -> R.string.notification_turn_on;
                         case "inactive" -> R.string.notification_turn_off;
@@ -105,7 +111,7 @@ public class MyNotificationWorker extends Worker {
                 }
             }
             case "blinds" -> {
-                if (newDevice.getState().getStatus().equals(oldDevice.getStatus())) {
+                if (!newDevice.getState().getStatus().equals(oldDevice.getStatus())) {
                     switch(newDevice.getState().getStatus()) {
                         case "opened" -> {
                             showNotification(newDevice, R.string.notification_open);
@@ -119,7 +125,7 @@ public class MyNotificationWorker extends Worker {
             }
 
             default -> {
-                if (newDevice.getState().getStatus().equals(oldDevice.getStatus())) {
+                if (!newDevice.getState().getStatus().equals(oldDevice.getStatus())) {
                     switch(newDevice.getState().getStatus()) {
                         case "on" -> {
                             showNotification(newDevice, R.string.notification_turn_on);
@@ -138,7 +144,7 @@ public class MyNotificationWorker extends Worker {
     private void createNotificationChannel() {
 
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel channel = new NotificationChannel("channel", "name", importance);
+        NotificationChannel channel = new NotificationChannel(CHANNEL, "name", importance);
         channel.setDescription("description");
         channel.enableLights(true);
         channel.setLightColor(Color.RED);
@@ -159,7 +165,6 @@ public class MyNotificationWorker extends Worker {
 
         DeviceData deviceData = new DeviceData(device.getName(), device.getId(),roomData, getType(device.getType().getName()));
 
-
         Bundle bundle = new Bundle();
         bundle.putSerializable("deviceData", deviceData);
 
@@ -170,7 +175,7 @@ public class MyNotificationWorker extends Worker {
                 .createPendingIntent();
 
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(application, "channel")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(application, CHANNEL)
                 .setSmallIcon(deviceData.getType().getIcon())
                 .setContentTitle(String.format(application.getString(R.string.device_from), device.getName(), device.getRoom().getName()))
                 .setContentText(application.getString(resId))
