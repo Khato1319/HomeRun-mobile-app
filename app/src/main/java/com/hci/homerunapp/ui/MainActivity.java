@@ -1,5 +1,9 @@
 package com.hci.homerunapp.ui;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -145,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
 
         return rooms;
     }
-
-
 
 
     //    @Override

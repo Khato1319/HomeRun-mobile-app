@@ -147,4 +147,13 @@
     <!--Aspiradora    -->
     <!-- Se usan los mismos strings que en su fragment    -->
     <string name="action_dock">Cambiar estado: Volver a base</string>
+
+    <string name="notification_turn_on">Dispositivo encendido</string>
+    <string name="notification_turn_off">Dispositivo apagado</string>
+    <string name="notification_docked">Dispositivo en base de carga</string>
+    <string name="notification_open">Dispositivo abierto</string>
+    <string name="notification_close">Dispositivo cerrado</string>
+    <string name="notification_low_battery">Dispositivo con baja batería</string>
+    <string name="notification_charged">Dispositivo cargado</string>
+
 </resources>

@@ -148,6 +148,10 @@ public class DeviceRepository {
         return null;
     }
 
+    public Call<RemoteResult<List<RemoteDevice>>> fetchDevices() {
+        return service.fetchDevices();
+    }
+
 
 
     public LiveData<Resource<List<Device>>> getDevices() {

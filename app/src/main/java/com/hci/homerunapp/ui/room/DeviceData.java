@@ -94,6 +94,7 @@ public class DeviceData implements Data {
     }
 
     public enum Type {
+
         VACUUM(R.drawable.ic_vacuum_cleaner_icon) {
             @Override
             public Device getDeviceInstance(DeviceData data, Context context) {
@@ -124,6 +125,17 @@ public class DeviceData implements Data {
                 return new DeviceAC(data, context);
             }
         };
+
+        public static Type getType(String apiType) {
+            return switch(apiType) {
+                case "ac" -> AC;
+                case "vacuum" -> VACUUM;
+                case "lamp" -> LIGHT;
+                case "oven" -> OVEN;
+                case "blinds" -> BLINDS;
+                default -> throw new IllegalStateException("Not supported device");
+            };
+        }
 
 
         Type(int icon) {

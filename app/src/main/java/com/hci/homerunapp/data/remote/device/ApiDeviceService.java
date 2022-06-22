@@ -25,12 +25,15 @@ public interface ApiDeviceService {
         @GET("devices/{deviceId}")
         LiveData<ApiResponse<RemoteResult<RemoteDevice>>> getDevice(@Path("deviceId") String deviceId);
 
-
         @PUT("devices/{deviceId}/{actionName}")
         Call<ApiResponse<RemoteResult<Object>>> putAction(@Path("deviceId") String deviceId, @Path("actionName") String actionName, @Body ActionBody action);
 
         @PUT("devices/{deviceId}")
         Call<ApiResponse<RemoteResult<Object>>> updateDevice(@Path("deviceId") String deviceId, @Body ModifiedDevice device);
+
+        @GET("devices")
+        Call<RemoteResult<List<RemoteDevice>>> fetchDevices();
+
 
 
 }

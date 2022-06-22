@@ -150,4 +150,15 @@
     <!--Vacuum    -->
     <!-- Se usan los mismos strings que en su fragment    -->
     <string name="action_dock">Set state: Dock</string>
+
+    <string name="notification_turn_on">Device turned on</string>
+    <string name="notification_turn_off">Device turned off</string>
+    <string name="notification_docked">Device docked</string>
+    <string name="notification_open">Device opened</string>
+    <string name="notification_close">Device closed</string>
+    <string name="notification_low_battery">Device with low battery</string>
+    <string name="notification_charged">Device charged</string>
+
+
+
 </resources>
