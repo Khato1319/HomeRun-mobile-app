@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
 import com.hci.homerunapp.data.local.MyDatabase;
-import com.hci.homerunapp.data.local.routine.LocalRoutine;
 import com.hci.homerunapp.data.remote.ApiResponse;
 import com.hci.homerunapp.data.remote.RemoteResult;
 import com.hci.homerunapp.data.remote.routine.ApiRoutineService;
@@ -69,7 +68,7 @@ public class RoutineRepository {
 
     public LiveData<Resource<List<RoutineData>>> getRoutines() {
         Log.d(TAG, "RoutineRepository - getRoutines()");
-        return new NetworkBoundResource<List<RoutineData>, List<LocalRoutine>, List<RemoteRoutine>>(
+        return new NetworkBoundResource<List<RoutineData>, List<Void>, List<RemoteRoutine>>(
                 executors,
                 null,
                 null,
@@ -79,11 +78,11 @@ public class RoutineRepository {
                             .collect(toList());
                 }) {
             @Override
-            protected void saveCallResult(@NonNull List<LocalRoutine> locals) {
+            protected void saveCallResult(@NonNull List<Void> locals) {
             }
 
             @Override
-            protected boolean shouldFetch(@Nullable List<LocalRoutine> locals) {
+            protected boolean shouldFetch(@Nullable List<Void> locals) {
                 return true;
             }
 
@@ -94,7 +93,7 @@ public class RoutineRepository {
 
             @NonNull
             @Override
-            protected LiveData<List<LocalRoutine>> loadFromDb() {
+            protected LiveData<List<Void>> loadFromDb() {
                 return null;
             }
 
@@ -108,19 +107,19 @@ public class RoutineRepository {
 
     public LiveData<Resource<Void>> executeRoutine(RoutineData routine) {
         Log.d(TAG, "RoutineRepository - executeRoutine()");
-        return new NetworkBoundResource<Void, LocalRoutine, Object>(
+        return new NetworkBoundResource<Void, Void, Object>(
                 executors,
                 local -> null,
                 remote -> null,
                 remote -> null) {
 
             @Override
-            protected void saveCallResult(@NonNull LocalRoutine local) {
+            protected void saveCallResult(@NonNull Void local) {
                 //database.roomDao().delete(room.getId());
             }
 
             @Override
-            protected boolean shouldFetch(@Nullable LocalRoutine local) {
+            protected boolean shouldFetch(@Nullable Void local) {
                 return true;
             }
 
@@ -131,7 +130,7 @@ public class RoutineRepository {
 
             @NonNull
             @Override
-            protected LiveData<LocalRoutine> loadFromDb() {
+            protected LiveData<Void> loadFromDb() {
                 return null;
             }
 

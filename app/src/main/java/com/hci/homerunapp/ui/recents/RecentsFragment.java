@@ -50,8 +50,8 @@ public class RecentsFragment extends PrimaryFragment implements ButtonListenerMa
 
         activity = (MainActivity) getActivity();
 
-
         FragmentRecentsBinding binding = FragmentRecentsBinding.inflate(inflater, container, false);
+
         model.setDevices(((MainActivity)getActivity()).getRecentDevices());
         adapter = new SimpleDeviceButtonAdapter(model.getDevices(), this);
 

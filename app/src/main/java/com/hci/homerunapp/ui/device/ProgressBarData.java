@@ -61,7 +61,7 @@ public class ProgressBarData extends ControlData{
 //            ProgressBarData.ViewHolder progressBarViewHolder = (ProgressBarData.ViewHolder) holder;
             subLabel.setText(context.getString(R.string.charge_msg));
             subLabel.setVisibility(View.INVISIBLE);
-            progressBar.setIndicatorColor(controlData.color);
+            progressBar.setIndicatorColor(context.getResources().getColor(controlData.color));
 
             if (controlData.getActionLabel().contains("Bat")) {
                 if (controlData.getProgress() <= 5){
@@ -69,8 +69,7 @@ public class ProgressBarData extends ControlData{
                     subLabel.setVisibility(View.VISIBLE);
                 }
                 else {
-                    progressBar.setIndicatorColor(controlData.color);
-
+                    progressBar.setIndicatorColor(context.getResources().getColor(controlData.color));
                 }
             }
 

@@ -114,6 +114,7 @@ public class RoutinesFragment extends PrimaryFragment implements ButtonListenerM
         return (it) -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("routineData", data);
+
             NavHostFragment.findNavController(this).navigate(R.id.action_navigation_routines_to_navigation_routine, bundle);
         };
 

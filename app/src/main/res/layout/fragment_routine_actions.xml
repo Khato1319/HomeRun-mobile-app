@@ -20,12 +20,28 @@
             android:layout_height="65dp"
             android:layout_margin="25dp"
             android:backgroundTint="#BBDEFB"
+            android:visibility="invisible"
             android:clickable="true"
             android:scaleType="center"
             android:src="@drawable/ic_baseline_play_arrow_24"
             app:borderWidth="0dp"
             app:fabCustomSize="65dp"
             android:layout_gravity="bottom|end"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/execute_button_tablet"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="25dp"
+        android:backgroundTint="#BBDEFB"
+        android:clickable="true"
+        android:scaleType="center"
+        android:visibility="invisible"
+        app:maxImageSize="30dp"
+        android:src="@drawable/ic_baseline_play_arrow_50"
+        app:borderWidth="0dp"
+        app:fabCustomSize="80dp"
+        android:layout_gravity="bottom|end"/>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

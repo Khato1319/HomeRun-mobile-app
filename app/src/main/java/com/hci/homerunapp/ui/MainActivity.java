@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton upButton, notificationsButton;
     private ImageView logo;
     private TextView title;
-    private List<DeviceData> recentDevices = new ArrayList<>();
+    private final List<DeviceData> recentDevices = new ArrayList<>();
     private List<RoomData> rooms;
 
     @Override

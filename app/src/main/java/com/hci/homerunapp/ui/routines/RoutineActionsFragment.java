@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 
 import androidx.annotation.NonNull;
@@ -54,25 +55,31 @@ public class RoutineActionsFragment extends SecondaryFragment {
 
         adapter = new RoutineActionsAdapter(routinesViewModel.getData().getActions());
 
-
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
         int orientation = this.getResources().getConfiguration().orientation;
 
         if (isTablet) {
+            binding.executeButton.setVisibility(View.INVISIBLE);
+            binding.executeButtonTablet.setVisibility(View.VISIBLE);
+            binding.executeButtonTablet.setOnClickListener(this::executeRoutine);
+
+
             if (orientation == Configuration.ORIENTATION_PORTRAIT)
                 binding.routinesRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
             else
                 binding.routinesRecyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
-
         }
         else {
+            binding.executeButton.setVisibility(View.VISIBLE);
+            binding.executeButtonTablet.setVisibility(View.INVISIBLE);
+            binding.executeButton.setOnClickListener(this::executeRoutine);
             if (orientation == Configuration.ORIENTATION_PORTRAIT)
                 binding.routinesRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
             else
                 binding.routinesRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
         }
         binding.routinesRecyclerView.setAdapter(adapter);
-        binding.executeButton.setOnClickListener(this::executeRoutine);
+
 
         return binding.getRoot();
     }
@@ -86,13 +93,11 @@ public class RoutineActionsFragment extends SecondaryFragment {
                     break;
                 case SUCCESS:
                     activity.hideProgressBar();
-                    //activity.popBackStack();
-                    Log.d("SNACKBAR", "showing snackbar");
                     Snackbar.make(view, R.string.routine_exec_success, Snackbar.LENGTH_LONG).show();
                     break;
                 case ERROR:
                     activity.hideProgressBar();
-                    Snackbar.make(view, resource.error.getDescription(), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, R.string.routine_exec_failure, Snackbar.LENGTH_SHORT).show();
                     break;
                 default:
                     break;
@@ -104,8 +109,6 @@ public class RoutineActionsFragment extends SecondaryFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         MainActivity mainActivity = (MainActivity) getActivity();
-        if(mainActivity != null)
-            mainActivity.showBottomNav();
     }
 
     @Override

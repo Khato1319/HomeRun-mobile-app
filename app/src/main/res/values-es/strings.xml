@@ -4,8 +4,6 @@
     <string name="title_rooms">Habitaciones</string>
     <string name="title_recents">Recientes</string>
     <string name="title_routines">Rutinas</string>
-    <string name="large_text">20sp</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="turn_on">Encendido</string>
     <string name="turn_off">Apagado</string>
     <string name="switch_on_state">Estado: %s</string>
@@ -120,6 +118,8 @@
 
     <!-- Rutinas   -->
     <string name="routine_exec_success">Rutina ejecutada exitosamente</string>
+    <string name="routine_exec_failure">Hubo un problema. Inténtalo de nuevo.</string>
+
 
     <!-- Acciones   -->
     <string name="device_from">%s de %s</string>

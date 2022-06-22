@@ -3,9 +3,7 @@
     <string name="title_rooms">Rooms</string>
     <string name="title_recents">Recents</string>
     <string name="title_routines">Routines</string>
-    <string name="large_text">20sp</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="switch_on_state">State: %s</string>
 
     <string name="turn_on">On</string>
@@ -123,7 +121,8 @@
     <string name="charge_msg">Battery must be above 5% to turn on the device.</string>
 
     <!-- Rutinas   -->
-    <string name="routine_exec_success">Rutine executed successfully</string>
+    <string name="routine_exec_success">Routine executed successfully</string>
+    <string name="routine_exec_failure">There was a problem executin the routine. Try again.</string>
 
     <!-- Actions   -->
     <string name="device_from">%s from %s</string>
