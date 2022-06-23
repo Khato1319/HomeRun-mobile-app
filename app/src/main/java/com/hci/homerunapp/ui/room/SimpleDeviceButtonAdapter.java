@@ -16,12 +16,9 @@ import com.hci.homerunapp.ui.ButtonListenerMaker;
 import java.util.List;
 
 public class SimpleDeviceButtonAdapter extends RecyclerView.Adapter<SimpleDeviceButtonAdapter.ViewHolder> {
-
     private static final String TAG = "CustomAdapter";
     private final List<DeviceData> devices;
     private final ButtonListenerMaker buttonListenerMaker;
-
-
 
     public SimpleDeviceButtonAdapter(List<DeviceData> devices, ButtonListenerMaker buttonListenerMaker) {
         this.devices = devices;
@@ -34,7 +31,6 @@ public class SimpleDeviceButtonAdapter extends RecyclerView.Adapter<SimpleDevice
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.device_item, parent, false);
 
-
         return new ViewHolder(view);
     }
 
@@ -42,19 +38,14 @@ public class SimpleDeviceButtonAdapter extends RecyclerView.Adapter<SimpleDevice
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "Element " + position + " set.");
 
-//        holder.getDeviceButton().setText(dataSet.get(position));
         DeviceData deviceData = devices.get(position);
         holder.getDeviceRoomText().setText(deviceData.getRoomData().getName());
         holder.getDeviceText().setText(deviceData.getName());
         holder.getDeviceButton().setImageResource(deviceData.getType().getIcon());
 
-
-
         FloatingActionButton deviceButton = holder.getDeviceButton();
 
         deviceButton.setOnClickListener(buttonListenerMaker.getButtonClickListener(deviceData));
-
-
     }
 
     @Override
@@ -84,6 +75,5 @@ public class SimpleDeviceButtonAdapter extends RecyclerView.Adapter<SimpleDevice
         public TextView getDeviceText() {
             return deviceText;
         }
-
     }
 }

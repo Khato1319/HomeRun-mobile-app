@@ -16,11 +16,6 @@ import java.util.List;
 public class HomeViewModel extends RepositoryViewModel<RoomRepository> {
     private final MediatorLiveData<Resource<List<RoomData>>> rooms = new MediatorLiveData<>();
 
-//    public List<Data> getElements() {
-//        return elements;
-//    }
-
-
     public HomeViewModel(RoomRepository roomRepository) {
             super(roomRepository);
 

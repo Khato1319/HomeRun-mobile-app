@@ -24,10 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 public class RoutineActionsAdapter extends RecyclerView.Adapter<RoutineActionsAdapter.ViewHolder> {
-
     private static final String TAG = "CustomAdapter";
     private final List<RoutineAction> actions;
-
 
     RoutineActionsAdapter(List<RoutineAction> actions) {
         this.actions = actions;

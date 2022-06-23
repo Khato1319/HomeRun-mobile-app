@@ -23,23 +23,16 @@ import com.hci.homerunapp.ui.Data;
 import com.hci.homerunapp.ui.room.SimpleDeviceButtonAdapter;
 
 public class RecentsFragment extends PrimaryFragment implements ButtonListenerMaker {
-
     protected RecentsViewModel model;
     SimpleDeviceButtonAdapter adapter;
     MainActivity activity;
-
-//    public static SimpleDeviceButtonFragment newInstance() {
-//        return new SimpleDeviceButtonFragment();
-//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         model = new ViewModelProvider(this).get(RecentsViewModel.class);
-
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -90,17 +83,12 @@ public class RecentsFragment extends PrimaryFragment implements ButtonListenerMa
         };
     }
 
-
-
     protected int getNavigationId() {
         return R.id.action_navigation_recents_to_navigation_device;
     }
-
 
     @Override
     public NavController getNavController() {
         return NavHostFragment.findNavController(this);
     }
-
-
 }

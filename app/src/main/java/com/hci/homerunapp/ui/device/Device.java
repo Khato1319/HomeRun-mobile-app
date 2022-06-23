@@ -11,14 +11,11 @@ public abstract class Device implements Data {
     private final DeviceData deviceData;
     protected Context context;
 
-
-
     public abstract List<ControlData> getControls();
 
     public Device(DeviceData deviceData, Context context) {
         this.deviceData = deviceData;
         this.context = context;
-
     }
 
     public DeviceData getDeviceData() {
@@ -36,7 +33,6 @@ public abstract class Device implements Data {
         return deviceData.getNotifications();
     }
 
-
     @Override
     public String getName() {
         return deviceData.getName();
@@ -46,7 +42,4 @@ public abstract class Device implements Data {
     public String getId() {
         return deviceData.getId();
     }
-
-
-
 }

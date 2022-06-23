@@ -36,14 +36,6 @@ public class RoutineRepository {
         this.database = database;
     }
 
-//    private RoutineData mapRoutineLocalToModel(LocalRoutine local){
-//        return new RoutineData(local.name, local. id);
-//    }
-//
-//    private LocalRoutine mapRoutineRemoteToLocal(RemoteRoutine remote){
-//        return new LocalRoutine(remote.getId(), remote.getName());
-//    }
-
     private RoutineData mapRoutineRemoteToModel(RemoteRoutine remote){
         RoutineData routineData = new RoutineData(remote.getName(), remote.getId());
         List<RoutineAction> actions = new ArrayList<>();
@@ -58,13 +50,6 @@ public class RoutineRepository {
         routineData.setActions(actions);
         return routineData;
     }
-
-//    private RemoteRoutine mapRoutineModelToRemote(RoutineData model){
-//        RemoteRoutine remote=new RemoteRoutine();
-//        remote.setId(model.getId());
-//        remote.setName(model.getName());
-//        return remote;
-//    }
 
     public LiveData<Resource<List<RoutineData>>> getRoutines() {
         Log.d(TAG, "RoutineRepository - getRoutines()");
@@ -115,7 +100,6 @@ public class RoutineRepository {
 
             @Override
             protected void saveCallResult(@NonNull Void local) {
-                //database.roomDao().delete(room.getId());
             }
 
             @Override

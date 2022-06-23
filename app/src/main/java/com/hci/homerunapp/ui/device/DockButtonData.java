@@ -18,7 +18,6 @@ public class DockButtonData extends ControlData{
 
     public DockButtonData(Context context, DeviceData deviceData) {
         super(context, R.layout.dock_item, context.getString(R.string.dock_state_docked), deviceData);
-
     }
 
     @Override
@@ -39,7 +38,6 @@ public class DockButtonData extends ControlData{
             button = itemView.findViewById(R.id.device_button);
         }
 
-
         public MaterialButton getButton() {
             return button;
         }
@@ -47,7 +45,6 @@ public class DockButtonData extends ControlData{
         @Override
         public void bindTo(DockButtonData controlData) {
             super.bindTo(controlData);
-//            ToggleButtonData.ViewHolder toggleButtonViewHolder = (ToggleButtonData.ViewHolder) holder;
             MaterialButton toggleButton = getButton();
             if (controlData.docked) {
                 toggleButton.setEnabled(false);
@@ -62,9 +59,7 @@ public class DockButtonData extends ControlData{
             toggleButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    controlData.setState(true);
                     ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceData(), "dock", new ActionBody(), ViewHolder.this, true, 0);
-//                    getControlText().setText(controlData.getActionLabel());
                 }
             });
         }

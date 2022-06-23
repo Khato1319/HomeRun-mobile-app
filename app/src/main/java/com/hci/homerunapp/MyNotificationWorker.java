@@ -7,7 +7,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -92,7 +91,6 @@ public class MyNotificationWorker extends Worker {
 
     private void sendNotificationIfStateChanged(RemoteDevice newDevice, LocalDevice oldDevice) {
         createNotificationChannel();
-//        showNotification(newDevice, R.string.notification_low_battery);
         switch(newDevice.getType().getName()) {
             case "vacuum" -> {
                 if (!newDevice.getState().getStatus().equals(oldDevice.getStatus())) {
@@ -190,4 +188,4 @@ public class MyNotificationWorker extends Worker {
         notificationManager.notify(device.getId().hashCode(), builder.build());
         // podria llegar a darse el caso de que dos ids distintos generen el mismo hashcode. Se puede solucionar agregando el id a la base de datos
     }
-    }
+}

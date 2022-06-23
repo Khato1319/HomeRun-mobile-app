@@ -18,9 +18,6 @@ public abstract class DeviceDao {
     @Query("SELECT * FROM Device")
     public abstract List<LocalDevice> findAll();
 
-//    @Query("SELECT * FROM Room LIMIT :limit OFFSET :offset")
-//    public abstract LiveData<List<LocalRoom>> findAll(int limit, int offset);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insert(LocalDevice... device);
 
@@ -29,15 +26,6 @@ public abstract class DeviceDao {
 
     @Update
     public abstract void update(LocalDevice device);
-
-    @Delete
-    public abstract void delete(LocalDevice device);
-//
-//    @Query("DELETE FROM Room WHERE id = :id")
-//    public abstract void delete(String id);
-//
-//    @Query("DELETE FROM Room WHERE id IN (SELECT id FROM Room LIMIT :limit OFFSET :offset)")
-//    public abstract void delete(int limit, int offset);
 
     @Query("DELETE FROM Device")
     public abstract void deleteAll();

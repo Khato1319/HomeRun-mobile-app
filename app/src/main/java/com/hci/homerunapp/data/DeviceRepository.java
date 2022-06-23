@@ -39,14 +39,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DeviceRepository {
-
     private static final String TAG = "deviceData";
-//    private static final String RATE_LIMITER_ALL_KEY = "@@all@@";
-//
+
     private final AppExecutors executors;
     private final ApiDeviceService service;
     private final Context context;
-    private MyDatabase database;
+    private final MyDatabase database;
     private final RateLimiter<String> rateLimit = new RateLimiter<>(10, TimeUnit.MINUTES);
 
     public AppExecutors getExecutors() {
@@ -58,7 +56,6 @@ public class DeviceRepository {
         this.service = service;
         this.context = context;
         this.database = database;
-
     }
 
     private Device mapDeviceRemoteToModel(RemoteDevice remote) {
@@ -67,7 +64,6 @@ public class DeviceRepository {
         DeviceData deviceData;
         DeviceData.Type type;
         RemoteDeviceState state;
-
 
         switch (remote.getType().getName()) {
             case "ac" -> {
@@ -153,8 +149,6 @@ public class DeviceRepository {
         return service.fetchDevices();
     }
 
-
-
     public LiveData<Resource<List<Device>>> getDevices() {
         Log.d(TAG, "DeviceRepository - getDevices()");
         return new NetworkBoundResource<List<Device>, List<LocalRoom>, List<RemoteDevice>>(
@@ -202,10 +196,8 @@ public class DeviceRepository {
                 null,
                 this::mapDeviceRemoteToModel) {
 
-
             @Override
             protected void saveCallResult(@NonNull LocalRoom local) {
-
             }
 
             @Override
@@ -232,7 +224,6 @@ public class DeviceRepository {
     }
 
     public LiveData<Resource<Void>> putAction(DeviceData deviceData, String actionName, ActionBody action, ControlDataAdapter.ViewHolder viewHolder, boolean b, int progress) {
-
             Log.d(TAG, "DeviceRepository - putAction()");
         Call<RemoteResult<Boolean>> call = service.putAction(deviceData.getId(), actionName, action);
         call.enqueue(new Callback<RemoteResult<Boolean>>() {
@@ -327,9 +318,4 @@ public class DeviceRepository {
         });
         return null;
     }
-
-
-
-
-
 }

@@ -18,16 +18,13 @@ import com.hci.homerunapp.ui.Data;
 import java.util.List;
 
 public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.ViewHolder> {
-
     private static final String TAG = "CustomAdapter";
     private final List<RoutineData> elements;
     private final ButtonListenerMaker buttonListenerMaker;
 
-
     RoutinesAdapter(List<RoutineData> elements, ButtonListenerMaker buttonListenerMaker) {
         this.elements = elements;
         this.buttonListenerMaker = buttonListenerMaker;
-
     }
 
     @NonNull
@@ -39,8 +36,6 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.ViewHo
         return new ViewHolder(view);
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "Element " + position + " set.");
@@ -51,8 +46,6 @@ public class RoutinesAdapter extends RecyclerView.Adapter<RoutinesAdapter.ViewHo
         button.setOnClickListener(buttonListenerMaker.getButtonClickListener(data));
 
         button.setText(data.getName());
-
-
     }
 
     @Override

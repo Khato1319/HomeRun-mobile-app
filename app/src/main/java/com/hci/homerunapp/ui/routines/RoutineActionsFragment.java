@@ -29,7 +29,6 @@ import com.hci.homerunapp.ui.SecondaryFragment;
 
 
 public class RoutineActionsFragment extends SecondaryFragment {
-
     private FragmentRoutineActionsBinding binding;
     RoutineActionsAdapter adapter;
     RoutineActionsViewModel routinesViewModel;
@@ -85,7 +84,6 @@ public class RoutineActionsFragment extends SecondaryFragment {
     }
 
     private void executeRoutine(View view) {
-        // Removed getRoom() observer to avoid null value update notification after delete.
         routinesViewModel.executeRoutine().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
@@ -116,9 +114,4 @@ public class RoutineActionsFragment extends SecondaryFragment {
         super.onDestroyView();
         binding = null;
     }
-
-
-
-
-
 }

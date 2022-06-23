@@ -24,7 +24,6 @@ public class ApiResponse<T> {
         return error;
     }
 
-    //El constructor por defecto de la clase ApiResponse parsea la respuesta
     public ApiResponse(Response<T> response) {
         parseResponse(response);
     }
@@ -33,7 +32,6 @@ public class ApiResponse<T> {
         this.error = buildError(throwable.getMessage());
     }
 
-    //Parseo de la respuesta de la api
     private void parseResponse(Response<T> response) {
         if (response.isSuccessful()) {
             this.data = response.body();
@@ -57,7 +55,6 @@ public class ApiResponse<T> {
 
         if (message.trim().length() > 0) {
             Gson gson = new Gson();
-            //Lo parsea coomo un obejto del tipo que se haya pasado con el uso de getType
             RemoteErrorResult errorResult = gson.fromJson(message, new TypeToken<RemoteErrorResult>() {}.getType());
             this.error = errorResult.getError();
         }

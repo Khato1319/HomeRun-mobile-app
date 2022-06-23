@@ -62,32 +62,13 @@ public class ChangeLocationDropDownData extends ControlData {
         return hint;
     }
 
-//    @Override
-//    public void setupViewHolder(ControlDataAdapter.ViewHolder holder) {
-//        super.setupViewHolder(holder);
-//        DropDownData.ViewHolder dropDownViewHolder = (DropDownData.ViewHolder) holder;
-//        AutoCompleteTextView autoCompleteTextView = dropDownViewHolder.getAutoCompleteTextView();
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(autoCompleteTextView.getContext(), R.layout.drop_down_item, getItems());
-//        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                setSelected(arrayAdapter.getItem(position));
-//            }
-//        });
-//        autoCompleteTextView.setAdapter(arrayAdapter);
-//        autoCompleteTextView.setHint(getHint());
-//        autoCompleteTextView.setText(getSelected(), false);
-//    }
-
     public static class ViewHolder extends ControlDataViewHolder<ChangeLocationDropDownData> {
         private final AutoCompleteTextView autoCompleteTextView;
-
 
         public ViewHolder(@NonNull View itemView, DeviceFragment deviceFragment) {
             super(itemView, deviceFragment);
             autoCompleteTextView = itemView.findViewById(R.id.autoCompleteTextView);
         }
-
 
         public AutoCompleteTextView getAutoCompleteTextView() {
             return autoCompleteTextView;
@@ -96,11 +77,6 @@ public class ChangeLocationDropDownData extends ControlData {
         @Override
         public void bindTo(ChangeLocationDropDownData controlData) {
             super.bindTo(controlData);
-//            controlData.setRooms(((MainActivity) context).getRooms());
-
-//            ((MainActivity) context).getRooms().
-
-//            DropDownData.ViewHolder dropDownViewHolder = (DropDownData.ViewHolder) holder;
             AutoCompleteTextView autoCompleteTextView = getAutoCompleteTextView();
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(autoCompleteTextView.getContext(), R.layout.drop_down_item, controlData.getItems());
             autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

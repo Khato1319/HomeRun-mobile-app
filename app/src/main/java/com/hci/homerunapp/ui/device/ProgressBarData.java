@@ -20,8 +20,6 @@ public class ProgressBarData extends ControlData{
         this.color = color;
     }
 
-
-
     public void setProgress(int progress) {
         this.progress = progress;
     }
@@ -34,15 +32,6 @@ public class ProgressBarData extends ControlData{
     public String getActionLabel() {
         return String.format(super.getActionLabel(),progress);
     }
-
-//    @Override
-//    public void setupViewHolder(ControlDataAdapter.ViewHolder holder) {
-//        super.setupViewHolder(holder);
-//        ProgressBarData.ViewHolder progressBarViewHolder = (ProgressBarData.ViewHolder) holder;
-//        LinearProgressIndicator progressBar = progressBarViewHolder.getProgressBar();
-//        progressBar.setIndicatorColor(color);
-//        progressBar.setProgress(getProgress());
-//    }
 
     public static class ViewHolder extends ControlDataViewHolder<ProgressBarData> {
         private final LinearProgressIndicator progressBar;
@@ -58,7 +47,6 @@ public class ProgressBarData extends ControlData{
         public void bindTo(ProgressBarData controlData) {
             progressBar.setProgress(controlData.getProgress());
             super.bindTo(controlData);
-//            ProgressBarData.ViewHolder progressBarViewHolder = (ProgressBarData.ViewHolder) holder;
             subLabel.setText(context.getString(R.string.charge_msg));
             subLabel.setVisibility(View.INVISIBLE);
             progressBar.setIndicatorColor(context.getResources().getColor(controlData.color));

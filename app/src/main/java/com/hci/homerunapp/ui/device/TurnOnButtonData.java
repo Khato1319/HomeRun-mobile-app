@@ -49,33 +49,6 @@ public class TurnOnButtonData extends ControlData{
         return String.format(super.getActionLabel(), state ? context.getResources().getString(R.string.turn_on) : context.getResources().getString(R.string.turn_off));
     }
 
-//    @Override
-//    public void setupViewHolder(ControlDataAdapter.ViewHolder holder) {
-//        super.setupViewHolder(holder);
-//        TurnOnButtonData.ViewHolder turnOnButtonViewHolder = (TurnOnButtonData.ViewHolder) holder;
-//        FloatingActionButton turnOnbutton = turnOnButtonViewHolder.getButton();
-////        Context context = turnOnbutton.getContext();
-//        turnOnbutton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (isOn()) {
-//                    setState(false);
-//                    turnOnbutton.getBackground().setTint(Color.DKGRAY);
-//
-//                    turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.primary)));
-//
-//                }
-//                else {
-//                    setState(true);
-//                    turnOnbutton.getBackground().setTint(ContextCompat.getColor(context, R.color.primary));
-//                    turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(Color.WHITE));
-//                }
-//                holder.getControlText().setText(getActionLabel());
-//
-//            }
-//        });
-//    }
-
     public static class ViewHolder extends ControlDataViewHolder<TurnOnButtonData> {
         private final FloatingActionButton button;
 
@@ -91,16 +64,13 @@ public class TurnOnButtonData extends ControlData{
         @Override
         public void bindTo(TurnOnButtonData controlData) {
             super.bindTo(controlData);
-//            TurnOnButtonData.ViewHolder turnOnButtonViewHolder = (TurnOnButtonData.ViewHolder) holder;
             FloatingActionButton turnOnbutton = getButton();
-//
             if (!controlData.isOn()) {
                 controlData.setState(false);
                 if (turnOnbutton.getBackground() != null)
                     turnOnbutton.getBackground().setTint(Color.LTGRAY);
 
                 turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(Color.BLACK));
-
             }
             else {
                 controlData.setState(true);
@@ -114,22 +84,11 @@ public class TurnOnButtonData extends ControlData{
                 @Override
                 public void onClick(View v) {
                     if (controlData.isOn()) {
-//                        controlData.setState(false);
-
                         ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceData(), controlData.getOffApiAction(), new ActionBody(), ViewHolder.this, true, controlData.progressBarData != null ? controlData.progressBarData.getProgress() : 0);
-//                        turnOnbutton.getBackground().setTint(Color.DKGRAY);
-
-//                        turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, R.color.primary)));
-
                     }
                     else {
-//                        controlData.setState(true);
                         ((MyApplication)((MainActivity)context).getApplication()).getDeviceRepository().putAction(controlData.getDeviceData(), controlData.getOnApiAction(), new ActionBody(), ViewHolder.this, true, controlData.progressBarData != null ? controlData.progressBarData.getProgress() : 0);
-
-//                        turnOnbutton.getBackground().setTint(ContextCompat.getColor(context, R.color.primary));
-//                        turnOnbutton.setSupportImageTintList(ColorStateList.valueOf(Color.WHITE));
                     }
-//                   getControlText().setText(controlData.getActionLabel());
                 }
             });
 

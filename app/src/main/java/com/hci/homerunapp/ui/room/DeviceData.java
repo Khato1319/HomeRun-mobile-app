@@ -94,7 +94,6 @@ public class DeviceData implements Data {
     }
 
     public enum Type {
-
         VACUUM(R.drawable.ic_vacuum_cleaner_icon) {
             @Override
             public Device getDeviceInstance(DeviceData data, Context context) {
@@ -149,7 +148,5 @@ public class DeviceData implements Data {
         public int getIcon() {
             return icon;
         }
-
-
     }
 }

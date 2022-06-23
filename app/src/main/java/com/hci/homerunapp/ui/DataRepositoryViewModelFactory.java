@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider;
 import java.lang.reflect.Constructor;
 
 public class DataRepositoryViewModelFactory<R, D extends Data> implements ViewModelProvider.Factory  {
-
     private final Class<R> repositoryClass;
     private final Class<D> dataClass;
     private final R repository;

@@ -36,12 +36,10 @@ android {
 }
 
 dependencies {
-        def work_version = "2.7.1"
+    def work_version = "2.7.1"
 
-        // (Java only)
-        implementation "androidx.work:work-runtime:$work_version"
-
-
+    // (Java only)
+    implementation "androidx.work:work-runtime:$work_version"
 
     def retrofit_version = "2.9.0"
     def ok_http_version = "4.9.1"

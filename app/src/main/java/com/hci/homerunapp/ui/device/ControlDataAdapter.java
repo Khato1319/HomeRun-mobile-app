@@ -57,10 +57,7 @@ public class ControlDataAdapter extends RecyclerView.Adapter<ControlData.Control
     public void onBindViewHolder(@NonNull ControlData.ControlDataViewHolder holder, int position) {
         Log.d(TAG, "Element " + position + " set.");
 
-//        ControlData.ControlDataViewHolder<ControlData> viewHolder = (ControlData.ControlDataViewHolder<ControlData>) holder;
-
         ControlData controlData = controls.get(position);
-//        controlData.setupViewHolder(holder);
         holder.bindTo(controlData);
     }
 
@@ -81,7 +78,6 @@ public class ControlDataAdapter extends RecyclerView.Adapter<ControlData.Control
         private final TextView controlText;
         protected final DeviceFragment deviceFragment;
 
-
         public ViewHolder(@NonNull View itemView, DeviceFragment deviceFragment) {
             super(itemView);
            controlText = itemView.findViewById(R.id.text_control);
@@ -92,11 +88,8 @@ public class ControlDataAdapter extends RecyclerView.Adapter<ControlData.Control
             deviceFragment.refreshDevice();
         }
 
-
         public TextView getControlText() {
             return controlText;
         }
-
-
     }
 }

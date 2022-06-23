@@ -55,28 +55,6 @@ public class DeviceFragment extends SecondaryFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Log.d("ONCREATE", "ONCREATE");
-//
-//        model = new ViewModelProvider(this).get(DeviceViewModel.class);
-//
-//        Bundle args = getArguments();
-//        device = model.getDevice();
-//        DeviceData deviceData = null;
-//
-//        if (device == null) {
-//            if (args != null) {
-//                deviceData = (DeviceData)args.get("deviceData");
-//            }
-//            if (deviceData == null && savedInstanceState != null){
-//                deviceData = (DeviceData)savedInstanceState.getSerializable(DEVICE_DATA);
-//            }
-//            if (deviceData != null) {
-//                model.setDevice(deviceData.getDeviceInstance(getContext()));
-//                device = model.getDevice();
-//            }
-//        }
-//        label = device.getDeviceData().getName();
-
         disposable = Observable.interval(1000, 4000,
                         TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -129,7 +107,6 @@ public class DeviceFragment extends SecondaryFragment {
             deviceData = (DeviceData)args.get("deviceData");
 
 
-
         DataRepositoryViewModelFactory viewModelFactory = new DataRepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository(), DeviceData.class, deviceData);
         model = new ViewModelProvider(this, viewModelFactory).get(DeviceViewModel.class);
         label = model.getData().getName();
@@ -138,7 +115,6 @@ public class DeviceFragment extends SecondaryFragment {
         List<ControlData> controls =  new ArrayList<>();
 
         adapter = new ControlDataAdapter(controls, this);
-
 
         Observer<Resource<List<RoomData>>> observer = new Observer<Resource<List<RoomData>>>() {
             @Override
@@ -218,5 +194,4 @@ public class DeviceFragment extends SecondaryFragment {
             outState.putSerializable(DEVICE_DATA, deviceData);
         }
     }
-
 }

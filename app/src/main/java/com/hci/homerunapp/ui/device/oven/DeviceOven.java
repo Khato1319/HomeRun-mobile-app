@@ -31,9 +31,7 @@ public class DeviceOven extends Device {
         String[] modes = new String[]{"normal", "eco", "off"};
         setGrillModeDropDown = new DropDownData(context, context.getResources().getString(R.string.grill_mode_title),"setGrill",context.getResources().getStringArray(R.array.grill_modes), modes, deviceData);
 
-//        String[] convectionModes = new String[]{"Normal", "Ecológico", "Apagado"};
         setConvectionModeDropDown = new DropDownData(context, context.getResources().getString(R.string.convection_mode_title), "setConvection", context.getResources().getStringArray(R.array.convection_modes),  modes,deviceData);
-
     }
 
     @Override
