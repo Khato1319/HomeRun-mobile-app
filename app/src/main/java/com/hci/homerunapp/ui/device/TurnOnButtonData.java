@@ -27,6 +27,10 @@ public class TurnOnButtonData extends ControlData{
         this.progressBarData = progressBar;
     }
 
+    public boolean getState() {
+        return state;
+    }
+
     public String getOnApiAction() {
         return onApiAction;
     }

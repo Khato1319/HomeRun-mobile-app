@@ -40,6 +40,16 @@ public class DeviceVacuum extends Device {
     }
 
     @Override
+    public int getLevel() {
+        return batteryProgressBar.getProgress();
+    }
+
+    @Override
+    public String getState() {
+        return turnOnButton.getState() ? "active" : "inactive";
+    }
+
+    @Override
     public List<ControlData> getControls() {
         return Arrays.asList(batteryProgressBar, turnOnButton, dockButton, changeLocationDropDown, setModeDropDownData);
     }

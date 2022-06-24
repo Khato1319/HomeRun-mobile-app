@@ -42,6 +42,11 @@ public class DeviceAC extends Device {
     }
 
     @Override
+    public String getState() {
+        return turnOnButton.getState() ? "on" : "off";
+    }
+
+    @Override
     public List<ControlData> getControls() {
         return Arrays.asList(turnOnButton, temperatureSlider, coolingModeDropDown, verticalSwingDropDown, horizontalSwingDropDown, speedDropDown);
     }

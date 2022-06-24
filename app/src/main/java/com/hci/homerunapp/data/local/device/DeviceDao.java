@@ -33,8 +33,8 @@ public abstract class DeviceDao {
     @Delete
     public abstract void delete(LocalDevice device);
 //
-//    @Query("DELETE FROM Room WHERE id = :id")
-//    public abstract void delete(String id);
+    @Query("DELETE FROM Device WHERE id = :id")
+    public abstract void delete(String id);
 //
 //    @Query("DELETE FROM Room WHERE id IN (SELECT id FROM Room LIMIT :limit OFFSET :offset)")
 //    public abstract void delete(int limit, int offset);

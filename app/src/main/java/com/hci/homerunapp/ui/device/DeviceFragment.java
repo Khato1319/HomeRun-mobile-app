@@ -103,7 +103,7 @@ public class DeviceFragment extends SecondaryFragment {
             @Override
             public void onClick(View v) {
                 device.toggleNotificationState();
-                ((MyApplication)activity.getApplication()).getDeviceRepository().setNotifications(device.getDeviceData(),device.getNotificationState());
+                ((MyApplication)activity.getApplication()).getDeviceRepository().setNotifications(device.getDeviceData(),device.getNotificationState(), device.getState(), device.getLevel());
                 notificationsButton.setImageResource(device.getNotificationState().getIconId());
             }
         });

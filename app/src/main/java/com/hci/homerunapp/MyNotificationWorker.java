@@ -7,7 +7,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,25 +58,25 @@ public class MyNotificationWorker extends Worker {
                  List<LocalDevice> dbDevices = deviceDao.findAll();
 
                  if (dbDevices.size() > 0) {
+
+                     dbDevices.removeIf(localDevice -> devices.stream().noneMatch(d -> d.getId().equals(localDevice.getId())));
+
                      for (RemoteDevice device : devices) {
 
-                         if (device.getMeta().isNotifications()) {
                              Optional<LocalDevice> oldDevice = dbDevices.stream().filter(d -> d.getId().equals(device.getId())).findFirst();
-                             oldDevice.ifPresent(localDevice -> sendNotificationIfStateChanged(device, localDevice));
-                         }
+                             oldDevice.ifPresent(localDevice -> {
+                                 sendNotificationIfStateChanged(device, localDevice);
+                                 dbDevices.remove(localDevice);
+                                 dbDevices.add(new LocalDevice(device.getId(),
+                                         device.getState().getStatus(),
+                                         device.getState().getBatteryLevel()));
+                             });
                      }
-                 }
-                Log.d("DBDEVICE", String.valueOf(dbDevices));
-                 Log.d("APIDEVICE", String.valueOf(devices));
 
-                 deviceDao.deleteAll();
-                 for (RemoteDevice device : devices) {
-                     if (device.getMeta().isNotifications())
-                        deviceDao.insert(new LocalDevice(device.getId(),
-                             device.getState().getStatus(),
-                             device.getState().getBatteryLevel()));
+                     deviceDao.deleteAll();
+                     deviceDao.insert(dbDevices);
+
                  }
-                Log.d("SAVEDDEVICES", String.valueOf(deviceDao.findAll()));
 
             } else {
                 return Result.retry();

@@ -4,16 +4,16 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:clipToPadding="false"
-    android:layout_height="130dp"
-    android:layout_margin="5dp">
+    android:layout_height="130dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_device"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/primary"
-        android:layout_margin="5dp"
+        app:cardUseCompatPadding="true"
         app:cardCornerRadius="16dp"
+        android:translationZ="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
@@ -41,8 +41,10 @@
         android:backgroundTint="#BBDEFB"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="8dp"
+        android:translationZ="150dp"
+
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="@+id/card_view_device"
         app:layout_constraintRight_toRightOf="@+id/card_view_device"

@@ -36,16 +36,16 @@ android {
 }
 
 dependencies {
-        def work_version = "2.7.1"
-
-        // (Java only)
-        implementation "androidx.work:work-runtime:$work_version"
+    def work_version = "2.7.1"
 
 
 
     def retrofit_version = "2.9.0"
     def ok_http_version = "4.9.1"
     def room_version = "2.4.2"
+
+    // (Java only)
+    implementation "androidx.work:work-runtime:$work_version"
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'

@@ -32,6 +32,11 @@ public class DeviceLight extends Device {
         return Arrays.asList(turnOnButton, colorPicker, brightnessSlider);
     }
 
+    @Override
+    public String getState() {
+        return turnOnButton.getState() ? "on" : "off";
+    }
+
     public TurnOnButtonData getTurnOnButton() {
         return turnOnButton;
     }

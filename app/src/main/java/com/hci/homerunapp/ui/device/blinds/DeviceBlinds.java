@@ -31,6 +31,19 @@ public class DeviceBlinds extends Device {
         return Arrays.asList(toggleStateButton, stateProgressBar, closePercentageSlider);
     }
 
+    @Override
+    public String getState() {
+        return switch(toggleStateButton.getState()) {
+            case 0 -> "opened";
+            case 1 -> "closed";
+            case 2 -> "opening";
+            case 3 -> "closing";
+            default -> throw new IllegalStateException();
+        };
+    }
+
+
+
     public ProgressBarData getStateProgressBar() {
         return stateProgressBar;
     }
