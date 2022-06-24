@@ -10,8 +10,6 @@ import java.util.List;
 public abstract class SimpleDeviceButtonViewModel extends ViewModel {
     protected List<DeviceData> devices;
 
-
-
     public List<DeviceData> getDevices() {
         return devices;
     }

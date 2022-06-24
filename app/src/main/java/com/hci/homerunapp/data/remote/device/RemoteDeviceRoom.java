@@ -12,6 +12,7 @@ public class RemoteDeviceRoom {
     @Expose
     private String name;
 
+
     public String getName() {
         return name;
     }

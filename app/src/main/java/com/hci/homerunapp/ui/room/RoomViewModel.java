@@ -17,7 +17,7 @@ import java.util.List;
 
 
 public class RoomViewModel extends DataRepositoryViewModel<DeviceRepository, RoomData> {
-private final MediatorLiveData<Resource<List<Device>>> devices = new MediatorLiveData<>();
+    private final MediatorLiveData<Resource<List<Device>>> devices = new MediatorLiveData<>();
 
     public RoomViewModel(DeviceRepository repository, RoomData data) {
         super(repository, data);
@@ -37,7 +37,4 @@ private final MediatorLiveData<Resource<List<Device>>> devices = new MediatorLiv
             }
         });
     }
-
-
-
 }

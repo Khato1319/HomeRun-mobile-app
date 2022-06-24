@@ -29,13 +29,4 @@ public abstract class PrimaryFragment extends Fragment{
         }
 
     }
-
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        ((MainActivity) context).getUpButton().setVisibility(View.INVISIBLE);
-//        super.onAttach(context);
-////        ((MainActivity) context).getTitle().setText();
-//
-//    }
-
 }

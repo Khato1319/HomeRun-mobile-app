@@ -36,12 +36,6 @@ public abstract class Device implements Data {
         return deviceData.getNotifications();
     }
 
-    public int getLevel() {
-        return 0;
-    }
-
-    public abstract String getState();
-
 
     @Override
     public String getName() {
@@ -53,6 +47,10 @@ public abstract class Device implements Data {
         return deviceData.getId();
     }
 
+    public int getLevel() {
+        return 0;
+    }
 
 
+    public abstract String getState();
 }

@@ -40,26 +40,6 @@ public class ToggleButtonData extends ControlData{
         return state;
     }
 
-
-
-//    @Override
-//    public void setupViewHolder(ControlDataAdapter.ViewHolder holder) {
-//        super.setupViewHolder(holder);
-//        ToggleButtonData.ViewHolder toggleButtonViewHolder = (ToggleButtonData.ViewHolder) holder;
-//        MaterialButton toggleButton = toggleButtonViewHolder.getButton();
-//        toggleButton.setText(getButtonText());
-//        toggleButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                setState(!getState());
-//                toggleButton.setText(getButtonText());
-//                holder.getControlText().setText(getActionLabel());
-//
-//            }
-//        });
-//
-//    }
-
     @Override
     public String getActionLabel() {
         return String.format(super.getActionLabel(), getLabelText());

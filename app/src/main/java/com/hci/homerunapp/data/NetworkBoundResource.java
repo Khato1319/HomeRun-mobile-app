@@ -118,7 +118,7 @@ public abstract class NetworkBoundResource<ModelType, LocalType, RemoteType> {
                             setValue(Resource.error(modelError, model));
                         }
                 );
-            } else /*if (response.getData() != null)*/ {
+            } else {
                 Log.d(TAG,"NetworkBoundResource - processing fetch response");
                 RemoteType remote = processResponse(response);
                 if (shouldPersist(remote) && mapRemoteToLocal != null) {

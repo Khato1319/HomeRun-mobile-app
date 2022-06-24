@@ -4,11 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class RemoteDeviceState {
-
     @SerializedName("status")
     @Expose
     private String status;
-
 
     @SerializedName("mode")
     @Expose
@@ -70,6 +68,7 @@ public class RemoteDeviceState {
     @SerializedName("convection")
     @Expose
     private String convection;
+
 
     public String getStatus() {
         return status;

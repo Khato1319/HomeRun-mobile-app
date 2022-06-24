@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class RemoteDeviceMeta {
-
     @SerializedName("group")
     @Expose
     private String group;
@@ -12,6 +11,7 @@ public class RemoteDeviceMeta {
     @SerializedName("notifications")
     @Expose
     private boolean notifications;
+
 
     public String getGroup() {
         return group;

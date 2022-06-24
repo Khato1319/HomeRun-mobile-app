@@ -36,9 +36,6 @@ public class ControlData implements Serializable {
         return actionLabel;
     }
 
-//    public void setupViewHolder(CustomAdapter.ViewHolder holder) {
-//    }
-
     public static class ControlDataViewHolder<T extends ControlData> extends ControlDataAdapter.ViewHolder {
         private final TextView controlText;
         protected final Context context;

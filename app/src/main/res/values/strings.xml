@@ -122,7 +122,7 @@
 
     <!-- Rutinas   -->
     <string name="routine_exec_success">Routine executed successfully</string>
-    <string name="routine_exec_failure">There was a problem executin the routine. Try again.</string>
+    <string name="routine_exec_failure">An error occurred. Try again.</string>
 
     <!-- Actions   -->
     <string name="device_from">%s from %s</string>

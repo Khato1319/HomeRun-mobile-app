@@ -7,7 +7,6 @@ import android.view.View;
 import androidx.navigation.NavController;
 
 public interface ButtonListenerMaker {
-
     Activity getActivity();
 
     NavController getNavController();
@@ -25,13 +24,8 @@ public interface ButtonListenerMaker {
 
                 getNavController().navigate(destination, bundle);
             }
-
-
-
         };
     }
 
     View.OnClickListener getButtonClickListener(Data data);
-
-
 }

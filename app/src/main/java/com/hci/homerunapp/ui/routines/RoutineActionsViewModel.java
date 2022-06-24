@@ -18,17 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoutineActionsViewModel extends DataRepositoryViewModel<RoutineRepository, RoutineData>{
-
-
-
     public RoutineActionsViewModel(RoutineRepository routineRepository, RoutineData routineData) {
         super(routineRepository, routineData);
-
     }
-
 
     public LiveData<Resource<Void>> executeRoutine() {
         return repository.executeRoutine(getData());
     }
-
 }

@@ -21,7 +21,6 @@ import com.hci.homerunapp.data.remote.routine.ApiRoutineService;
 import java.util.concurrent.TimeUnit;
 
 public class MyApplication extends Application {
-
     private static final long MY_SCHEDULE_TIME = 15;
     public static String DATABASE_NAME = "my-db";
 
@@ -33,8 +32,6 @@ public class MyApplication extends Application {
     RoutineRepository routineRepository;
 
     MyDatabase database;
-
-
 
     public RoomRepository getRoomRepository() {
         return roomRepository;
@@ -53,10 +50,7 @@ public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
-
-
         super.onCreate();
-//        Log.d("String de prueba", getApplicationContext().getResources().getString(R.string.vacuum_location));
         appExecutors = new AppExecutors();
 
         ApiRoomService roomService = ApiClient.create(ApiRoomService.class);

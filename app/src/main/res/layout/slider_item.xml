@@ -6,7 +6,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-    android:layout_margin="5dp">
+    android:padding="5dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_device"
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         app:cardBackgroundColor="?colorSecondary"
         app:cardCornerRadius="16dp"
-        android:layout_margin="5dp"
+        android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"/>

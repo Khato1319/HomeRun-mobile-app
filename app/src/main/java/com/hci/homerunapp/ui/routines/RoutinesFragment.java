@@ -36,12 +36,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoutinesFragment extends PrimaryFragment implements ButtonListenerMaker {
-
     private FragmentRoutinesBinding binding;
     RoutinesAdapter adapter;
     RoutinesViewModel routinesViewModel;
     private MainActivity activity;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -120,11 +118,8 @@ public class RoutinesFragment extends PrimaryFragment implements ButtonListenerM
 
     }
 
-
     @Override
     public NavController getNavController() {
         return NavHostFragment.findNavController(this);
     }
-
-
 }

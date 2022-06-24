@@ -13,6 +13,7 @@ import com.hci.homerunapp.ui.MainActivity;
 
 public abstract class SecondaryFragment extends Fragment {
     protected String label;
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         MainActivity mainActivity = (MainActivity) getActivity();

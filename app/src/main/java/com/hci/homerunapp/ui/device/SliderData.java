@@ -51,23 +51,6 @@ public class SliderData extends ControlData{
     public String getActionLabel() {
         return String.format(super.getActionLabel(), value);
     }
-//
-//    public void setupViewHolder(ControlDataAdapter.ViewHolder holder) {
-//        super.setupViewHolder(holder);
-//        SliderData.ViewHolder sliderViewHolder = (SliderData.ViewHolder) holder;
-//        TextView controlText = holder.getControlText();
-//        Slider slider = sliderViewHolder.getSlider();
-//        slider.setValueFrom(getMinValue());
-//        slider.setValueTo(getMaxValue());
-//        slider.setValue(getValue());
-//        slider.addOnChangeListener(new Slider.OnChangeListener() {
-//            @Override
-//            public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-//                setValue((int) value);
-//                controlText.setText(getActionLabel());
-//            }
-//        });
-//    }
 
     public static class ViewHolder extends ControlDataViewHolder<SliderData> {
         private final Slider slider;
@@ -80,7 +63,6 @@ public class SliderData extends ControlData{
         @Override
         public void bindTo(SliderData controlData) {
             super.bindTo(controlData);
-//            SliderData.ViewHolder sliderViewHolder = (SliderData.ViewHolder) holder;
             TextView controlText = getControlText();
             Slider slider = getSlider();
             slider.setValueFrom(controlData.getMinValue());

@@ -19,10 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoutinesViewModel  extends RepositoryViewModel<RoutineRepository> {
-
     private final MediatorLiveData<Resource<List<RoutineData>>> routines = new MediatorLiveData<>();
-
-
 
     public RoutinesViewModel(RoutineRepository routineRepository) {
         super(routineRepository);
@@ -33,8 +30,6 @@ public class RoutinesViewModel  extends RepositoryViewModel<RoutineRepository> {
         loadRoutines();
         return routines;
     }
-
-
 
     public LiveData<Resource<Void>> executeRoutine(RoutineData routine) {
         return repository.executeRoutine(routine);
@@ -48,6 +43,5 @@ public class RoutinesViewModel  extends RepositoryViewModel<RoutineRepository> {
                 routines.setValue(resource);
             }
         });
-
     }
 }

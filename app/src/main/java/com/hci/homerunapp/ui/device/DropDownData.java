@@ -65,14 +65,6 @@ public class DropDownData extends ControlData{
         return selected;
     }
 
-//    public String getSelectedApi() {
-//        for (int i=0 ; i< items.length ; i++) {
-//            if (items[i].equals(selected))
-//                return apiItems[i];
-//        }
-//        throw new IllegalStateException("No selected value that matches in items");
-//    }
-
     public String[] getItems() {
         return items;
     }
@@ -80,12 +72,6 @@ public class DropDownData extends ControlData{
     public String getHint() {
         return hint;
     }
-
-//    @Override
-//    public void setupViewHolder(ControlDataAdapter.ViewHolder holder) {
-//        super.setupViewHolder(holder);
-//
-//    }
 
     public static class ViewHolder extends ControlDataViewHolder<DropDownData> {
         private final AutoCompleteTextView autoCompleteTextView;
@@ -99,7 +85,6 @@ public class DropDownData extends ControlData{
         @Override
         public void bindTo(DropDownData controlData) {
             super.bindTo(controlData);
-//            DropDownData.ViewHolder dropDownViewHolder = (DropDownData.ViewHolder) holder;
             AutoCompleteTextView autoCompleteTextView = getAutoCompleteTextView();
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(autoCompleteTextView.getContext(), R.layout.drop_down_item, controlData.getItems());
             autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

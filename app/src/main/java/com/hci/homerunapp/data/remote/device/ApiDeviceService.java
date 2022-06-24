@@ -16,7 +16,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiDeviceService {
-
         @GET("devices")
         LiveData<ApiResponse<RemoteResult<List<RemoteDevice>>>> getDevices();
 
@@ -31,7 +30,4 @@ public interface ApiDeviceService {
 
         @GET("devices")
         Call<RemoteResult<List<RemoteDevice>>> fetchDevices();
-
-
-
 }

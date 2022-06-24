@@ -85,7 +85,7 @@
     <string-array
         name="grill_modes">
         <item>Normal</item>
-        <item>Ecológico</item>
+        <item>Económico</item>
         <item>Apagado</item>
     </string-array>
     <string name="grill_mode_title">Cambiar modo grill</string>
@@ -93,7 +93,7 @@
     <string-array
         name="convection_modes">
         <item>Normal</item>
-        <item>Ecológico</item>
+        <item>Económico</item>
         <item>Apagado</item>
     </string-array>
     <string name="convection_mode_title">Cambiar modo convección</string>

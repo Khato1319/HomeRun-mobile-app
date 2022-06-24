@@ -49,32 +49,23 @@ public class RoomFragment extends SecondaryFragment implements ButtonListenerMak
     protected RoomViewModel model;
     CustomAdapter adapter;
     MainActivity activity;
+    RoomData roomData;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//
-//        model = new ViewModelProvider(this).get(RoomViewModel.class);
-//
-//        Bundle args = getArguments();
-//
-//        RoomData roomData = model.getRoomData();
-//
-//        if (roomData == null) {
-//            if (args != null) {
-//                roomData = (RoomData)args.get("roomData");
-//            }
-//            if (roomData == null && savedInstanceState != null){
-//                roomData = (RoomData)savedInstanceState.getSerializable(ROOM_DATA);
-//            }
-//
-//            if (roomData != null)
-//                model.setRoomData(roomData);
-//        }
-//
-//        roomData = model.getRoomData();
-//        label = roomData.getName();
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Bundle args = getArguments();
+
+        if (args != null)
+            roomData = (RoomData)args.get("roomData");
+        else if (savedInstanceState.getSerializable("roomData")!=null) {
+            roomData = (RoomData)savedInstanceState.getSerializable("roomData");
+        }
     }
 
     @Override
@@ -88,18 +79,18 @@ public class RoomFragment extends SecondaryFragment implements ButtonListenerMak
         activity = (MainActivity)getActivity();
         MyApplication application = (MyApplication) activity.getApplication();
 
-
         Bundle args = getArguments();
-        RoomData roomData = null;
+
         if (args != null)
             roomData = (RoomData)args.get("roomData");
-
+        else if (savedInstanceState.getSerializable("roomData")!=null) {
+            roomData = (RoomData)savedInstanceState.getSerializable("roomData");
+        }
 
 
         DataRepositoryViewModelFactory viewModelFactory = new DataRepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository(), RoomData.class, roomData);
         model = new ViewModelProvider(this, viewModelFactory).get(RoomViewModel.class);
         label = model.getData().getName();
-
 
 
         List<Device> devices =  new ArrayList<>();
@@ -114,14 +105,11 @@ public class RoomFragment extends SecondaryFragment implements ButtonListenerMak
                     devices.clear();
                     if (resource.data != null &&
                             resource.data.size() > 0) {
-//                        Log.d("ROOM DEVICE NAME", model.getData().getName());
                         devices.addAll(resource.data.stream().filter(
                                 d -> d.getDeviceData().getRoomData().getName()
                                         .equals(model.getData().getName()))
                                 .collect(Collectors.toList()));
                         adapter.notifyDataSetChanged();
-//                        binding.list.setVisibility(View.VISIBLE);
-//                        binding.empty.setVisibility(View.GONE);
                     }
                 }
             }
@@ -159,11 +147,6 @@ public class RoomFragment extends SecondaryFragment implements ButtonListenerMak
             if (mainActivity != null)
                 mainActivity.hideBottomNav();
 
-//            createNotificationChannel(deviceData.getId());
-//            Log.d("CHANNEL", deviceData.getId());
-//
-//            showNotification((DeviceData)deviceData);
-
             NavHostFragment.findNavController(this).navigate(R.id.action_navigation_room_to_navigation_device, bundle);
         };
     }
@@ -174,21 +157,13 @@ public class RoomFragment extends SecondaryFragment implements ButtonListenerMak
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-
-        RoomData roomData = model.getData();
-
-
-        if (model != null && roomData != null) {
+        if (roomData != null) {
             outState.putSerializable(ROOM_DATA, roomData);
         }
-
     }
 
     @Override
     public NavController getNavController() {
         return NavHostFragment.findNavController(this);
     }
-
-
-
 }

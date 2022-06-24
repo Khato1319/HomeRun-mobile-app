@@ -21,7 +21,6 @@ public class ModifiedDevice {
         this.meta = meta;
     }
 
-
     public String getName() {
         return name;
     }

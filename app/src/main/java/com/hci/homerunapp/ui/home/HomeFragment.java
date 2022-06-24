@@ -37,7 +37,6 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
     private MainActivity activity;
     List<RoomData> rooms;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -59,7 +58,6 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
                 case SUCCESS -> {
                     activity.hideProgressBar();
                     rooms.clear();
-//                    activity.setRooms(rooms);
                     if (resource.data != null &&
                             resource.data.size() > 0) {
                         rooms.addAll(resource.data);
@@ -69,15 +67,14 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
             }
         });
 
-            boolean isTablet = getResources().getBoolean(R.bool.isTablet);
-            int orientation = this.getResources().getConfiguration().orientation;
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        int orientation = this.getResources().getConfiguration().orientation;
 
         if (isTablet) {
             if (orientation == Configuration.ORIENTATION_PORTRAIT)
                 binding.homeRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
             else
                 binding.homeRecyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
-
         }
         else {
             if (orientation == Configuration.ORIENTATION_PORTRAIT)
@@ -86,7 +83,6 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
                 binding.homeRecyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
         }
         binding.homeRecyclerView.setAdapter(adapter);
-
 
         return binding.getRoot();
     }
@@ -97,16 +93,12 @@ public class HomeFragment extends PrimaryFragment implements ButtonListenerMaker
         binding = null;
     }
 
-
     public View.OnClickListener getButtonClickListener(Data roomData) {
         return getButtonClickListener(roomData, "roomData", R.id.action_navigation_home_to_navigation_room);
     }
-
 
     @Override
     public NavController getNavController() {
         return NavHostFragment.findNavController(this);
     }
-
-
 }

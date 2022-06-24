@@ -46,6 +46,7 @@ public class DeviceFragment extends SecondaryFragment {
     MainActivity activity;
     Device device;
     Disposable disposable;
+    DeviceData deviceData;
 
     public static DeviceFragment newInstance() {
         return new DeviceFragment();
@@ -55,37 +56,17 @@ public class DeviceFragment extends SecondaryFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Log.d("ONCREATE", "ONCREATE");
-//
-//        model = new ViewModelProvider(this).get(DeviceViewModel.class);
-//
-//        Bundle args = getArguments();
-//        device = model.getDevice();
-//        DeviceData deviceData = null;
-//
-//        if (device == null) {
-//            if (args != null) {
-//                deviceData = (DeviceData)args.get("deviceData");
-//            }
-//            if (deviceData == null && savedInstanceState != null){
-//                deviceData = (DeviceData)savedInstanceState.getSerializable(DEVICE_DATA);
-//            }
-//            if (deviceData != null) {
-//                model.setDevice(deviceData.getDeviceInstance(getContext()));
-//                device = model.getDevice();
-//            }
-//        }
-//        label = device.getDeviceData().getName();
+        if (disposable == null) {
+            disposable = Observable.interval(1000, 4000,
+                            TimeUnit.MILLISECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::refreshDevice, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
 
-        disposable = Observable.interval(1000, 4000,
-                        TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::refreshDevice, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
-                });
+                        }
+                    });
+        }
     }
 
     private void refreshDevice(Long aLong) {
@@ -102,9 +83,10 @@ public class DeviceFragment extends SecondaryFragment {
         notificationsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                device.toggleNotificationState();
-                ((MyApplication)activity.getApplication()).getDeviceRepository().setNotifications(device.getDeviceData(),device.getNotificationState(), device.getState(), device.getLevel());
-                notificationsButton.setImageResource(device.getNotificationState().getIconId());
+                deviceData.setNotifications(deviceData.getNotifications() == DeviceData.NotificationState.ON ? DeviceData.NotificationState.OFF : DeviceData.NotificationState.ON);
+                ((MyApplication)activity.getApplication()).getDeviceRepository().setNotifications(deviceData,deviceData.getNotifications(), device.getState(), device.getLevel());
+                notificationsButton.setImageResource(deviceData.getNotifications().getIconId());
+                Log.d("NOTIFICATION", String.valueOf(device.getNotificationState()));
             }
         });
 //        Log.d("DEVICE", String.valueOf(device));
@@ -114,8 +96,35 @@ public class DeviceFragment extends SecondaryFragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Bundle args = getArguments();
+
+        if (deviceData == null) {
+            if (args != null)
+                deviceData = (DeviceData)args.get("deviceData");
+            else if (savedInstanceState.containsKey("deviceData")){
+                deviceData = (DeviceData)savedInstanceState.get("deviceData");
+            }
+        }
+
+        MyApplication application = (MyApplication) activity.getApplication();
+
+
+        DataRepositoryViewModelFactory viewModelFactory = new DataRepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository(), DeviceData.class, deviceData);
+        model = new ViewModelProvider(this, viewModelFactory).get(DeviceViewModel.class);
+
+        Log.d("ONVIEWCRATED", "a");
+
+        activity.getNotificationsButton().setImageResource(model.getData().getNotifications().getIconId());
+
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        Log.d("ONCREATEVIEW", "a");
+
         onCreate(savedInstanceState);
         FragmentDeviceBinding binding = FragmentDeviceBinding.inflate(inflater, container, false);
 
@@ -123,11 +132,13 @@ public class DeviceFragment extends SecondaryFragment {
         MyApplication application = (MyApplication) activity.getApplication();
 
 
+
         Bundle args = getArguments();
-        DeviceData deviceData = null;
         if (args != null)
             deviceData = (DeviceData)args.get("deviceData");
-
+        else if (savedInstanceState.getSerializable("deviceData") != null) {
+            deviceData = (DeviceData) savedInstanceState.getSerializable("deviceData");
+        }
 
 
         DataRepositoryViewModelFactory viewModelFactory = new DataRepositoryViewModelFactory<>(DeviceRepository.class, application.getDeviceRepository(), DeviceData.class, deviceData);
@@ -137,8 +148,8 @@ public class DeviceFragment extends SecondaryFragment {
         device = model.getData().getDeviceInstance(activity);
         List<ControlData> controls =  new ArrayList<>();
 
-        adapter = new ControlDataAdapter(controls, this);
 
+        adapter = new ControlDataAdapter(controls, this);
 
         Observer<Resource<List<RoomData>>> observer = new Observer<Resource<List<RoomData>>>() {
             @Override
@@ -147,6 +158,7 @@ public class DeviceFragment extends SecondaryFragment {
                     case SUCCESS -> {
                         if (listResource.data != null &&
                                 listResource.data.size() > 0) {
+
                             for (ControlData control : controls)
                                 if (control instanceof ChangeLocationDropDownData) {
                                     ((ChangeLocationDropDownData) control).setRooms(listResource.data);
@@ -170,7 +182,7 @@ public class DeviceFragment extends SecondaryFragment {
                         activity.hideProgressBar();
                     controls.clear();
                     if (resource.data != null) {
-                        Log.d("Refreshing Device", "fetched new data");
+//                        Log.d("Refreshing Device", "fetched new data");
                         controls.addAll(resource.data.getControls());
                         activity.getRooms().observe(getViewLifecycleOwner(), observer);
                         device = resource.data;
@@ -202,7 +214,7 @@ public class DeviceFragment extends SecondaryFragment {
     }
 
     public void refreshDevice() {
-        Log.d("Refreshing device", "REFRESHING DEVICE");
+//        Log.d("Refreshing device", "REFRESHING DEVICE");
         model.loadDevice();
     }
 
@@ -211,12 +223,14 @@ public class DeviceFragment extends SecondaryFragment {
         super.onSaveInstanceState(outState);
 
 
-        DeviceData deviceData = device.getDeviceData();
-
-
-        if (model != null && deviceData != null) {
+        if (deviceData != null) {
             outState.putSerializable(DEVICE_DATA, deviceData);
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        disposable.dispose();
+    }
 }

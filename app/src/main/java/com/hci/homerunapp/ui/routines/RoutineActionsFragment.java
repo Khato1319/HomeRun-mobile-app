@@ -26,14 +26,18 @@ import com.hci.homerunapp.ui.DataRepositoryViewModelFactory;
 import com.hci.homerunapp.ui.MainActivity;
 
 import com.hci.homerunapp.ui.SecondaryFragment;
+import com.hci.homerunapp.ui.home.RoomData;
 
 
 public class RoutineActionsFragment extends SecondaryFragment {
-
     private FragmentRoutineActionsBinding binding;
     RoutineActionsAdapter adapter;
     RoutineActionsViewModel routinesViewModel;
     private MainActivity activity;
+    RoutineData routineData = null;
+
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,9 +48,11 @@ public class RoutineActionsFragment extends SecondaryFragment {
         activity = (MainActivity) getActivity();
 
         Bundle args = getArguments();
-        RoutineData routineData = null;
         if (args != null)
             routineData = (RoutineData)args.get("routineData");
+        else if (savedInstanceState.containsKey("routineData")) {
+            routineData = (RoutineData)savedInstanceState.getSerializable("routineData");
+        }
 
         DataRepositoryViewModelFactory<RoutineRepository, RoutineData> viewModelFactory = new DataRepositoryViewModelFactory<RoutineRepository, RoutineData>(RoutineRepository.class, application.getRoutineRepository(), RoutineData.class, routineData);
         routinesViewModel = new ViewModelProvider(this,viewModelFactory).get(RoutineActionsViewModel.class);
@@ -84,8 +90,18 @@ public class RoutineActionsFragment extends SecondaryFragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null)
+            routineData = (RoutineData)args.get("routineData");
+        else if (savedInstanceState.containsKey("routineData")) {
+            routineData = (RoutineData)savedInstanceState.getSerializable("routineData");
+        }
+    }
+
     private void executeRoutine(View view) {
-        // Removed getRoom() observer to avoid null value update notification after delete.
         routinesViewModel.executeRoutine().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case LOADING:
@@ -106,19 +122,17 @@ public class RoutineActionsFragment extends SecondaryFragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        MainActivity mainActivity = (MainActivity) getActivity();
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-
-
-
+        if (routineData != null) {
+            outState.putSerializable("routineData", routineData);
+        }
+    }
 }
